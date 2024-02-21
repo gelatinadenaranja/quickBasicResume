@@ -1,0 +1,26 @@
+//Personal info tab
+-Skeleton done ✔
+-Add option for picture
+
+//Experience area
+-Skeleton done ✔
+-Current job option can only be picked once
+-Toggle bullets
+
+//Education / certificates
+-Skeleton done ✔
+
+//Language
+-Skeleton done ✔
+
+//Skills, qualities, interests?
+-Skeleton done ✔
+
+//Secret keywords shenanigans
+
+
+//Misc
+-Swappable order between experience and education
+
+-------------------------
+test and set limits on items for each category

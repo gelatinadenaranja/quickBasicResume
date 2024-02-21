@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random resume site</title>
+    <link href="./css/main.css" rel="stylesheet">
+    <link href="./css/resume.css" rel="stylesheet">
+    <script src="./bundles/main.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!--Insert some crappy logo div, probably add language menu dropdown-->
+        <!--Data input area-->
+        <div id="personal-data-div">
+            <!--Personal data-->
+            <div class="controls-container">
+                <h1 id="personal-info-header" class="div-header">personal-info-header</h1>
+
+                <div class="input-container">
+                    <h1 id="personal-name-header" class="input-header">personal-name-header</h1>
+                    <input id="personal-name-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <div class="input-container">
+                    <h1 id="contact-mail-header" class="input-header">contact-mail-header</h1>
+                    <input id="contact-mail-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <div class="input-container">
+                    <h1 id="contact-number-header" class="input-header">contact-number-header</h1>
+                    <input id="contact-number-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <div class="input-container">
+                    <h1 id="personal-location-header" class="input-header">personal-location-header</h1>
+                    <input id="personal-location-input" class="text-input" type="text" autocomplete="off">
+                </div>
+            </div>
+
+            <!--Work experience-->
+            <div class="controls-container">
+                <h1 id="work-experience-header" class="div-header">work-experience-header</h1>
+
+                <div id="work-experience-container" class="input-container">
+                    <h1 id="work-company-header" class="input-header">work-company-header</h1>
+                    <input id="work-company-input" class="text-input" type="text" autocomplete="off">
+
+                    <h1 id="work-position-header" class="input-header">work-position-header</h1>
+                    <input id="work-position-input" class="text-input" type="text" autocomplete="off">
+
+                    <h1 id="work-start-header" class="input-header">work-start-header</h1>
+                    <div>
+                        <select id="work-start-month-input" class="text-input" type="text" autocomplete="off"></select>
+                        <select id="work-start-year-input" class="text-input" type="text" autocomplete="off"></select>
+                    </div>
+
+                    <h1 id="work-end-header" class="input-header">work-end-header</h1>
+                    <input id="work-end-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <h1 id="work-experience-bullets-header" class="input-header">work-experience-bullets-header</h1>
+    
+                        <label id="work-experience-bullets-label" class="radio-input">
+                            <input id="work-experience-bullets-input" type="radio" name="work-experience-bullets" autocomplete="off">
+                            work-experience-bullets-label
+                        </label>
+    
+                        <label id="work-experience-bullets-disable-label" class="radio-input">
+                            <input id="work-experience-bullets-disable-input" type="radio" name="work-experience-bullets" autocomplete="off">
+                            work-experience-bullets-disable-label
+                        </label>
+                    </div>
+
+                    <h1 id="work-description-header" class="input-header">work-description-header</h1>
+                    <input id="work-description" class="text-input" type="text" autocomplete="off">
+                </div>
+            </div>
+
+            <!--Education & Certificates-->
+            <div class="controls-container">
+                <h1 id="education-header" class="div-header">education-header</h1>
+
+                <div class="input-container">
+                    <h1 id="education-grade-header" class="input-header">education-grade-header</h1>
+                    <input id="education-grade-input" class="text-input" type="text" autocomplete="off">
+                    <!--Use select instead-->
+                </div>
+
+                <div class="input-container">
+                    <h1 id="education-title-header" class="input-header">education-title-header</h1>
+                    <input id="education-title-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <div class="input-container">
+                    <h1 id="education-institution-header" class="input-header">education-institution-header</h1>
+                    <input id="education-institution-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <h1 id="education-start-header" class="input-header">education-start-header</h1>
+                <input id="education-start-input" class="text-input" type="text" autocomplete="off">
+
+                <h1 id="education-end-header" class="input-header">education-end-header</h1>
+                <input id="education-end-input" class="text-input" type="text" autocomplete="off">
+            </div>
+
+            <!--Languages-->
+            <div class="controls-container">
+                <h1 id="language-header" class="div-header">language-header</h1>
+
+                <div class="input-container">
+                    <h1 id="language-name-header" class="input-header">language-name-header</h1>
+                    <input id="language-name-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <div class="input-container">
+                    <h1 id="language-level-header" class="input-header">language-level-header</h1>
+                    <input id="language-level-input" class="text-input" type="text" autocomplete="off">
+                </div>
+            </div>
+
+            <!--Miscellaneous-->
+            <div class="controls-container">
+                <h1 id="miscellaneous-header" class="div-header">miscellaneous-span-header</h1>
+
+                <div class="input-container">
+                    <h1 id="miscellaneous-skills-header" class="input-header">miscellaneous-skills-header</h1>
+                    <input id="miscellaneous-skills-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <div class="input-container">
+                    <h1 id="miscellaneous-qualities-header" class="input-header">miscellaneous-qualities-header</h1>
+                    <input id="miscellaneous-qualities-input" class="text-input" type="text" autocomplete="off">
+                </div>
+
+                <div class="input-container">
+                    <h1 id="miscellaneous-interests-header" class="input-header">miscellaneous-interests-header</h1>
+                    <input id="miscellaneous-interests" class="text-input" type="text" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <!--Data input area-->
+        <!--Resume element area-->
+        <div id="resume-div">
+            <div id="resume" class="flex-container">
+                <div>
+                    <span id="personal-name">personal-name</span>
+
+                    <div class="flex-container">
+                        <span id="contact-mail">contact-mail</span>
+                        <span id="contact-number">contact-number</span>
+                        <span id="personal-location">personal-location</span>
+                    </div>
+
+                    <!--Picture div-->
+                </div>
+
+                <!--Separator element here-->
+
+                <div id="resume-section-a">
+                    <!--Work experience div by default-->
+                    <h1 id="work-experience-resume-header" class="big-header">work-experience-resume-header</h1>
+
+                    <div id="work-experience-resume-container">
+                        <div>
+                            <!--Experience item template-->
+                            <div class="flex-container">
+                                <span class="small-header">company-name</span>
+                                <span class="small-header">work-start - work-end</span>
+                            </div>
+
+                            <h1 class="small-header">work-position</h1>
+
+                            <div>
+                                work-description
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Separator element here-->
+
+                <div id="resume-section-b">
+                    <!--Education div by default-->
+                    <h1 id="education-resume-header" class="big-header">education-resume-header</h1>
+
+                    <div id="education-resume-container">
+                        <div>
+                            <!--Education item template-->
+                            <h1 class="small-header">education-title</h1>
+
+                            <div class="flex-container">
+                                <span>education-grade - education-institution</span>
+                                <span>education-start - education-end</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Separator element here-->
+
+                <div>
+                    <h1 id="language-resume-header" class="big-header">language-resume-header</h1>
+
+                    <!--Language item template-->
+                    <div>
+                        <h1 class="small-header">language-name</h1>
+
+                        <div class="flex-container">
+                            <span>speaking - level</span>
+                            <span>writing - level</span>
+                            <span>reading - level</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Separator element here-->
+
+                <div>
+                    <h1 id="miscellaneous-resume-header" class="big-header">miscellaneous-resume-header</h1>
+
+                    <div id="miscellaneous-skills-resume-container" class="flex-container">
+                        <span>miscellaneous-skills</span>
+                        <span>miscellaneous-skills</span>
+                    </div>
+
+                    <div id="miscellaneous-qualities-resume-container" class="flex-container">
+                        <span>miscellaneous-qualities</span>
+                        <span>miscellaneous-qualities</span>
+                    </div>
+
+                    <div id="miscellaneous-interests-resume-container" class="flex-container">
+                        <span>miscellaneous-interests</span>
+                        <span>miscellaneous-interests</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Resume element area-->
+        <!--Site functions area-->
+        <div id="site-functions-div" class="flex-container">
+            <button id="print-resume-button">print-resume-button</button>
+            <button id="save-resume-button">save-resume-button</button>
+            <button id="load-resume-button">load-resume-button</button>
+        </div>
+        <!--Site functions area-->
+        <!--Customization area-->
+        <div id="customization-div">
+        </div>
+        <!--Customization area-->
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+import { inputToResume } from "./events";
+const nameInputElement = document.getElementById("personal-name-input");
+const nameResumeElement = document.getElementById("personal-name");
+nameInputElement.addEventListener('input', () => (inputToResume(nameInputElement, nameResumeElement)));
+const emailInputElement = document.getElementById("contact-mail-input");
+const emailResumeElement = document.getElementById("contact-mail");
+nameInputElement.addEventListener('input', () => (inputToResume(emailInputElement, emailResumeElement)));
+const contactNoInputElement = document.getElementById("contact-number-input");
+const contactNoResumeElement = document.getElementById("contact-number");
+nameInputElement.addEventListener('input', () => (inputToResume(contactNoInputElement, contactNoResumeElement)));
+const locationInputElement = document.getElementById("personal-location-input");
+const locationResumeElement = document.getElementById("personal-location");
+nameInputElement.addEventListener('input', () => (inputToResume(locationInputElement, locationResumeElement)));

@@ -1,0 +1,11 @@
+{
+  "name": "quickbasicresume",
+  "version": "0.0.1",
+  "description": "Make basic resumes quick",
+  "main": "./bundles/main.js",
+  "scripts": {
+    "compile-code": "tsc && npx webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

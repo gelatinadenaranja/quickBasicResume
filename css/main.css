@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: aquamarine;
+}
+
+.wrapper {
+    background-color: blueviolet;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.div-header {
+    text-align: center;
+}
+
+.input-header {
+}
+
+.radio-input {
+    display: block;;
+}
+
+#resume-div {
+    display: flex;
+    justify-content: center;
+}
