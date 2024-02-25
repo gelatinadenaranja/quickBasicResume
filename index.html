@@ -42,21 +42,46 @@
             <div class="controls-container">
                 <h1 id="work-experience-header" class="div-header">work-experience-header</h1>
 
-                <div id="work-experience-container" class="input-container">
-                    <h1 id="work-company-header" class="input-header">work-company-header</h1>
-                    <input id="work-company-input" class="text-input" type="text" autocomplete="off">
-
-                    <h1 id="work-position-header" class="input-header">work-position-header</h1>
-                    <input id="work-position-input" class="text-input" type="text" autocomplete="off">
-
-                    <h1 id="work-start-header" class="input-header">work-start-header</h1>
-                    <div>
-                        <select id="work-start-month-input" class="text-input" type="text" autocomplete="off"></select>
-                        <select id="work-start-year-input" class="text-input" type="text" autocomplete="off"></select>
+                <div id="work-experience-container">
+                    <div class="input-container">
+                        <h1 id="work-company-header" class="input-header">work-company-header</h1>
+                        <input id="work-company-input" class="text-input" type="text" autocomplete="off">
                     </div>
 
-                    <h1 id="work-end-header" class="input-header">work-end-header</h1>
-                    <input id="work-end-input" class="text-input" type="text" autocomplete="off">
+                    <div class="input-container">
+                        <h1 id="work-position-header" class="input-header">work-position-header</h1>
+                        <input id="work-position-input" class="text-input" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="input-container">
+                        <h1 id="work-start-header" class="input-header">work-start-header</h1>
+
+                        <select id="work-start-month-input" class="text-input" autocomplete="off">
+                            <option>month 1</option>
+                            <option>month 2</option>
+                            <option>month 3</option>
+                        </select>
+                        <select id="work-start-year-input" class="text-input" autocomplete="off">
+                            <option>year 1</option>
+                            <option>year 2</option>
+                            <option>year 3</option>
+                        </select>
+                    </div>
+
+                    <div class="input-container">
+                        <h1 id="work-end-header" class="input-header">work-end-header</h1>
+
+                        <select id="work-end-month-input" class="text-input" autocomplete="off">
+                            <option>month 1</option>
+                            <option>month 2</option>
+                            <option>month 3</option>
+                        </select>
+                        <select id="work-end-year-input" class="text-input" autocomplete="off">
+                            <option>year 1</option>
+                            <option>year 2</option>
+                            <option>year 3</option>
+                        </select>
+                    </div>
 
                     <div class="input-container">
                         <h1 id="work-experience-bullets-header" class="input-header">work-experience-bullets-header</h1>
@@ -72,9 +97,15 @@
                         </label>
                     </div>
 
-                    <h1 id="work-description-header" class="input-header">work-description-header</h1>
-                    <input id="work-description" class="text-input" type="text" autocomplete="off">
+                    <div class="input-container">
+                        <h1 id="work-description-header" class="input-header">work-description-header</h1>
+                        <input id="work-description-input" class="text-input" type="text" autocomplete="off">
+                    </div>
                 </div>
+
+                <button id="add-experience-button">add-experience-button</button>
+
+                <div id="experience-items-container"></div>
             </div>
 
             <!--Education & Certificates-->
@@ -97,11 +128,39 @@
                     <input id="education-institution-input" class="text-input" type="text" autocomplete="off">
                 </div>
 
-                <h1 id="education-start-header" class="input-header">education-start-header</h1>
-                <input id="education-start-input" class="text-input" type="text" autocomplete="off">
+                <div class="input-container">
+                    <h1 id="education-start-header" class="input-header">education-start-header</h1>
 
-                <h1 id="education-end-header" class="input-header">education-end-header</h1>
-                <input id="education-end-input" class="text-input" type="text" autocomplete="off">
+                    <select id="education-start-month-input" class="text-input" autocomplete="off">
+                        <option>month 1</option>
+                        <option>month 2</option>
+                        <option>month 3</option>
+                    </select>
+                    <select id="education-start-year-input" class="text-input" autocomplete="off">
+                        <option>year 1</option>
+                        <option>year 2</option>
+                        <option>year 3</option>
+                    </select>
+                </div>
+
+                <div class="input-container">
+                    <h1 id="education-end-header" class="input-header">education-end-header</h1>
+
+                    <select id="education-end-month-input" class="text-input" autocomplete="off">
+                        <option>month 1</option>
+                        <option>month 2</option>
+                        <option>month 3</option>
+                    </select>
+                    <select id="education-end-year-input" class="text-input" autocomplete="off">
+                        <option>year 1</option>
+                        <option>year 2</option>
+                        <option>year 3</option>
+                    </select>
+                </div>
+
+                <button id="add-education-button">add-education-button</button>
+
+                <div id="education-items-container"></div>
             </div>
 
             <!--Languages-->
@@ -115,8 +174,16 @@
 
                 <div class="input-container">
                     <h1 id="language-level-header" class="input-header">language-level-header</h1>
-                    <input id="language-level-input" class="text-input" type="text" autocomplete="off">
+                    <select id="language-level-select" class="text-input" autocomplete="off">
+                        <option>level 1</option>
+                        <option>level 2</option>
+                        <option>level 3</option>
+                    </select>
                 </div>
+
+                <button id="add-language-button">add-language-button</button>
+
+                <div id="language-items-container"></div>
             </div>
 
             <!--Miscellaneous-->
@@ -126,16 +193,22 @@
                 <div class="input-container">
                     <h1 id="miscellaneous-skills-header" class="input-header">miscellaneous-skills-header</h1>
                     <input id="miscellaneous-skills-input" class="text-input" type="text" autocomplete="off">
+                    <button id="add-miscellaneous-skill-button">add-miscellaneous-skill-button</button>
+                    <div id="miscellaneous-skills-container"></div>
                 </div>
 
                 <div class="input-container">
                     <h1 id="miscellaneous-qualities-header" class="input-header">miscellaneous-qualities-header</h1>
                     <input id="miscellaneous-qualities-input" class="text-input" type="text" autocomplete="off">
+                    <button id="add-miscellaneous-qualities-button">add-miscellaneous-qualities-button</button>
+                    <div id="miscellaneous-qualities-container"></div>
                 </div>
 
                 <div class="input-container">
                     <h1 id="miscellaneous-interests-header" class="input-header">miscellaneous-interests-header</h1>
-                    <input id="miscellaneous-interests" class="text-input" type="text" autocomplete="off">
+                    <input id="miscellaneous-interests-input" class="text-input" type="text" autocomplete="off">
+                    <button id="add-miscellaneous-interests-button">add-miscellaneous-interests-button</button>
+                    <div id="miscellaneous-interests-container"></div>
                 </div>
             </div>
         </div>
@@ -203,7 +276,7 @@
                     <h1 id="language-resume-header" class="big-header">language-resume-header</h1>
 
                     <!--Language item template-->
-                    <div>
+                    <div id="language-resume-container">
                         <h1 class="small-header">language-name</h1>
 
                         <div class="flex-container">

@@ -23,6 +23,10 @@ body {
     display: block;;
 }
 
+#add-experience-button {
+    display: block;
+}
+
 #resume-div {
     display: flex;
     justify-content: center;
