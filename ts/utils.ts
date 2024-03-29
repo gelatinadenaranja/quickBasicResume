@@ -1,9 +1,9 @@
 export function getWorkItemTemplate(companyName : string, workPos : string, workDesc : string, 
-                                    workStrMth : string, workStrYr : string, workEndMth : string, workEndYr : string) : string {
+                                    workStr : string, workEnd : string) : string {
     const workItemTemplate : string = `
     <div class="flex-container">
         <span class="small-header">` + companyName + `</span>
-        <span class="small-header">` + workStrMth + `-` + workStrYr + ` - ` + workEndMth + `-` + workEndYr + `</span>
+        <span class="small-header">` + workStr + ` - ` + workEnd + `</span>
     </div>
 
     <h1 class="small-header">` + workPos + `</h1>
@@ -16,13 +16,13 @@ export function getWorkItemTemplate(companyName : string, workPos : string, work
 };
 
 export function getEducationItemTemplate(educationTitle : string, educationGrade : string, educationInstitution : string, 
-                                        educationStrMth : string, educationStrYr : string, educationEndMth : string, educationEndYr : string) : string {
+                                        educationStr : string, educationEnd : string) : string {
     const educationItemTemplate : string = `
     <h1 class="small-header">` + educationTitle + `</h1>
     
     <div class="flex-container">
         <span>` + educationGrade + ` - ` + educationInstitution + `</span>
-        <span>` + educationStrMth + `-` + educationStrYr + ` - ` + educationEndMth + `-` + educationEndYr + `</span>
+        <span>` + educationStr + ` - ` + educationEnd + `</span>
     </div>`;
 
     return educationItemTemplate;
@@ -39,14 +39,48 @@ export function getLanguageItemTemplate(languageName : string, languageLevel : s
     return languageItemTemplate;
 };
 
-export function getRemovalBtn(resumeTargetItem : HTMLElement, targetItem : HTMLElement, buttonCssClass ? : string) : HTMLButtonElement {
+export function getRemovalBtn(resumeTargetItem : HTMLElement, targetItem : HTMLElement) : HTMLButtonElement {
     const removalBtn : HTMLButtonElement = document.createElement('button');
     removalBtn.innerText = 'X';
-    removalBtn.className = buttonCssClass ? buttonCssClass : 'remove-item-button';
-    removalBtn.onclick = () => {
+    removalBtn.className = 'remove-item-button';
+    removalBtn.addEventListener('click', (() => {
         resumeTargetItem.remove();
         targetItem.remove();
-    };
+    }));
 
     return removalBtn;
 };
+
+export function getSelectElemText(selectElem : HTMLSelectElement) : string {return selectElem.options[selectElem.selectedIndex].text};
+
+export function disableInputElem(inputElem : HTMLInputElement) : void {inputElem.disabled = true;};
+
+export function enableInputElem(inputElem : HTMLInputElement) : void {inputElem.disabled = false;};
+
+export function sortedLiAppend(LiElem : HTMLLIElement, OlElem : HTMLOListElement) : void {
+    const OlElemChildren : HTMLCollection = OlElem.children;
+
+    if(OlElemChildren.length === 0) {
+        OlElem.append(LiElem);
+        return;
+    };
+
+    let i : number = 0;
+
+    if(LiElem.value < getHTMLElemValue(OlElemChildren[i])) {
+        OlElem.insertBefore(LiElem, OlElemChildren[i]);
+        return;
+    };
+
+    for(; i < OlElemChildren.length; i++) {
+        if(LiElem.value === getHTMLElemValue(OlElemChildren[i])) LiElem.value++;
+
+        if(OlElemChildren[i + 1] === undefined) break;
+
+        if(LiElem.value > getHTMLElemValue(OlElemChildren[i]) && LiElem.value < getHTMLElemValue(OlElemChildren[i + 1])) break;
+    };
+
+    OlElem.insertBefore(LiElem, OlElemChildren[i].nextElementSibling);
+};
+
+function getHTMLElemValue(HTMLElem : Element) : number {return HTMLElem.getAttribute('value') ? Number.parseInt(HTMLElem.getAttribute('value')!) : -1;};

@@ -1,26 +1,43 @@
 //Personal info tab
--Skeleton done ✔
--Add option for picture
+-Skeleton ✔
+-Add link field ✔
+-Add option for picture ✔
 
 //Experience area
--Skeleton done ✔
--Current job option can only be picked once
--Toggle bullets
+-Skeleton ✔
+-Toggle bullets ✔
+ -Add different bullets chars from select ✔
+-Current job option can only be picked once ✔
+ -Add current option ✔
 
 //Education / certificates
--Skeleton done ✔
+-Skeleton ✔
+-Current career option can only be picked once ✔
+ -Add current option ✔
+-Change input to select for education-grade-input
 
 //Language
--Skeleton done ✔
+-Skeleton ✔
 
 //Skills, qualities, interests?
--Skeleton done ✔
+-Skeleton ✔
 
 //Secret keywords shenanigans
 
 
 //Misc
--Swappable order between experience and education
-
+-Sorted dates insert ✔
+-Swappable order between experience and education ✔
+-Hide unused sections in resume ✔
+-Make resume element size static ✔
+-Add error area ✔
+-Check for empty inputs before adding stuff ✔
+-Prevent illegal time periods ✔
+-Add nav var ✔
+-Add localization ✔
+ -Change select's text values when swapping languages?
+-Maybe add tips tooltips
+-Proper css
+-Add customization settings
 -------------------------
 test and set limits on items for each category

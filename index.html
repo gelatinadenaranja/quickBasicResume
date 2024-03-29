@@ -10,31 +10,83 @@
 </head>
 <body>
     <div class="wrapper">
-        <!--Insert some crappy logo div, probably add language menu dropdown-->
-        <!--Data input area-->
+        <div class="nav-bar">
+            <h1 id="nav-bar-header" class="div-header">nav-bar-header</h1>
+            <p id="nav-bar-paragraph">nav-bar-paragraph</p>
+            <div class="button-container">
+                <button id="nav-bar-language-button" class="nav-bar-button">nav-bar-language-button</button>
+                <button id="color-mode-button" class="nav-bar-button">•</button>
+            </div>
+        </div>
+
+        <!--Data input area start-->
         <div id="personal-data-div">
             <!--Personal data-->
             <div class="controls-container">
                 <h1 id="personal-info-header" class="div-header">personal-info-header</h1>
 
-                <div class="input-container">
+                <div>
                     <h1 id="personal-name-header" class="input-header">personal-name-header</h1>
-                    <input id="personal-name-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <button id="personal-name-tip-button" class="tip-button">!</button>
+                        <input id="personal-name-input" class="text-input" type="text" autocomplete="off">
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="contact-mail-header" class="input-header">contact-mail-header</h1>
-                    <input id="contact-mail-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <button id="contact-mail-tip-button" class="tip-button">!</button>
+                        <input id="contact-mail-input" class="text-input" type="text" autocomplete="off">
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="contact-number-header" class="input-header">contact-number-header</h1>
-                    <input id="contact-number-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <button id="contact-number-tip-button" class="tip-button">!</button>
+                        <input id="contact-number-input" class="text-input" type="text" autocomplete="off">
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="personal-location-header" class="input-header">personal-location-header</h1>
-                    <input id="personal-location-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <button id="personal-location-tip-button" class="tip-button">!</button>
+                        <input id="personal-location-input" class="text-input" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div>
+                    <h1 id="custom-link-header" class="input-header">custom-link-header</h1>
+
+                    <div class="input-container">
+                        <button id="custom-link-tip-button" class="tip-button">!</button>
+                        <input id="custom-link-input" class="text-input" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div>
+                    <h1 id="personal-description-header" class="input-header">personal-description-header</h1>
+
+                    <div class="input-container">
+                        <button id="personal-description-tip-button" class="tip-button">!</button>
+                        <textarea id="personal-description-input" class="text-input" autocomplete="off"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <h1 id="personal-picture-header" class="input-header">personal-picture-header</h1>
+
+                    <div class="input-container">
+                        <button id="personal-picture-tip-button" class="tip-button">!</button>
+                        <input id="personal-picture-input" type="file" autocomplete="off">
+                    </div>
+                    <div id="personal-picture-div"></div>
                 </div>
             </div>
 
@@ -42,70 +94,83 @@
             <div class="controls-container">
                 <h1 id="work-experience-header" class="div-header">work-experience-header</h1>
 
-                <div id="work-experience-container">
+                <div>
+                    <h1 id="work-company-header" class="input-header">work-company-header</h1>
+
                     <div class="input-container">
-                        <h1 id="work-company-header" class="input-header">work-company-header</h1>
+                        <button id="work-company-tip-button" class="tip-button">!</button>
                         <input id="work-company-input" class="text-input" type="text" autocomplete="off">
-                    </div>
-
-                    <div class="input-container">
-                        <h1 id="work-position-header" class="input-header">work-position-header</h1>
-                        <input id="work-position-input" class="text-input" type="text" autocomplete="off">
-                    </div>
-
-                    <div class="input-container">
-                        <h1 id="work-start-header" class="input-header">work-start-header</h1>
-
-                        <select id="work-start-month-input" class="text-input" autocomplete="off">
-                            <option>month 1</option>
-                            <option>month 2</option>
-                            <option>month 3</option>
-                        </select>
-                        <select id="work-start-year-input" class="text-input" autocomplete="off">
-                            <option>year 1</option>
-                            <option>year 2</option>
-                            <option>year 3</option>
-                        </select>
-                    </div>
-
-                    <div class="input-container">
-                        <h1 id="work-end-header" class="input-header">work-end-header</h1>
-
-                        <select id="work-end-month-input" class="text-input" autocomplete="off">
-                            <option>month 1</option>
-                            <option>month 2</option>
-                            <option>month 3</option>
-                        </select>
-                        <select id="work-end-year-input" class="text-input" autocomplete="off">
-                            <option>year 1</option>
-                            <option>year 2</option>
-                            <option>year 3</option>
-                        </select>
-                    </div>
-
-                    <div class="input-container">
-                        <h1 id="work-experience-bullets-header" class="input-header">work-experience-bullets-header</h1>
-    
-                        <label id="work-experience-bullets-label" class="radio-input">
-                            <input id="work-experience-bullets-input" type="radio" name="work-experience-bullets" autocomplete="off">
-                            work-experience-bullets-label
-                        </label>
-    
-                        <label id="work-experience-bullets-disable-label" class="radio-input">
-                            <input id="work-experience-bullets-disable-input" type="radio" name="work-experience-bullets" autocomplete="off">
-                            work-experience-bullets-disable-label
-                        </label>
-                    </div>
-
-                    <div class="input-container">
-                        <h1 id="work-description-header" class="input-header">work-description-header</h1>
-                        <input id="work-description-input" class="text-input" type="text" autocomplete="off">
                     </div>
                 </div>
 
-                <button id="add-experience-button">add-experience-button</button>
+                <div>
+                    <h1 id="work-position-header" class="input-header">work-position-header</h1>
 
-                <div id="experience-items-container"></div>
+                    <div class="input-container">
+                        <button id="work-position-tip-button" class="tip-button">!</button>
+                        <input id="work-position-input" class="text-input" type="text" autocomplete="off">
+                    </div>
+                </div>
+
+                <div>
+                    <h1 id="work-start-header" class="input-header">work-start-header</h1>
+
+                    <div class="input-container">
+                        <select id="work-start-month-input" class="select-input" autocomplete="off"></select>
+                        <select id="work-start-year-input" class="select-input" autocomplete="off"></select>
+                    </div>
+                </div>
+
+                <div>
+                    <h1 id="work-end-header" class="input-header">work-end-header</h1>
+
+                    <div class="input-container">
+                        <select id="work-end-month-input" class="select-input" autocomplete="off"></select>
+                        <select id="work-end-year-input" class="select-input" autocomplete="off"></select>
+                    </div>
+                    
+                    <div class="input-container">
+                        <input id="work-present-checkbox" type="checkbox" class="checkbox-input" autocomplete="off">
+                        <label id="work-present-checkbox-label" class="checkbox-label" for="work-present-checkbox">work-present-checkbox-label</label>
+                    </div>
+                </div>
+
+                <div>
+                    <h1 id="work-experience-bullets-header" class="input-header">work-experience-bullets-header</h1>
+
+                    <div class="input-container">
+                        <button id="work-experience-bullets-tip-button" class="tip-button">!</button>
+                        <div>
+                            <input id="work-experience-bullets-checkbox" type="checkbox" class="checkbox-toggle" autocomplete="off">
+                            <label id="work-experience-bullets-checkbox-label" class="toggle-label" for="work-experience-bullets-checkbox">work-experience-bullets-checkbox-label</label>
+                        </div>
+
+                        <select id="work-experience-bullets-select" style="display:none;" autocomplete="off">
+                            <option class="bullet-option">•</option>
+                            <option class="bullet-option">◦</option>
+                            <option class="bullet-option">‣</option>
+                            <option class="bullet-option">▪</option>
+                            <option class="bullet-option">-</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <h1 id="work-description-header" class="input-header">work-description-header</h1>
+
+                    <div class="input-container">
+                        <button id="work-description-tip-button" class="tip-button">!</button>
+                        <input id="work-description-input" class="text-input" type="text" autocomplete="off">
+                        <textarea id="work-description-text-area" class="text-input" style="display:none;" autocomplete="off"></textarea>
+                    </div>
+                </div>
+
+                <button id="add-experience-button" class="add-item-button">add-experience-button</button>
+
+                <span id="work-experience-message-span" class="message-span">work-experience-message-span</span>
+
+                <ol id="experience-items-container"></ol>
+
             </div>
 
             <!--Education & Certificates-->
@@ -113,75 +178,89 @@
                 <h1 id="education-header" class="div-header">education-header</h1>
 
                 <div class="input-container">
+                    <button id="education-order-tip-button" class="tip-button">!</button>
+                    <input id="education-order-checkbox" type="checkbox" class="checkbox-toggle" autocomplete="off">
+                    <label id="education-order-checkbox-label" class="toggle-label" for="education-order-checkbox">education-order-checkbox-label</label>
+                </div>
+
+                <div>
                     <h1 id="education-grade-header" class="input-header">education-grade-header</h1>
-                    <input id="education-grade-input" class="text-input" type="text" autocomplete="off">
-                    <!--Use select instead-->
+
+                    <div class="input-container">
+                        <select id="education-grade-select" class="select-input" autocomplete="off"></select>
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="education-title-header" class="input-header">education-title-header</h1>
-                    <input id="education-title-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <input id="education-title-input" class="text-input" type="text" autocomplete="off">
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="education-institution-header" class="input-header">education-institution-header</h1>
-                    <input id="education-institution-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <input id="education-institution-input" class="text-input" type="text" autocomplete="off">
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="education-start-header" class="input-header">education-start-header</h1>
 
-                    <select id="education-start-month-input" class="text-input" autocomplete="off">
-                        <option>month 1</option>
-                        <option>month 2</option>
-                        <option>month 3</option>
-                    </select>
-                    <select id="education-start-year-input" class="text-input" autocomplete="off">
-                        <option>year 1</option>
-                        <option>year 2</option>
-                        <option>year 3</option>
-                    </select>
+                    <div class="input-container">
+                        <select id="education-start-month-input" class="select-input" autocomplete="off"></select>
+                        <select id="education-start-year-input" class="select-input" autocomplete="off"></select>
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="education-end-header" class="input-header">education-end-header</h1>
 
-                    <select id="education-end-month-input" class="text-input" autocomplete="off">
-                        <option>month 1</option>
-                        <option>month 2</option>
-                        <option>month 3</option>
-                    </select>
-                    <select id="education-end-year-input" class="text-input" autocomplete="off">
-                        <option>year 1</option>
-                        <option>year 2</option>
-                        <option>year 3</option>
-                    </select>
+                    <div class="input-container">
+                        <select id="education-end-month-input" class="select-input" autocomplete="off"></select>
+                        <select id="education-end-year-input" class="select-input" autocomplete="off"></select>
+                    </div>
+
+                    <div class="input-container">
+                        <input id="education-present-checkbox" type="checkbox" class="checkbox-input" autocomplete="off">
+                        <label id="education-present-checkbox-label" class="checkbox-label" for="education-present-checkbox">education-present-checkbox-label</label>
+                    </div>
                 </div>
 
-                <button id="add-education-button">add-education-button</button>
+                <button id="add-education-button" class="add-item-button">add-education-button</button>
 
-                <div id="education-items-container"></div>
+                <span id="education-message-span" class="message-span">education-message-span</span>
+
+                <ol id="education-items-container"></ol>
             </div>
 
             <!--Languages-->
             <div class="controls-container">
                 <h1 id="language-header" class="div-header">language-header</h1>
 
-                <div class="input-container">
+                <div>
                     <h1 id="language-name-header" class="input-header">language-name-header</h1>
-                    <input id="language-name-input" class="text-input" type="text" autocomplete="off">
+
+                    <div class="input-container">
+                        <button id="language-tip-button" class="tip-button">!</button>
+                        <input id="language-name-input" class="text-input" type="text" autocomplete="off">
+                    </div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="language-level-header" class="input-header">language-level-header</h1>
-                    <select id="language-level-select" class="text-input" autocomplete="off">
-                        <option>level 1</option>
-                        <option>level 2</option>
-                        <option>level 3</option>
-                    </select>
+
+                    <div class="input-container">
+                        <select id="language-level-select" class="select-input" autocomplete="off"></select>
+                    </div>
                 </div>
 
-                <button id="add-language-button">add-language-button</button>
+                <button id="add-language-button" class="add-item-button">add-language-button</button>
+
+                <span id="language-message-span" class="message-span">language-message-span</span>
 
                 <div id="language-items-container"></div>
             </div>
@@ -190,83 +269,93 @@
             <div class="controls-container">
                 <h1 id="miscellaneous-header" class="div-header">miscellaneous-span-header</h1>
 
-                <div class="input-container">
+                <div>
                     <h1 id="miscellaneous-skills-header" class="input-header">miscellaneous-skills-header</h1>
-                    <input id="miscellaneous-skills-input" class="text-input" type="text" autocomplete="off">
-                    <button id="add-miscellaneous-skill-button">add-miscellaneous-skill-button</button>
+
+                    <div class="input-container">
+                        <button id="miscellaneous-skills-tip-button" class="tip-button">!</button>
+                        <input id="miscellaneous-skills-input" class="text-input" type="text" autocomplete="off">
+                    </div>
+
+                    <button id="add-miscellaneous-skill-button" class="add-item-button">add-miscellaneous-skill-button</button>
+
+                    <span id="miscellaneous-skills-message-span" class="message-span">miscellaneous-skills-message-span</span>
+
                     <div id="miscellaneous-skills-container"></div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="miscellaneous-qualities-header" class="input-header">miscellaneous-qualities-header</h1>
-                    <input id="miscellaneous-qualities-input" class="text-input" type="text" autocomplete="off">
-                    <button id="add-miscellaneous-qualities-button">add-miscellaneous-qualities-button</button>
+
+                    <div class="input-container">
+                        <button id="miscellaneous-qualities-tip-button" class="tip-button">!</button>
+                        <input id="miscellaneous-qualities-input" class="text-input" type="text" autocomplete="off">
+                    </div>
+
+                    <button id="add-miscellaneous-qualities-button" class="add-item-button">add-miscellaneous-qualities-button</button>
+
+                    <span id="miscellaneous-qualities-message-span" class="message-span">miscellaneous-qualities-message-span</span>
+
                     <div id="miscellaneous-qualities-container"></div>
                 </div>
 
-                <div class="input-container">
+                <div>
                     <h1 id="miscellaneous-interests-header" class="input-header">miscellaneous-interests-header</h1>
-                    <input id="miscellaneous-interests-input" class="text-input" type="text" autocomplete="off">
-                    <button id="add-miscellaneous-interests-button">add-miscellaneous-interests-button</button>
+                    
+                    <div class="input-container">
+                        <button id="miscellaneous-interests-tip-button" class="tip-button">!</button>
+                        <input id="miscellaneous-interests-input" class="text-input" type="text" autocomplete="off">
+                    </div>
+
+                    <button id="add-miscellaneous-interests-button" class="add-item-button">add-miscellaneous-interests-button</button>
+
+                    <span id="miscellaneous-interests-message-span" class="message-span">miscellaneous-interests-message-span</span>
+
                     <div id="miscellaneous-interests-container"></div>
                 </div>
             </div>
         </div>
-        <!--Data input area-->
-        <!--Resume element area-->
+        <!--Data input area end-->
+        <!--Resume element area start-->
         <div id="resume-div">
             <div id="resume" class="flex-container">
                 <div>
-                    <span id="personal-name">personal-name</span>
+                    <div>
+                        <span id="personal-name">personal-name</span>
 
-                    <div class="flex-container">
-                        <span id="contact-mail">contact-mail</span>
-                        <span id="contact-number">contact-number</span>
-                        <span id="personal-location">personal-location</span>
+                        <div class="flex-container">
+                            <span id="contact-mail">contact-mail</span>
+                            <span id="contact-number">contact-number</span>
+                            <span id="personal-location">personal-location</span>
+                        </div>
+
+                        <span id="custom-link">custom-link</span>
                     </div>
 
-                    <!--Picture div-->
+                    <div id="personal-picture-resume-div"></div>
                 </div>
 
                 <!--Separator element here-->
 
+                <p id="personal-description">personal-description</p>
+
+                <!--Separator element here-->
+
                 <div id="resume-section-a">
-                    <!--Work experience div by default-->
-                    <h1 id="work-experience-resume-header" class="big-header">work-experience-resume-header</h1>
-
-                    <div id="work-experience-resume-container">
-                        <div>
-                            <!--Experience item template-->
-                            <div class="flex-container">
-                                <span class="small-header">company-name</span>
-                                <span class="small-header">work-start - work-end</span>
-                            </div>
-
-                            <h1 class="small-header">work-position</h1>
-
-                            <div>
-                                work-description
-                            </div>
-                        </div>
+                    <div id="work-experience-resume-div">
+                        <h1 id="work-experience-resume-header" class="big-header">work-experience-resume-header</h1>
+    
+                        <ol id="work-experience-resume-container"></ol>
                     </div>
                 </div>
 
                 <!--Separator element here-->
 
                 <div id="resume-section-b">
-                    <!--Education div by default-->
-                    <h1 id="education-resume-header" class="big-header">education-resume-header</h1>
-
-                    <div id="education-resume-container">
-                        <div>
-                            <!--Education item template-->
-                            <h1 class="small-header">education-title</h1>
-
-                            <div class="flex-container">
-                                <span>education-grade - education-institution</span>
-                                <span>education-start - education-end</span>
-                            </div>
-                        </div>
+                    <div id="education-resume-div">
+                        <h1 id="education-resume-header" class="big-header">education-resume-header</h1>
+    
+                        <ol id="education-resume-container"></ol>
                     </div>
                 </div>
 
@@ -275,52 +364,41 @@
                 <div>
                     <h1 id="language-resume-header" class="big-header">language-resume-header</h1>
 
-                    <!--Language item template-->
-                    <div id="language-resume-container">
-                        <h1 class="small-header">language-name</h1>
-
-                        <div class="flex-container">
-                            <span>speaking - level</span>
-                            <span>writing - level</span>
-                            <span>reading - level</span>
-                        </div>
-                    </div>
+                    <div id="language-resume-container"></div>
                 </div>
 
                 <!--Separator element here-->
 
                 <div>
-                    <h1 id="miscellaneous-resume-header" class="big-header">miscellaneous-resume-header</h1>
-
-                    <div id="miscellaneous-skills-resume-container" class="flex-container">
-                        <span>miscellaneous-skills</span>
-                        <span>miscellaneous-skills</span>
+                    <div >
+                        <h1 id="miscellaneous-skills-resume-header" class="big-header">miscellaneous-skills-resume-header</h1>
+                        <div id="miscellaneous-skills-resume-container" class="flex-container"></div>
                     </div>
 
-                    <div id="miscellaneous-qualities-resume-container" class="flex-container">
-                        <span>miscellaneous-qualities</span>
-                        <span>miscellaneous-qualities</span>
+                    <div>
+                        <h1 id="miscellaneous-qualities-resume-header" class="big-header">miscellaneous-qualities-resume-header</h1>
+                        <div id="miscellaneous-qualities-resume-container" class="flex-container"></div>
                     </div>
 
-                    <div id="miscellaneous-interests-resume-container" class="flex-container">
-                        <span>miscellaneous-interests</span>
-                        <span>miscellaneous-interests</span>
+                    <div>
+                        <h1 id="miscellaneous-interests-resume-header" class="big-header">miscellaneous-interests-resume-header</h1>
+                        <div id="miscellaneous-interests-resume-container" class="flex-container"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--Resume element area-->
-        <!--Site functions area-->
-        <div id="site-functions-div" class="flex-container">
+        <!--Resume element area end-->
+        <!--Site functions area start-->
+        <div id="site-functions-div" class="button-container">
             <button id="print-resume-button">print-resume-button</button>
             <button id="save-resume-button">save-resume-button</button>
             <button id="load-resume-button">load-resume-button</button>
         </div>
-        <!--Site functions area-->
-        <!--Customization area-->
+        <!--Site functions area end-->
+        <!--Customization area start-->
         <div id="customization-div">
         </div>
-        <!--Customization area-->
+        <!--Customization area end-->
     </div>
 </body>
 </html>
