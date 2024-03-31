@@ -2,15 +2,13 @@ export function getWorkItemTemplate(companyName : string, workPos : string, work
                                     workStr : string, workEnd : string) : string {
     const workItemTemplate : string = `
     <div class="flex-container">
-        <span class="small-header">` + companyName + `</span>
-        <span class="small-header">` + workStr + ` - ` + workEnd + `</span>
+        <span class="big-header">` + companyName + `</span>
+        <span class="big-header">` + workStr + ` - ` + workEnd + `</span>
     </div>
 
     <h1 class="small-header">` + workPos + `</h1>
 
-    <div>
-        ` + workDesc + `
-    </div>`;
+    <span class="resume-text">` + workDesc + `</span>`;
 
     return workItemTemplate;
 };
@@ -18,11 +16,11 @@ export function getWorkItemTemplate(companyName : string, workPos : string, work
 export function getEducationItemTemplate(educationTitle : string, educationGrade : string, educationInstitution : string, 
                                         educationStr : string, educationEnd : string) : string {
     const educationItemTemplate : string = `
-    <h1 class="small-header">` + educationTitle + `</h1>
+    <h1 class="big-header">` + educationTitle + `</h1>
     
     <div class="flex-container">
-        <span>` + educationGrade + ` - ` + educationInstitution + `</span>
-        <span>` + educationStr + ` - ` + educationEnd + `</span>
+        <span class="small-header">` + educationGrade + ` - ` + educationInstitution + `</span>
+        <span class="small-header">` + educationStr + ` - ` + educationEnd + `</span>
     </div>`;
 
     return educationItemTemplate;
@@ -30,10 +28,9 @@ export function getEducationItemTemplate(educationTitle : string, educationGrade
 
 export function getLanguageItemTemplate(languageName : string, languageLevel : string) : string {
     const languageItemTemplate : string = `
-    <div class="flex-container">
-        <span>` + languageName + `</span>
-        <span>` + languageLevel +`</span>
-        
+    <div>
+        <span class="big-header">` + languageName + ` : </span>
+        <span class="small-header">` + languageLevel +`</span>
     </div>`;
 
     return languageItemTemplate;

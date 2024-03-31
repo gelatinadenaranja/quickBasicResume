@@ -3,15 +3,100 @@
 }
 
 #resume {
-    background-color: white;
     flex-direction: column;
+    background-color: white;
+    padding: 1% 2%;
     min-height: 29.7cm;
     min-width: 21cm;
     max-height: 29.7cm;
     max-width: 21cm;
 }
 
+#resume * {
+    font-size: 16px;
+}
+
+.resume-text {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 1rem !important;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    padding: 0;
+    margin: 0;
+}
+
+#personal-name {
+    display: block;
+    font-family: 'Times New Roman', serif;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+#custom-link {
+    display: block;
+    color: #0000ff;
+    margin-top: 1rem;
+}
+
+.personal-picture {
+    border-radius: 50%;
+    height: 8rem;
+    width: 6rem;
+}
+
+#personal-picture-resume-div {
+    margin-right: 1rem;
+}
+
+.section-header {
+    font-family: 'Times New Roman', serif;
+    font-size: 2rem !important;
+    margin: 1rem 0 0 0;
+}
+
+.big-header {
+    display: inline-block;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.5rem !important;
+    font-weight: normal;
+    margin: 0;
+}
+
+.small-header {
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem !important;
+    font-weight: normal;
+    margin: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.resume-item {
+    padding-top: 1rem;
+}
+
 .flex-container {
     display: flex;
     justify-content: space-between;
+}
+
+#personal-data-div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: stretch;
+}
+
+#work-experience-resume-container, #education-resume-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#miscellaneous-resume-div {
+    margin-bottom: 1rem;
+}
+
+#miscellaneous-skills-resume-container, #miscellaneous-qualities-resume-container, #miscellaneous-interests-resume-container {
+    justify-content: space-around;
 }

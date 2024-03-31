@@ -1,35 +1,32 @@
 export function getWorkItemTemplate(companyName, workPos, workDesc, workStr, workEnd) {
     const workItemTemplate = `
     <div class="flex-container">
-        <span class="small-header">` + companyName + `</span>
-        <span class="small-header">` + workStr + ` - ` + workEnd + `</span>
+        <span class="big-header">` + companyName + `</span>
+        <span class="big-header">` + workStr + ` - ` + workEnd + `</span>
     </div>
 
     <h1 class="small-header">` + workPos + `</h1>
 
-    <div>
-        ` + workDesc + `
-    </div>`;
+    <span class="resume-text">` + workDesc + `</span>`;
     return workItemTemplate;
 }
 ;
 export function getEducationItemTemplate(educationTitle, educationGrade, educationInstitution, educationStr, educationEnd) {
     const educationItemTemplate = `
-    <h1 class="small-header">` + educationTitle + `</h1>
+    <h1 class="big-header">` + educationTitle + `</h1>
     
     <div class="flex-container">
-        <span>` + educationGrade + ` - ` + educationInstitution + `</span>
-        <span>` + educationStr + ` - ` + educationEnd + `</span>
+        <span class="small-header">` + educationGrade + ` - ` + educationInstitution + `</span>
+        <span class="small-header">` + educationStr + ` - ` + educationEnd + `</span>
     </div>`;
     return educationItemTemplate;
 }
 ;
 export function getLanguageItemTemplate(languageName, languageLevel) {
     const languageItemTemplate = `
-    <div class="flex-container">
-        <span>` + languageName + `</span>
-        <span>` + languageLevel + `</span>
-        
+    <div>
+        <span class="big-header">` + languageName + ` : </span>
+        <span class="small-header">` + languageLevel + `</span>
     </div>`;
     return languageItemTemplate;
 }

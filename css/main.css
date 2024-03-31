@@ -40,6 +40,33 @@ body {
     font-size: 1.2rem;
 }
 
+.nav-bar-button {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: var(--font-color);
+    background-color: var(--wrapper-color);
+    border: 3px solid var(--font-color);
+    border-radius: 8px;
+    padding: 0 1rem;
+    transition: 300ms;
+    margin: 0 1rem;
+}
+
+.nav-bar-button:hover {
+    color: var(--wrapper-color);
+    background-color: var(--font-color);
+}
+
+.nav-bar-button:active {
+    color: var(--font-color);
+    background-color: var(--wrapper-color);
+}
+
+#color-mode-button {
+    font-size: 2rem;
+    border-radius: 50%;
+}
+
 .div-header {
     text-align: center;
     font-family: Georgia, serif;
@@ -51,6 +78,10 @@ body {
     font-family: 'Times New Roman', serif;
     font-size: 1.5rem;
     color: var(--font-color);
+}
+
+#personal-picture-div {
+    text-align: center;
 }
 
 .text-input {
@@ -115,31 +146,26 @@ body {
     font-weight: bold;
 }
 
-#color-mode-button {
-    font-size: 2rem;
-    border-radius: 50%;
-}
-
-.nav-bar-button {
+#personal-picture-label {
+    display: inline-block;
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--font-color);
-    background-color: var(--wrapper-color);
-    border: 3px solid var(--font-color);
-    border-radius: 8px;
-    padding: 0 1rem;
-    transition: 300ms;
-    margin: 0 1rem;
+    background-color: #1a66ff;
+    border: 0.2rem solid #4d88ff;
+    border-radius: 16px;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    transition: 200ms;
 }
 
-.nav-bar-button:hover {
-    color: var(--wrapper-color);
-    background-color: var(--font-color);
+#personal-picture-label:hover {
+    background-color: #4d88ff;
 }
 
-.nav-bar-button:active {
-    color: var(--font-color);
-    background-color: var(--wrapper-color);
+#personal-picture-label:active {
+    background-color: #1a66ff;
+    border-color: #1a66ff;
 }
 
 .tip-button {
@@ -230,6 +256,7 @@ body {
 
 .message-span {
     display: block;
+    font-family: Arial, sans-serif;
     font-size: 1rem;
     color: var(--font-color);
     margin: 1rem 0.5rem;
@@ -263,5 +290,6 @@ body {
     display: block;
     font-family: 'Trebuchet MS', sans-serif;
     font-size: 1rem;
+    white-space: pre-line;
     padding-bottom: 1rem;
 }

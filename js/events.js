@@ -8,7 +8,7 @@ export function inputToResume(srcInput, targetElement) {
         return;
     }
     ;
-    targetElement.style.display = 'inline';
+    targetElement.style.display = 'block';
     targetElement.innerText = srcInput.value;
 }
 ;
@@ -36,10 +36,13 @@ export function insertPersonalPicture(inputFileList, personalPictureDiv, resumeP
         const personalPictureImg = document.createElement('img');
         const personalPictureWrap = document.createElement('div');
         resumePersonalPictureImg.src = imageFileURL;
+        resumePersonalPictureImg.className = 'personal-picture';
         resumePersonalPictureDiv.append(resumePersonalPictureImg);
         personalPictureImg.src = imageFileURL;
+        personalPictureImg.className = 'personal-picture';
         personalPictureWrap.append(personalPictureImg);
         personalPictureWrap.append(getRemovalBtn(resumePersonalPictureImg, personalPictureWrap));
+        personalPictureWrap.style.display = 'inline';
         personalPictureDiv.append(personalPictureWrap);
     };
     fileReader.readAsDataURL(personalPictureFile);
@@ -68,6 +71,7 @@ export function workExpToResume(companyNameInput, workPosInput, workDescInput, w
     const removalBtn = getRemovalBtn(workExpResumeItem, workExpItem);
     workExpResumeItem.innerHTML = workExpItemTemplate;
     workExpResumeItem.value = workLiValue;
+    workExpResumeItem.className = 'resume-item';
     sortedLiAppend(workExpResumeItem, resumeExpList);
     workExpItem.innerHTML = workExpItemTemplate;
     workExpItem.value = workLiValue;
@@ -113,6 +117,7 @@ export function educationToResume(educationTitleInput, educationGradeSelect, edu
     const removalBtn = getRemovalBtn(educationResumeItem, educationItem);
     educationResumeItem.innerHTML = educationItemTemplate;
     educationResumeItem.value = educationLiValue;
+    educationResumeItem.className = 'resume-item';
     sortedLiAppend(educationResumeItem, resumeEdList);
     educationItem.innerHTML = educationItemTemplate;
     educationItem.value = educationLiValue;
@@ -145,6 +150,7 @@ export function languageToResume(languageNameInput, languageLevelSelect, languag
     const languageItem = document.createElement('div');
     const languageItemTemplate = getLanguageItemTemplate(languageNameInput.value, languageLevelSelect.value);
     languageResumeItem.innerHTML = languageItemTemplate;
+    languageResumeItem.className = 'resume-item';
     resumeLanguageDiv.append(languageResumeItem);
     languageItem.innerHTML = languageItemTemplate;
     languageItem.append(getRemovalBtn(languageResumeItem, languageItem));
@@ -164,6 +170,7 @@ export function miscToResume(miscInput, miscItemsDiv, resumeMiscDiv, miscAreaMsg
     const miscResumeItem = document.createElement('span');
     const miscItem = document.createElement('span');
     miscResumeItem.innerText = miscInput.value;
+    miscResumeItem.className = 'resume-text';
     resumeMiscDiv.append(miscResumeItem);
     miscItem.innerText = miscInput.value;
     miscItem.className = 'misc-span-item';

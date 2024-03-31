@@ -2,6 +2,10 @@
 -Skeleton ✔
 -Add link field ✔
 -Add option for picture ✔
+-Add label for picture input and hide input ✔
+ -Localization ✔
+-Add localization values for personal-description-header ✔
+ -Add event and values for personal-description-tip-button ✔
 
 //Experience area
 -Skeleton ✔
@@ -14,7 +18,7 @@
 -Skeleton ✔
 -Current career option can only be picked once ✔
  -Add current option ✔
--Change input to select for education-grade-input
+-Change input to select for education-grade-input ✔
 
 //Language
 -Skeleton ✔
@@ -36,8 +40,9 @@
 -Add nav var ✔
 -Add localization ✔
  -Change select's text values when swapping languages?
--Maybe add tips tooltips
--Proper css
+-Maybe add tips tooltips ✔
+-Proper css ✔
+-Change style depending on time of day
 -Add customization settings
 -------------------------
 test and set limits on items for each category

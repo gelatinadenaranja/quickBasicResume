@@ -20,7 +20,7 @@
         </div>
 
         <!--Data input area start-->
-        <div id="personal-data-div">
+        <div>
             <!--Personal data-->
             <div class="controls-container">
                 <h1 id="personal-info-header" class="div-header">personal-info-header</h1>
@@ -30,7 +30,7 @@
 
                     <div class="input-container">
                         <button id="personal-name-tip-button" class="tip-button">!</button>
-                        <input id="personal-name-input" class="text-input" type="text" autocomplete="off">
+                        <input id="personal-name-input" class="text-input" type="text" placeholder="*" autocomplete="off">
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
 
                     <div class="input-container">
                         <button id="contact-mail-tip-button" class="tip-button">!</button>
-                        <input id="contact-mail-input" class="text-input" type="text" autocomplete="off">
+                        <input id="contact-mail-input" class="text-input" type="text" placeholder="*" autocomplete="off">
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
 
                     <div class="input-container">
                         <button id="personal-location-tip-button" class="tip-button">!</button>
-                        <input id="personal-location-input" class="text-input" type="text" autocomplete="off">
+                        <input id="personal-location-input" class="text-input" type="text" placeholder="*" autocomplete="off">
                     </div>
                 </div>
 
@@ -84,7 +84,8 @@
 
                     <div class="input-container">
                         <button id="personal-picture-tip-button" class="tip-button">!</button>
-                        <input id="personal-picture-input" type="file" autocomplete="off">
+                        <input id="personal-picture-input" type="file" style="display: none;" autocomplete="off">
+                        <label id="personal-picture-label" for="personal-picture-input">personal-picture-label</label>
                     </div>
                     <div id="personal-picture-div"></div>
                 </div>
@@ -167,7 +168,7 @@
 
                 <button id="add-experience-button" class="add-item-button">add-experience-button</button>
 
-                <span id="work-experience-message-span" class="message-span">work-experience-message-span</span>
+                <span id="work-experience-message-span" class="message-span"></span>
 
                 <ol id="experience-items-container"></ol>
 
@@ -232,7 +233,7 @@
 
                 <button id="add-education-button" class="add-item-button">add-education-button</button>
 
-                <span id="education-message-span" class="message-span">education-message-span</span>
+                <span id="education-message-span" class="message-span"></span>
 
                 <ol id="education-items-container"></ol>
             </div>
@@ -260,7 +261,7 @@
 
                 <button id="add-language-button" class="add-item-button">add-language-button</button>
 
-                <span id="language-message-span" class="message-span">language-message-span</span>
+                <span id="language-message-span" class="message-span"></span>
 
                 <div id="language-items-container"></div>
             </div>
@@ -279,7 +280,7 @@
 
                     <button id="add-miscellaneous-skill-button" class="add-item-button">add-miscellaneous-skill-button</button>
 
-                    <span id="miscellaneous-skills-message-span" class="message-span">miscellaneous-skills-message-span</span>
+                    <span id="miscellaneous-skills-message-span" class="message-span"></span>
 
                     <div id="miscellaneous-skills-container"></div>
                 </div>
@@ -294,7 +295,7 @@
 
                     <button id="add-miscellaneous-qualities-button" class="add-item-button">add-miscellaneous-qualities-button</button>
 
-                    <span id="miscellaneous-qualities-message-span" class="message-span">miscellaneous-qualities-message-span</span>
+                    <span id="miscellaneous-qualities-message-span" class="message-span"></span>
 
                     <div id="miscellaneous-qualities-container"></div>
                 </div>
@@ -309,7 +310,7 @@
 
                     <button id="add-miscellaneous-interests-button" class="add-item-button">add-miscellaneous-interests-button</button>
 
-                    <span id="miscellaneous-interests-message-span" class="message-span">miscellaneous-interests-message-span</span>
+                    <span id="miscellaneous-interests-message-span" class="message-span"></span>
 
                     <div id="miscellaneous-interests-container"></div>
                 </div>
@@ -319,17 +320,17 @@
         <!--Resume element area start-->
         <div id="resume-div">
             <div id="resume" class="flex-container">
-                <div>
-                    <div>
-                        <span id="personal-name">personal-name</span>
+                <div id="personal-data-div">
+                    <div style="flex-grow: 2;">
+                        <span id="personal-name" style="display: none;">personal-name</span>
 
                         <div class="flex-container">
-                            <span id="contact-mail">contact-mail</span>
-                            <span id="contact-number">contact-number</span>
-                            <span id="personal-location">personal-location</span>
+                            <span id="contact-mail" class="resume-text" style="display: none;">contact-mail</span>
+                            <span id="contact-number" class="resume-text" style="display: none;">contact-number</span>
+                            <span id="personal-location" class="resume-text" style="display: none;">personal-location</span>
                         </div>
 
-                        <span id="custom-link">custom-link</span>
+                        <span id="custom-link" class="resume-text" style="display: none;">custom-link</span>
                     </div>
 
                     <div id="personal-picture-resume-div"></div>
@@ -337,13 +338,13 @@
 
                 <!--Separator element here-->
 
-                <p id="personal-description">personal-description</p>
+                <p id="personal-description" class="resume-text" style="display: none;">personal-description</p>
 
                 <!--Separator element here-->
 
-                <div id="resume-section-a">
+                <div id="resume-section-a" style="display: none;">
                     <div id="work-experience-resume-div">
-                        <h1 id="work-experience-resume-header" class="big-header">work-experience-resume-header</h1>
+                        <h1 id="work-experience-resume-header" class="section-header">work-experience-resume-header</h1>
     
                         <ol id="work-experience-resume-container"></ol>
                     </div>
@@ -351,9 +352,9 @@
 
                 <!--Separator element here-->
 
-                <div id="resume-section-b">
+                <div id="resume-section-b" style="display: none;">
                     <div id="education-resume-div">
-                        <h1 id="education-resume-header" class="big-header">education-resume-header</h1>
+                        <h1 id="education-resume-header" class="section-header">education-resume-header</h1>
     
                         <ol id="education-resume-container"></ol>
                     </div>
@@ -361,27 +362,27 @@
 
                 <!--Separator element here-->
 
-                <div>
-                    <h1 id="language-resume-header" class="big-header">language-resume-header</h1>
+                <div style="display: none;">
+                    <h1 id="language-resume-header" class="section-header">language-resume-header</h1>
 
                     <div id="language-resume-container"></div>
                 </div>
 
                 <!--Separator element here-->
 
-                <div>
-                    <div >
-                        <h1 id="miscellaneous-skills-resume-header" class="big-header">miscellaneous-skills-resume-header</h1>
+                <div id="miscellaneous-resume-div">
+                    <div style="display: none;">
+                        <h1 id="miscellaneous-skills-resume-header" class="section-header">miscellaneous-skills-resume-header</h1>
                         <div id="miscellaneous-skills-resume-container" class="flex-container"></div>
                     </div>
 
-                    <div>
-                        <h1 id="miscellaneous-qualities-resume-header" class="big-header">miscellaneous-qualities-resume-header</h1>
+                    <div style="display: none;">
+                        <h1 id="miscellaneous-qualities-resume-header" class="section-header">miscellaneous-qualities-resume-header</h1>
                         <div id="miscellaneous-qualities-resume-container" class="flex-container"></div>
                     </div>
 
-                    <div>
-                        <h1 id="miscellaneous-interests-resume-header" class="big-header">miscellaneous-interests-resume-header</h1>
+                    <div style="display: none;">
+                        <h1 id="miscellaneous-interests-resume-header" class="section-header">miscellaneous-interests-resume-header</h1>
                         <div id="miscellaneous-interests-resume-container" class="flex-container"></div>
                     </div>
                 </div>

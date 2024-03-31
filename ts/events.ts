@@ -8,7 +8,7 @@ export function inputToResume(srcInput : HTMLInputElement, targetElement : HTMLS
         targetElement.style.display = 'none';
         return;
     };
-    targetElement.style.display = 'inline';
+    targetElement.style.display = 'block';
     targetElement.innerText = srcInput.value;
 };
 
@@ -41,11 +41,14 @@ export function insertPersonalPicture(inputFileList : FileList | null, personalP
         const personalPictureWrap : HTMLDivElement = document.createElement('div');
         
         resumePersonalPictureImg.src = imageFileURL;
+        resumePersonalPictureImg.className = 'personal-picture';
         resumePersonalPictureDiv.append(resumePersonalPictureImg);
 
         personalPictureImg.src = imageFileURL;
+        personalPictureImg.className = 'personal-picture';
         personalPictureWrap.append(personalPictureImg);
         personalPictureWrap.append(getRemovalBtn(resumePersonalPictureImg, personalPictureWrap));
+        personalPictureWrap.style.display = 'inline';
         personalPictureDiv.append(personalPictureWrap);
     };
 
@@ -82,6 +85,7 @@ export function workExpToResume(companyNameInput : HTMLInputElement, workPosInpu
     
     workExpResumeItem.innerHTML = workExpItemTemplate;
     workExpResumeItem.value = workLiValue;
+    workExpResumeItem.className = 'resume-item';
     sortedLiAppend(workExpResumeItem, resumeExpList);
 
     workExpItem.innerHTML = workExpItemTemplate;
@@ -133,6 +137,7 @@ export function educationToResume(educationTitleInput : HTMLInputElement, educat
 
     educationResumeItem.innerHTML = educationItemTemplate;
     educationResumeItem.value = educationLiValue;
+    educationResumeItem.className = 'resume-item';
     sortedLiAppend(educationResumeItem, resumeEdList);
 
     educationItem.innerHTML = educationItemTemplate;
@@ -170,6 +175,7 @@ export function languageToResume(languageNameInput : HTMLInputElement, languageL
     const languageItemTemplate : string = getLanguageItemTemplate(languageNameInput.value, languageLevelSelect.value);
 
     languageResumeItem.innerHTML = languageItemTemplate;
+    languageResumeItem.className = 'resume-item';
     resumeLanguageDiv.append(languageResumeItem);
     
     languageItem.innerHTML = languageItemTemplate;
@@ -193,6 +199,7 @@ export function miscToResume(miscInput : HTMLInputElement, miscItemsDiv : HTMLDi
     const miscItem : HTMLSpanElement = document.createElement('span');
 
     miscResumeItem.innerText = miscInput.value;
+    miscResumeItem.className = 'resume-text';
     resumeMiscDiv.append(miscResumeItem);
 
     miscItem.innerText = miscInput.value;

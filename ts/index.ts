@@ -74,26 +74,30 @@ linkInputElement.addEventListener('input', () => (inputToResume(linkInputElement
 navBarLanguageSwapBtn.addEventListener('click', () => (linkHeader.innerText = getLocalizedText('custom-link-header')));
 linkHeader.innerText = getLocalizedText('custom-link-header');
 
-////
-const personalDecriptionHeader : HTMLHeadElement = document.getElementById('personal-description-header') as HTMLHeadElement;
-navBarLanguageSwapBtn.addEventListener('click', () => (personalDecriptionHeader.innerText = getLocalizedText('personal-description-header')));
-personalDecriptionHeader.innerText = getLocalizedText('personal-description-header');
+const personalDescriptionTipBtn : HTMLButtonElement = document.getElementById('personal-description-tip-button') as HTMLButtonElement;
+personalDescriptionTipBtn.addEventListener('click', () => (showDialog(getLocalizedText('personal-description-tip-button'))));
+
+const personalDescriptionHeader : HTMLHeadElement = document.getElementById('personal-description-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (personalDescriptionHeader.innerText = getLocalizedText('personal-description-header')));
+personalDescriptionHeader.innerText = getLocalizedText('personal-description-header');
 
 const personalDescriptionInput : HTMLInputElement = document.getElementById('personal-description-input') as HTMLInputElement;
 const personalDescriptionResumeElement : HTMLParagraphElement = document.getElementById('personal-description') as HTMLParagraphElement;
 personalDescriptionInput.addEventListener('input', () => (inputToResume(personalDescriptionInput, personalDescriptionResumeElement)));
-////add tip button event
 
 const personalPictureTipBtn : HTMLButtonElement = document.getElementById('personal-picture-tip-button') as HTMLButtonElement;
 personalPictureTipBtn.addEventListener('click', () => (showDialog(getLocalizedText('personal-picture-tip-button'))));
 
 const personalPictureHeader : HTMLHeadElement = document.getElementById('personal-picture-header') as HTMLHeadElement;
 const personalPictureInput : HTMLInputElement = document.getElementById('personal-picture-input') as HTMLInputElement;
+const personalPictureLabel : HTMLLabelElement = document.getElementById('personal-picture-label') as HTMLLabelElement;
 const personalPictureDiv : HTMLDivElement = document.getElementById('personal-picture-div') as HTMLDivElement;
 const resumePersonalPicDiv : HTMLDivElement = document.getElementById('personal-picture-resume-div') as HTMLDivElement;
 personalPictureInput.addEventListener('change', () => (insertPersonalPicture(personalPictureInput.files, personalPictureDiv, resumePersonalPicDiv)));
+navBarLanguageSwapBtn.addEventListener('click', () => (personalPictureLabel.innerText = getLocalizedText('personal-picture-label')));
 navBarLanguageSwapBtn.addEventListener('click', () => (personalPictureHeader.innerText = getLocalizedText('personal-picture-header')));
 personalPictureHeader.innerText = getLocalizedText('personal-picture-header');
+personalPictureLabel.innerText = getLocalizedText('personal-picture-label');
 
 const workExpHeader : HTMLHeadElement = document.getElementById('work-experience-header') as HTMLHeadElement;
 navBarLanguageSwapBtn.addEventListener('click', () => (workExpHeader.innerText = getLocalizedText('work-experience-header')));
