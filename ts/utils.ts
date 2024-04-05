@@ -80,4 +80,14 @@ export function sortedLiAppend(LiElem : HTMLLIElement, OlElem : HTMLOListElement
     OlElem.insertBefore(LiElem, OlElemChildren[i].nextElementSibling);
 };
 
-function getHTMLElemValue(HTMLElem : Element) : number {return HTMLElem.getAttribute('value') ? Number.parseInt(HTMLElem.getAttribute('value')!) : -1;};
+function getHTMLElemValue(HTMLElem : Element) : number {return HTMLElem.getAttribute('value') ? Number.parseInt(HTMLElem.getAttribute('value')!) : -1};
+
+export function getHTMLElemTextContent(elementId : string) : string {
+    const element : HTMLElement = document.getElementById(elementId) as HTMLElement;
+
+    if(element.style.display !== 'none' && element.textContent) {
+        return element.textContent;
+    };
+
+    return '';
+};

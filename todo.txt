@@ -28,6 +28,9 @@
 
 //Secret keywords shenanigans
 
+//Site func
+-Export funtion
+-Import function
 
 //Misc
 -Sorted dates insert ✔
@@ -39,10 +42,14 @@
 -Prevent illegal time periods ✔
 -Add nav var ✔
 -Add localization ✔
- -Change select's text values when swapping languages?
+ -Change select's text values when swapping languages? Nah
 -Maybe add tips tooltips ✔
 -Proper css ✔
--Change style depending on time of day
+-Change style depending on time of day ✔
+-Add dialog if adding too much stuff
+-Add limits for some experience and education items
 -Add customization settings
+-Add separators
 -------------------------
 test and set limits on items for each category
+

@@ -1,6 +1,7 @@
-import { swapColorMode, inputToResume, insertPersonalPicture, workExpToResume, educationToResume, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, printResume } from './events';
+import { setColorMode, swapColorMode, inputToResume, insertPersonalPicture, workExpToResume, educationToResume, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, printResume, saveResume } from './events';
 import { loadLocalizationData, getLocalizedText, setUserLanguage, swapUserLanguage, getCheckboxText, addSelectOptions, addYearSelectOptions, addMonthSelectOptions } from './localization';
 
+setColorMode();
 loadLocalizationData();
 setUserLanguage();
 
@@ -362,6 +363,7 @@ navBarLanguageSwapBtn.addEventListener('click', () => (printResumeBtn.innerText 
 printResumeBtn.innerText = getLocalizedText('print-resume-button');
 
 const saveResumeBtn : HTMLButtonElement = document.getElementById('save-resume-button') as HTMLButtonElement;
+saveResumeBtn.addEventListener('click', () => (saveResume()));
 navBarLanguageSwapBtn.addEventListener('click', () => (saveResumeBtn.innerText = getLocalizedText('save-resume-button')));
 saveResumeBtn.innerText = getLocalizedText('save-resume-button');
 

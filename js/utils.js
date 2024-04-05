@@ -75,3 +75,12 @@ export function sortedLiAppend(LiElem, OlElem) {
 ;
 function getHTMLElemValue(HTMLElem) { return HTMLElem.getAttribute('value') ? Number.parseInt(HTMLElem.getAttribute('value')) : -1; }
 ;
+export function getHTMLElemTextContent(elementId) {
+    const element = document.getElementById(elementId);
+    if (element.style.display !== 'none' && element.textContent) {
+        return element.textContent;
+    }
+    ;
+    return '';
+}
+;

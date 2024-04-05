@@ -1,5 +1,14 @@
-import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem } from './utils';
+import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent } from './utils';
 import { getLocalizedText, getCheckboxText } from './localization';
+export function setColorMode() {
+    const currentHour = new Date().getHours();
+    if (currentHour > 7 && currentHour < 19) {
+        return;
+    }
+    ;
+    document.body.classList.toggle("body-darkmode");
+}
+;
 export function swapColorMode() { document.body.classList.toggle("body-darkmode"); }
 ;
 export function inputToResume(srcInput, targetElement) {
@@ -276,5 +285,32 @@ export function printResume(resumeContainer) {
     resumeWindow.focus();
     resumeWindow.print();
     resumeWindow.close();
+}
+;
+;
+;
+;
+;
+export function saveResume() {
+    let resumeObj = {};
+    resumeObj.personalName = getHTMLElemTextContent('personal-name');
+    resumeObj.eMail = getHTMLElemTextContent('contact-mail');
+    resumeObj.phoneNumber = getHTMLElemTextContent('contact-number');
+    resumeObj.personalLocation = getHTMLElemTextContent('personal-location');
+    resumeObj.customLink = getHTMLElemTextContent('custom-link');
+    resumeObj.personalDescription = getHTMLElemTextContent('personal-description');
+    const personalPicDiv = document.getElementById('personal-picture-resume-div');
+    if (personalPicDiv.childElementCount) {
+        resumeObj.personalPicSrc = personalPicDiv.children[0].tagName === 'IMG' ? personalPicDiv.children[0].src : '';
+    }
+    ;
+    const workExpDiv = document.getElementById('work-experience-resume-div');
+    resumeObj.workExpParentId = workExpDiv.parentElement ? workExpDiv.parentElement.id : 'resume-section-a';
+    const workExpItemList = document.getElementById('work-experience-resume-container');
+    if (workExpItemList.childElementCount) {
+    }
+    ;
+    const educationDiv = document.getElementById('education-resume-div');
+    resumeObj.educationParentId = educationDiv.parentElement ? educationDiv.parentElement.id : 'resume-section-b';
 }
 ;

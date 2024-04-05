@@ -51,6 +51,7 @@
         { "print-resume-button": { "EN": "Download resume", "ES": "Descargar currículum" } },
         { "save-resume-button": { "EN": "Export resume", "ES": "Exportar currículum" } },
         { "load-resume-button": { "EN": "Import resume", "ES": "Importar currículum" } },
+        { "resume-tag": { "EN": "Resume", "ES": "CV" } },
         { "empty-field-msg": { "EN": "Missing field/s", "ES": "Información incompleta" } },
         { "invalid-date-msg": { "EN": "Invalid date range", "ES": "Rango de fechas inválido" } },
         { "personal-name-tip-button": { "EN": "Generally the most common format is: Last name, Name",

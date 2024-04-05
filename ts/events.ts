@@ -1,7 +1,15 @@
-import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem } from './utils';
+import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent } from './utils';
 import { getLocalizedText, getCheckboxText } from './localization';
 
-export function swapColorMode() : void {document.body.classList.toggle("body-darkmode");};
+export function setColorMode() : void {
+    const currentHour : number = new Date().getHours();
+    if(currentHour > 7 && currentHour < 19) {
+        return;
+    };
+    document.body.classList.toggle("body-darkmode");
+};
+
+export function swapColorMode() : void {document.body.classList.toggle("body-darkmode")};
 
 export function inputToResume(srcInput : HTMLInputElement, targetElement : HTMLSpanElement) : void {
     if(srcInput.value === '') {
@@ -313,4 +321,83 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
     resumeWindow.focus();
     resumeWindow.print();
     resumeWindow.close();
+};
+
+interface workExpItem {
+    company : string;
+    position : string;
+    timePeriod : string;
+    description : string;
+    itemValue : number;
+};
+
+interface educationItem {
+    title : string;
+    titleInfo : string;
+    timePeriod : string;
+    itemValue : number;
+};
+
+interface languageItem {
+    language : string;
+    languageLevel : string;
+};
+
+interface resumeData {
+    personalName ? : string;
+    eMail ? : string;
+    phoneNumber ? : string;
+    personalLocation ? : string;
+    customLink ? : string;
+    personalDescription ? : string;
+    personalPicSrc ? : string;
+    workExpParentId ? : string;
+    workExp ? : workExpItem[];
+    educationParentId ? : string;
+    education ? : educationItem[];
+    languages ? : languageItem[];
+    skills ? : string[];
+    qualities ? : string[];
+    interests ? : string[];
+};
+
+export function saveResume() : void {
+    let resumeObj : resumeData = {};
+
+    resumeObj.personalName = getHTMLElemTextContent('personal-name');
+    resumeObj.eMail = getHTMLElemTextContent('contact-mail');
+    resumeObj.phoneNumber = getHTMLElemTextContent('contact-number');
+    resumeObj.personalLocation = getHTMLElemTextContent('personal-location');
+    resumeObj.customLink = getHTMLElemTextContent('custom-link');
+    resumeObj.personalDescription = getHTMLElemTextContent('personal-description');
+
+    const personalPicDiv : HTMLDivElement = document.getElementById('personal-picture-resume-div') as HTMLDivElement;
+    if(personalPicDiv.childElementCount) {
+        resumeObj.personalPicSrc = personalPicDiv.children[0].tagName === 'IMG' ? (personalPicDiv.children[0] as HTMLImageElement).src : '';
+    };
+
+    const workExpDiv : HTMLDivElement = document.getElementById('work-experience-resume-div') as HTMLDivElement;
+    resumeObj.workExpParentId = workExpDiv.parentElement ? workExpDiv.parentElement.id : 'resume-section-a';
+
+    //work-experience-resume-container
+    const workExpItemList : HTMLOListElement = document.getElementById('work-experience-resume-container') as HTMLOListElement;
+    if(workExpItemList.childElementCount) {
+        /*for(const child in workExpItemList.children) {
+            console.log(child);
+        };*/
+
+
+
+
+
+
+    };
+
+    const educationDiv : HTMLDivElement = document.getElementById('education-resume-div') as HTMLDivElement;
+    resumeObj.educationParentId = educationDiv.parentElement ? educationDiv.parentElement.id : 'resume-section-b';
+
+    //education-resume-container
+
+
+
 };
