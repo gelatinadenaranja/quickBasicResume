@@ -85,7 +85,7 @@
                     <div class="input-container">
                         <button id="personal-picture-tip-button" class="tip-button">!</button>
                         <input id="personal-picture-input" type="file" style="display: none;" autocomplete="off">
-                        <label id="personal-picture-label" for="personal-picture-input">personal-picture-label</label>
+                        <label id="personal-picture-label" class="blue-button" for="personal-picture-input">personal-picture-label</label>
                     </div>
                     <div id="personal-picture-div"></div>
                 </div>
@@ -362,7 +362,7 @@
 
                 <!--Separator element here-->
 
-                <div style="display: none;">
+                <div id="language-resume-div" style="display: none;">
                     <h1 id="language-resume-header" class="section-header">language-resume-header</h1>
 
                     <div id="language-resume-container"></div>
@@ -371,17 +371,17 @@
                 <!--Separator element here-->
 
                 <div id="miscellaneous-resume-div">
-                    <div style="display: none;">
+                    <div id="skills-resume-div" style="display: none;">
                         <h1 id="miscellaneous-skills-resume-header" class="section-header">miscellaneous-skills-resume-header</h1>
                         <div id="miscellaneous-skills-resume-container" class="flex-container"></div>
                     </div>
 
-                    <div style="display: none;">
+                    <div id="qualities-resume-div" style="display: none;">
                         <h1 id="miscellaneous-qualities-resume-header" class="section-header">miscellaneous-qualities-resume-header</h1>
                         <div id="miscellaneous-qualities-resume-container" class="flex-container"></div>
                     </div>
 
-                    <div style="display: none;">
+                    <div id="interests-resume-div" style="display: none;">
                         <h1 id="miscellaneous-interests-resume-header" class="section-header">miscellaneous-interests-resume-header</h1>
                         <div id="miscellaneous-interests-resume-container" class="flex-container"></div>
                     </div>
@@ -391,9 +391,11 @@
         <!--Resume element area end-->
         <!--Site functions area start-->
         <div id="site-functions-div" class="button-container">
-            <button id="print-resume-button">print-resume-button</button>
-            <button id="save-resume-button">save-resume-button</button>
-            <button id="load-resume-button">load-resume-button</button>
+            <button id="print-resume-button" class="blue-button">print-resume-button</button>
+            <button id="save-resume-button" class="blue-button">save-resume-button</button>
+            <input id="load-resume-input" type="file" style="display: none;" autocomplete="off">
+            <label id="load-resume-label" class="blue-button" for="load-resume-input">load-resume-label</label>
+
         </div>
         <!--Site functions area end-->
         <!--Customization area start-->

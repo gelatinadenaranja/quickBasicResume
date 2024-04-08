@@ -91,3 +91,17 @@ export function getHTMLElemTextContent(elementId : string) : string {
 
     return '';
 };
+
+export function setHTMLElemTextContent(elementId : string, textContent : string) : boolean {
+    const element : HTMLElement = document.getElementById(elementId) as HTMLElement;
+
+    if(!element) {
+        console.log('Element ' + elementId + ' not found');
+        return false;
+    };
+    if(element.style.display === 'none') element.style.display = 'block';
+
+    element.textContent = textContent;
+
+    return true;
+};

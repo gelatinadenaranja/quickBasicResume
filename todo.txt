@@ -29,8 +29,8 @@
 //Secret keywords shenanigans
 
 //Site func
--Export funtion
--Import function
+-Export funtion ✔
+-Import function ✔
 
 //Misc
 -Sorted dates insert ✔

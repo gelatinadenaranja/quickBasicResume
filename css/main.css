@@ -146,7 +146,7 @@ body {
     font-weight: bold;
 }
 
-#personal-picture-label {
+.blue-button {
     display: inline-block;
     font-family: Arial, sans-serif;
     font-size: 1.1rem;
@@ -159,11 +159,11 @@ body {
     transition: 200ms;
 }
 
-#personal-picture-label:hover {
+.blue-button:hover {
     background-color: #4d88ff;
 }
 
-#personal-picture-label:active {
+.blue-button:active {
     background-color: #1a66ff;
     border-color: #1a66ff;
 }
@@ -265,6 +265,7 @@ body {
 #resume-div {
     display: flex;
     justify-content: center;
+    margin: 1rem 0;
 }
 
 .input-container {

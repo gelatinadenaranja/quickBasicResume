@@ -1,4 +1,4 @@
-import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent } from './utils';
+import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent, setHTMLElemTextContent } from './utils';
 import { getLocalizedText, getCheckboxText } from './localization';
 export function setColorMode() {
     const currentHour = new Date().getHours();
@@ -21,7 +21,7 @@ export function inputToResume(srcInput, targetElement) {
     targetElement.innerText = srcInput.value;
 }
 ;
-export function insertPersonalPicture(inputFileList, personalPictureDiv, resumePersonalPictureDiv) {
+export function loadPersonalPicture(inputFileList) {
     if (!inputFileList) {
         return;
     }
@@ -39,22 +39,28 @@ export function insertPersonalPicture(inputFileList, personalPictureDiv, resumeP
             return;
         }
         ;
-        personalPictureDiv.textContent = '';
-        resumePersonalPictureDiv.textContent = '';
-        const resumePersonalPictureImg = document.createElement('img');
-        const personalPictureImg = document.createElement('img');
-        const personalPictureWrap = document.createElement('div');
-        resumePersonalPictureImg.src = imageFileURL;
-        resumePersonalPictureImg.className = 'personal-picture';
-        resumePersonalPictureDiv.append(resumePersonalPictureImg);
-        personalPictureImg.src = imageFileURL;
-        personalPictureImg.className = 'personal-picture';
-        personalPictureWrap.append(personalPictureImg);
-        personalPictureWrap.append(getRemovalBtn(resumePersonalPictureImg, personalPictureWrap));
-        personalPictureWrap.style.display = 'inline';
-        personalPictureDiv.append(personalPictureWrap);
+        insertPersonalPicture(imageFileURL);
     };
     fileReader.readAsDataURL(personalPictureFile);
+}
+;
+function insertPersonalPicture(picSrc) {
+    const personalPictureDiv = document.getElementById('personal-picture-div');
+    const resumePersonalPictureDiv = document.getElementById('personal-picture-resume-div');
+    const resumePersonalPictureImg = document.createElement('img');
+    const personalPictureImg = document.createElement('img');
+    const personalPictureWrap = document.createElement('div');
+    personalPictureDiv.textContent = '';
+    resumePersonalPictureDiv.textContent = '';
+    resumePersonalPictureImg.src = picSrc;
+    resumePersonalPictureImg.className = 'personal-picture';
+    resumePersonalPictureDiv.append(resumePersonalPictureImg);
+    personalPictureImg.src = picSrc;
+    personalPictureImg.className = 'personal-picture';
+    personalPictureWrap.append(personalPictureImg);
+    personalPictureWrap.append(getRemovalBtn(resumePersonalPictureImg, personalPictureWrap));
+    personalPictureWrap.style.display = 'inline';
+    personalPictureDiv.append(personalPictureWrap);
 }
 ;
 export function workExpToResume(companyNameInput, workPosInput, workDescInput, workDescTextArea, workStrMthSelect, workStrYrSelect, workEndMthSelect, workEndYrSelect, workPresentCheckbox, workItemsList, resumeExpList, workAreaMsgSpan) {
@@ -266,7 +272,7 @@ export function hideEmptyResumeAreas(contentRefenceElem, targetArea) {
 }
 ;
 export function printResume(resumeContainer) {
-    let resumeWindow = window.open('', '_blank', 'height=500,width=794');
+    const resumeWindow = window.open('', '_blank', 'height=500,width=794');
     if (!resumeWindow) {
         return;
     }
@@ -288,11 +294,8 @@ export function printResume(resumeContainer) {
 }
 ;
 ;
-;
-;
-;
 export function saveResume() {
-    let resumeObj = {};
+    const resumeObj = {};
     resumeObj.personalName = getHTMLElemTextContent('personal-name');
     resumeObj.eMail = getHTMLElemTextContent('contact-mail');
     resumeObj.phoneNumber = getHTMLElemTextContent('contact-number');
@@ -308,9 +311,244 @@ export function saveResume() {
     resumeObj.workExpParentId = workExpDiv.parentElement ? workExpDiv.parentElement.id : 'resume-section-a';
     const workExpItemList = document.getElementById('work-experience-resume-container');
     if (workExpItemList.childElementCount) {
+        resumeObj.workExp = [];
+        for (const child of workExpItemList.children) {
+            resumeObj.workExp.push({ value: child.getAttribute('value'), content: child.innerHTML });
+        }
+        ;
     }
     ;
     const educationDiv = document.getElementById('education-resume-div');
     resumeObj.educationParentId = educationDiv.parentElement ? educationDiv.parentElement.id : 'resume-section-b';
+    const educationItemList = document.getElementById('education-resume-container');
+    if (educationItemList.childElementCount) {
+        resumeObj.education = [];
+        for (const child of educationItemList.children) {
+            resumeObj.education.push({ value: child.getAttribute('value'), content: child.innerHTML });
+        }
+        ;
+    }
+    ;
+    const languageItemDiv = document.getElementById('language-resume-container');
+    if (languageItemDiv.childElementCount) {
+        resumeObj.languages = [];
+        for (const child of languageItemDiv.children) {
+            resumeObj.languages.push(child.innerHTML);
+        }
+        ;
+    }
+    ;
+    const skillsItemDiv = document.getElementById('miscellaneous-skills-resume-container');
+    if (skillsItemDiv.childElementCount) {
+        resumeObj.skills = [];
+        for (const child of skillsItemDiv.children) {
+            resumeObj.skills.push(child.textContent);
+        }
+        ;
+    }
+    ;
+    const qualitiesItemDiv = document.getElementById('miscellaneous-skills-resume-container');
+    if (qualitiesItemDiv.childElementCount) {
+        resumeObj.qualities = [];
+        for (const child of qualitiesItemDiv.children) {
+            resumeObj.qualities.push(child.textContent);
+        }
+        ;
+    }
+    ;
+    const interestsItemDiv = document.getElementById('miscellaneous-skills-resume-container');
+    if (interestsItemDiv.childElementCount) {
+        resumeObj.interests = [];
+        for (const child of interestsItemDiv.children) {
+            resumeObj.interests.push(child.textContent);
+        }
+        ;
+    }
+    ;
+    const anchorElem = document.createElement('a');
+    const resumeObjJSON = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(resumeObj));
+    anchorElem.setAttribute('href', resumeObjJSON);
+    anchorElem.setAttribute('download', getLocalizedText('resume-tag') + ' - ' + resumeObj.personalName + '.json');
+    document.body.appendChild(anchorElem);
+    anchorElem.click();
+    anchorElem.remove();
+}
+;
+export function loadResume(inputFileList) {
+    if (!inputFileList) {
+        return;
+    }
+    ;
+    const resumeDataJSON = inputFileList[0];
+    const fileReader = new FileReader();
+    fileReader.onload = (ev) => {
+        var _a, _b;
+        if (resumeDataJSON.type !== 'application/json') {
+            console.log('wrong file format');
+            return;
+        }
+        ;
+        const JSONTxt = (_b = (_a = ev.target) === null || _a === void 0 ? void 0 : _a.result) === null || _b === void 0 ? void 0 : _b.toString();
+        if (!JSONTxt) {
+            console.log('JSON not found');
+            return;
+        }
+        ;
+        insertLoadedResumeData(JSON.parse(JSONTxt));
+    };
+    fileReader.readAsText(resumeDataJSON);
+}
+;
+function insertLoadedResumeData(resumeDataObj) {
+    if (resumeDataObj.personalName)
+        setHTMLElemTextContent('personal-name', resumeDataObj.personalName);
+    if (resumeDataObj.eMail)
+        setHTMLElemTextContent('contact-mail', resumeDataObj.eMail);
+    if (resumeDataObj.phoneNumber)
+        setHTMLElemTextContent('contact-number', resumeDataObj.phoneNumber);
+    if (resumeDataObj.personalLocation)
+        setHTMLElemTextContent('personal-location', resumeDataObj.personalLocation);
+    if (resumeDataObj.customLink)
+        setHTMLElemTextContent('custom-link', resumeDataObj.customLink);
+    if (resumeDataObj.personalDescription)
+        setHTMLElemTextContent('personal-description', resumeDataObj.personalDescription);
+    if (resumeDataObj.personalPicSrc)
+        insertPersonalPicture(resumeDataObj.personalPicSrc);
+    if (resumeDataObj.workExp) {
+        const workExpParentId = resumeDataObj.workExpParentId ? resumeDataObj.workExpParentId : 'resume-section-a';
+        const workExpParentDiv = document.getElementById(workExpParentId);
+        const workItemsList = document.getElementById('experience-items-container');
+        const workExpResumeList = document.getElementById('work-experience-resume-container');
+        if (workExpParentDiv.style.display === 'none')
+            workExpParentDiv.style.display = 'block';
+        resumeDataObj.workExp.forEach((arrElem) => {
+            const workExpResumeItem = document.createElement('li');
+            const workExpItem = document.createElement('li');
+            const removalBtn = getRemovalBtn(workExpResumeItem, workExpItem);
+            workExpResumeItem.innerHTML = arrElem.content;
+            workExpResumeItem.className = 'resume-item';
+            workExpResumeItem.setAttribute('value', arrElem.value);
+            sortedLiAppend(workExpResumeItem, workExpResumeList);
+            workExpItem.innerHTML = arrElem.content;
+            workExpItem.className = 'list-element-item';
+            workExpItem.setAttribute('value', arrElem.value);
+            workExpItem.append(removalBtn);
+            sortedLiAppend(workExpItem, workItemsList);
+            if (arrElem.value === '1') {
+                const workPresentCheckbox = document.getElementById('work-present-checkbox');
+                removalBtn.addEventListener('click', () => (enableInputElem(workPresentCheckbox)));
+                workPresentCheckbox.checked = false;
+                disableInputElem(workPresentCheckbox);
+            }
+            ;
+        });
+    }
+    ;
+    if (resumeDataObj.education) {
+        const educationParentId = resumeDataObj.educationParentId ? resumeDataObj.educationParentId : 'resume-section-b';
+        const educationParentDiv = document.getElementById(educationParentId);
+        const educationItemsList = document.getElementById('education-items-container');
+        const educationResumeList = document.getElementById('education-resume-container');
+        if (educationParentDiv.style.display === 'none')
+            educationParentDiv.style.display = 'block';
+        resumeDataObj.education.forEach((arrElem) => {
+            const educationResumeItem = document.createElement('li');
+            const educationItem = document.createElement('li');
+            const removalBtn = getRemovalBtn(educationResumeItem, educationItem);
+            educationResumeItem.innerHTML = arrElem.content;
+            educationResumeItem.className = 'resume-item';
+            educationResumeItem.setAttribute('value', arrElem.value);
+            sortedLiAppend(educationResumeItem, educationResumeList);
+            educationItem.innerHTML = arrElem.content;
+            educationItem.className = 'list-element-item';
+            educationItem.setAttribute('value', arrElem.value);
+            educationItem.append(removalBtn);
+            sortedLiAppend(educationItem, educationItemsList);
+            if (arrElem.value === '1') {
+                const educationPresentCheckbox = document.getElementById('education-present-checkbox');
+                removalBtn.addEventListener('click', () => (enableInputElem(educationPresentCheckbox)));
+                educationPresentCheckbox.checked = false;
+                disableInputElem(educationPresentCheckbox);
+            }
+            ;
+        });
+    }
+    ;
+    if (resumeDataObj.languages) {
+        const languageParentDiv = document.getElementById('language-resume-div');
+        const educationItemsDiv = document.getElementById('language-items-container');
+        const educationResumeDiv = document.getElementById('language-resume-container');
+        if (languageParentDiv.style.display === 'none')
+            languageParentDiv.style.display = 'block';
+        resumeDataObj.languages.forEach((arrElem) => {
+            const languageResumeItem = document.createElement('div');
+            const languageItem = document.createElement('div');
+            languageResumeItem.innerHTML = arrElem;
+            languageResumeItem.className = 'resume-item';
+            educationResumeDiv.append(languageResumeItem);
+            languageItem.innerHTML = arrElem;
+            languageItem.className = 'list-element-item';
+            languageItem.append(getRemovalBtn(languageResumeItem, languageItem));
+            educationItemsDiv.append(languageItem);
+        });
+    }
+    ;
+    if (resumeDataObj.skills) {
+        const miscSkillsParentDiv = document.getElementById('skills-resume-div');
+        const miscSkillsItemsDiv = document.getElementById('miscellaneous-skills-container');
+        const miscSkillsResumeDiv = document.getElementById('miscellaneous-skills-resume-container');
+        if (miscSkillsParentDiv.style.display === 'none')
+            miscSkillsParentDiv.style.display = 'block';
+        resumeDataObj.skills.forEach((arrElem) => {
+            const miscSkillResumeItem = document.createElement('span');
+            const miscSkillItem = document.createElement('span');
+            miscSkillResumeItem.textContent = arrElem;
+            miscSkillResumeItem.className = 'resume-text';
+            miscSkillsResumeDiv.append(miscSkillResumeItem);
+            miscSkillItem.textContent = arrElem;
+            miscSkillItem.className = 'misc-span-item';
+            miscSkillItem.append(getRemovalBtn(miscSkillResumeItem, miscSkillItem));
+            miscSkillsItemsDiv.append(miscSkillItem);
+        });
+    }
+    ;
+    if (resumeDataObj.qualities) {
+        const miscQualitiesParentDiv = document.getElementById('qualities-resume-div');
+        const miscQualitiesItemsDiv = document.getElementById('miscellaneous-qualities-container');
+        const miscQualitiesResumeDiv = document.getElementById('miscellaneous-qualities-resume-container');
+        if (miscQualitiesParentDiv.style.display === 'none')
+            miscQualitiesParentDiv.style.display = 'block';
+        resumeDataObj.qualities.forEach((arrElem) => {
+            const miscQualityResumeItem = document.createElement('span');
+            const miscQualityItem = document.createElement('span');
+            miscQualityResumeItem.textContent = arrElem;
+            miscQualityResumeItem.className = 'resume-text';
+            miscQualitiesResumeDiv.append(miscQualityResumeItem);
+            miscQualityItem.textContent = arrElem;
+            miscQualityItem.className = 'misc-span-item';
+            miscQualityItem.append(getRemovalBtn(miscQualityResumeItem, miscQualityItem));
+            miscQualitiesItemsDiv.append(miscQualityItem);
+        });
+    }
+    ;
+    if (resumeDataObj.interests) {
+        const miscInterestsParentDiv = document.getElementById('interests-resume-div');
+        const miscInterestsItemsDiv = document.getElementById('miscellaneous-interests-container');
+        const miscInterestsResumeDiv = document.getElementById('miscellaneous-interests-resume-container');
+        if (miscInterestsParentDiv.style.display === 'none')
+            miscInterestsParentDiv.style.display = 'block';
+        resumeDataObj.interests.forEach((arrElem) => {
+            const miscInterestResumeItem = document.createElement('span');
+            const miscInterestItem = document.createElement('span');
+            miscInterestResumeItem.textContent = arrElem;
+            miscInterestResumeItem.className = 'resume-text';
+            miscInterestsResumeDiv.append(miscInterestResumeItem);
+            miscInterestItem.textContent = arrElem;
+            miscInterestItem.className = 'misc-span-item';
+            miscInterestItem.append(getRemovalBtn(miscInterestResumeItem, miscInterestItem));
+            miscInterestsItemsDiv.append(miscInterestItem);
+        });
+    }
+    ;
 }
 ;

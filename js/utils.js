@@ -84,3 +84,16 @@ export function getHTMLElemTextContent(elementId) {
     return '';
 }
 ;
+export function setHTMLElemTextContent(elementId, textContent) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.log('Element ' + elementId + ' not found');
+        return false;
+    }
+    ;
+    if (element.style.display === 'none')
+        element.style.display = 'block';
+    element.textContent = textContent;
+    return true;
+}
+;

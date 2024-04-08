@@ -1,4 +1,4 @@
-import { setColorMode, swapColorMode, inputToResume, insertPersonalPicture, workExpToResume, educationToResume, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, printResume, saveResume } from './events';
+import { setColorMode, swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, printResume, saveResume, loadResume } from './events';
 import { loadLocalizationData, getLocalizedText, setUserLanguage, swapUserLanguage, getCheckboxText, addSelectOptions, addYearSelectOptions, addMonthSelectOptions } from './localization';
 
 setColorMode();
@@ -92,9 +92,7 @@ personalPictureTipBtn.addEventListener('click', () => (showDialog(getLocalizedTe
 const personalPictureHeader : HTMLHeadElement = document.getElementById('personal-picture-header') as HTMLHeadElement;
 const personalPictureInput : HTMLInputElement = document.getElementById('personal-picture-input') as HTMLInputElement;
 const personalPictureLabel : HTMLLabelElement = document.getElementById('personal-picture-label') as HTMLLabelElement;
-const personalPictureDiv : HTMLDivElement = document.getElementById('personal-picture-div') as HTMLDivElement;
-const resumePersonalPicDiv : HTMLDivElement = document.getElementById('personal-picture-resume-div') as HTMLDivElement;
-personalPictureInput.addEventListener('change', () => (insertPersonalPicture(personalPictureInput.files, personalPictureDiv, resumePersonalPicDiv)));
+personalPictureInput.addEventListener('change', () => (loadPersonalPicture(personalPictureInput.files)));
 navBarLanguageSwapBtn.addEventListener('click', () => (personalPictureLabel.innerText = getLocalizedText('personal-picture-label')));
 navBarLanguageSwapBtn.addEventListener('click', () => (personalPictureHeader.innerText = getLocalizedText('personal-picture-header')));
 personalPictureHeader.innerText = getLocalizedText('personal-picture-header');
@@ -367,9 +365,8 @@ saveResumeBtn.addEventListener('click', () => (saveResume()));
 navBarLanguageSwapBtn.addEventListener('click', () => (saveResumeBtn.innerText = getLocalizedText('save-resume-button')));
 saveResumeBtn.innerText = getLocalizedText('save-resume-button');
 
-const loadResumeBtn : HTMLButtonElement = document.getElementById('load-resume-button') as HTMLButtonElement;
-
-loadResumeBtn.addEventListener('click', () => (showDialog('ola')));
-
-navBarLanguageSwapBtn.addEventListener('click', () => (loadResumeBtn.innerText = getLocalizedText('load-resume-button')));
-loadResumeBtn.innerText = getLocalizedText('load-resume-button');
+const loadResumeInput : HTMLInputElement = document.getElementById('load-resume-input') as HTMLInputElement;
+const loadResumeLabel : HTMLLabelElement = document.getElementById('load-resume-label') as HTMLLabelElement;
+loadResumeInput.addEventListener('change', () => loadResume(loadResumeInput.files));
+navBarLanguageSwapBtn.addEventListener('click', () => (loadResumeLabel.innerText = getLocalizedText('load-resume-button')));
+loadResumeLabel.innerText = getLocalizedText('load-resume-button');
