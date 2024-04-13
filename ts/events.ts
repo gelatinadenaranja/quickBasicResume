@@ -1,13 +1,5 @@
-import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent, setHTMLElemTextContent } from './utils';
+import { getCssVarValue, setCssVarValue, getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent, setHTMLElemTextContent } from './utils';
 import { getLocalizedText, getCheckboxText } from './localization';
-
-export function setColorMode() : void {
-    const currentHour : number = new Date().getHours();
-    if(currentHour > 7 && currentHour < 19) {
-        return;
-    };
-    document.body.classList.toggle("body-darkmode");
-};
 
 export function swapColorMode() : void {document.body.classList.toggle("body-darkmode")};
 
@@ -176,6 +168,25 @@ export function educationToResume(educationTitleInput : HTMLInputElement, educat
     educationAreaMsgSpan.textContent = '';
 };
 
+export function preventExcessItems(contentReferenceElem : HTMLElement, addItemBtn : HTMLButtonElement, maxItemAmount : number, maxItemMsgKey : string, resumeContentElem ? : HTMLElement) : void {
+    const contentObserver : MutationObserver = new MutationObserver(() => {
+        if(contentReferenceElem.childElementCount > maxItemAmount && addItemBtn.disabled) {
+            contentReferenceElem.lastChild?.remove();
+            resumeContentElem?.lastChild?.remove();
+            return;
+        };
+
+        if(contentReferenceElem.childElementCount >= maxItemAmount) {
+            addItemBtn.disabled = true;
+            showDialog(getLocalizedText(maxItemMsgKey));
+        };
+            
+        if(contentReferenceElem.childElementCount < maxItemAmount) addItemBtn.disabled = false;
+    });
+
+    contentObserver.observe(contentReferenceElem, { attributes: false, childList: true, subtree: false });
+};
+
 export function languageToResume(languageNameInput : HTMLInputElement, languageLevelSelect : HTMLSelectElement, 
                                 languageItemsDiv : HTMLDivElement, resumeLanguageDiv : HTMLDivElement,
                                 languageAreaMsgSpan : HTMLSpanElement) : void {
@@ -286,8 +297,8 @@ export function swapResumeDivs(resumeDiv1 : HTMLDivElement, resumeDiv2 : HTMLDiv
     parent2.insertBefore(resumeDiv1, parent2.lastChild);
 };
 
-export function hideEmptyResumeAreas(contentRefenceElem : HTMLElement, targetArea : HTMLElement) : void {
-    //Add listener to hide targetArea if contentRefenceElem has no children
+export function hideEmptyResumeAreas(contentReferenceElem : HTMLElement, targetArea : HTMLElement) : void {
+    //Add listener to hide targetArea if contentReferenceElem has no children
     const contentObserver : MutationObserver = new MutationObserver(() => {
         if(!targetArea.parentElement) {
             //Couldn't find parent node
@@ -296,14 +307,41 @@ export function hideEmptyResumeAreas(contentRefenceElem : HTMLElement, targetAre
         };
         const targetparent : HTMLElement = targetArea.parentElement;
 
-        if(contentRefenceElem.children.length > 0) {
+        if(contentReferenceElem.children.length > 0) {
             targetparent.style.display = 'block';
             return;
         };
         targetparent.style.display = 'none';
     });
 
-    contentObserver.observe(contentRefenceElem, { attributes: false, childList: true, subtree: false });
+    contentObserver.observe(contentReferenceElem, { attributes: false, childList: true, subtree: false });
+};
+
+interface colorItem {
+    id : number;
+    hexVal : string;
+};
+
+function getColorArr() : colorItem[] {
+    //["Black", "Green", "Blue", "Red", "Purple", "Orange"]
+    return [
+        {id : 0, hexVal : '#000000'},
+        {id : 1, hexVal : '#004d00'},
+        {id : 2, hexVal : '#24248f'},
+        {id : 3, hexVal : '#e60000'},
+        {id : 4, hexVal : '#800080'},
+        {id : 5, hexVal : '#ff3300'}
+    ];
+};
+
+export function changeFontColorCssVar(selectElem : HTMLSelectElement, cssVar : string) : void {setCssVarValue(cssVar, getColorArr()[selectElem.selectedIndex].hexVal)};
+
+export function changeFontCssVar(selectElem : HTMLSelectElement, cssVar : string) {
+    setCssVarValue(cssVar, selectElem.options[selectElem.selectedIndex].value);
+
+    //This is just to trigger the observer, which doesn't seem to care about style changes
+    const resumeElem : HTMLElement = document.getElementById('personal-name') as HTMLElement;
+    resumeElem.textContent = resumeElem.textContent;
 };
 
 export function printResume(resumeContainer : HTMLDivElement) : void {
@@ -313,12 +351,26 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
         return;
     };
 
+    const customizedStyle : string = `
+    <style>
+        .customized-css {
+            --resume-name-font: ` + getCssVarValue('--resume-name-font') + `;
+            --resume-section-header-font: ` + getCssVarValue('--resume-section-header-font') + `;
+            --resume-big-header-font: ` + getCssVarValue('--resume-big-header-font') + `;
+            --resume-text-font: ` + getCssVarValue('--resume-text-font') + `;
+            --resume-font-size: ` + getCssVarValue('--resume-font-size') + `;
+            --resume-headers-color: ` + getCssVarValue('--resume-headers-color') + `;
+        }
+    </style>
+    `;
+
     resumeWindow.document.write(`<html>
                                 <head>
                                     <title>` + 'Resume - PersonName' + `</title>
                                     <link href="./css/resume.css" rel="stylesheet">
+                                    ` + customizedStyle + `
                                 </head>
-                                <body>
+                                <body class='customized-css'>
                                     ` + resumeContainer.innerHTML + `
                                 </body>
                                 </html>
@@ -333,7 +385,7 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
 interface resumeItem {
     value : string;
     content : string;
-}
+};
 
 interface resumeData {
     personalName ? : string;
@@ -351,6 +403,12 @@ interface resumeData {
     skills ? : string[];
     qualities ? : string[];
     interests ? : string[];
+    resumeNameFont ? : string;
+    resumeSectionHeaderFont ? : string;
+    resumeHeaderFont ? : string;
+    resumeTextFont ? : string;
+    resumeFontSize ? : string;
+    resumeHeaderColor ? : string;
 };
 
 export function saveResume() : void {
@@ -422,9 +480,16 @@ export function saveResume() : void {
         };
     };
 
+    resumeObj.resumeNameFont = getCssVarValue('--resume-name-font');
+    resumeObj.resumeSectionHeaderFont = getCssVarValue('--resume-section-header-font');
+    resumeObj.resumeHeaderFont = getCssVarValue('--resume-big-header-font');
+    resumeObj.resumeTextFont = getCssVarValue('--resume-text-font');
+    resumeObj.resumeFontSize = getCssVarValue('--resume-font-size');
+    resumeObj.resumeHeaderColor = getCssVarValue('--resume-headers-color');
+
     const anchorElem : HTMLAnchorElement = document.createElement('a');
     const resumeObjJSON : string = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(resumeObj));
-    anchorElem.setAttribute('href',     resumeObjJSON);
+    anchorElem.setAttribute('href', resumeObjJSON);
     anchorElem.setAttribute('download', getLocalizedText('resume-tag') + ' - ' + resumeObj.personalName + '.json');
     document.body.appendChild(anchorElem);
     anchorElem.click();
@@ -443,7 +508,7 @@ export function loadResume(inputFileList : FileList | null) {
     fileReader.onload = (ev) => {
         if(resumeDataJSON.type !== 'application/json') {
             //Show error: invalid file
-            console.log('wrong file format')
+            console.log('loadResume(): Wrong file format')
             return;
         };
 
@@ -451,7 +516,7 @@ export function loadResume(inputFileList : FileList | null) {
         
         if(!JSONTxt) {
             //Show error: couldn't find file
-            console.log('JSON not found')
+            console.log('loadResume(): JSON not found')
             return;
         };
 
@@ -460,14 +525,6 @@ export function loadResume(inputFileList : FileList | null) {
 
     fileReader.readAsText(resumeDataJSON);
 };
-
-/*
-interface resumeData {
-    skills ? : string[];
-    qualities ? : string[];
-    interests ? : string[];
-};
-*/
 
 function insertLoadedResumeData(resumeDataObj : resumeData) : void {
     if(resumeDataObj.personalName) setHTMLElemTextContent('personal-name', resumeDataObj.personalName);
@@ -485,6 +542,9 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
         const workExpResumeList : HTMLOListElement = document.getElementById('work-experience-resume-container') as HTMLOListElement;
 
         if(workExpParentDiv.style.display === 'none') workExpParentDiv.style.display = 'block';
+
+        workItemsList.replaceChildren();
+        workExpResumeList.replaceChildren();
 
         resumeDataObj.workExp.forEach((arrElem : resumeItem) => {
             const workExpResumeItem : HTMLLIElement = document.createElement('li');
@@ -519,6 +579,9 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
 
         if(educationParentDiv.style.display === 'none') educationParentDiv.style.display = 'block';
 
+        educationItemsList.replaceChildren();
+        educationResumeList.replaceChildren();
+
         resumeDataObj.education.forEach((arrElem : resumeItem) => {
             const educationResumeItem : HTMLLIElement = document.createElement('li');
             const educationItem : HTMLLIElement = document.createElement('li');
@@ -551,6 +614,9 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
 
         if(languageParentDiv.style.display === 'none') languageParentDiv.style.display = 'block';
 
+        educationItemsDiv.replaceChildren();
+        educationResumeDiv.replaceChildren();
+
         resumeDataObj.languages.forEach((arrElem : string) => {
             const languageResumeItem : HTMLDivElement = document.createElement('div');
             const languageItem : HTMLDivElement = document.createElement('div');
@@ -572,6 +638,9 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
         const miscSkillsResumeDiv : HTMLDivElement = document.getElementById('miscellaneous-skills-resume-container') as HTMLDivElement;
 
         if(miscSkillsParentDiv.style.display === 'none') miscSkillsParentDiv.style.display = 'block';
+
+        miscSkillsItemsDiv.replaceChildren();
+        miscSkillsResumeDiv.replaceChildren();
 
         resumeDataObj.skills.forEach((arrElem : string) => {
             const miscSkillResumeItem : HTMLSpanElement = document.createElement('span');
@@ -595,6 +664,9 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
 
         if(miscQualitiesParentDiv.style.display === 'none') miscQualitiesParentDiv.style.display = 'block';
 
+        miscQualitiesItemsDiv.replaceChildren();
+        miscQualitiesResumeDiv.replaceChildren();
+
         resumeDataObj.qualities.forEach((arrElem : string) => {
             const miscQualityResumeItem : HTMLSpanElement = document.createElement('span');
             const miscQualityItem : HTMLSpanElement = document.createElement('span');
@@ -617,6 +689,9 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
 
         if(miscInterestsParentDiv.style.display === 'none') miscInterestsParentDiv.style.display = 'block';
 
+        miscInterestsItemsDiv.replaceChildren();
+        miscInterestsResumeDiv.replaceChildren();
+
         resumeDataObj.interests.forEach((arrElem : string) => {
             const miscInterestResumeItem : HTMLSpanElement = document.createElement('span');
             const miscInterestItem : HTMLSpanElement = document.createElement('span');
@@ -631,5 +706,40 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
             miscInterestsItemsDiv.append(miscInterestItem);
         });
     };
-    //------------
+
+    if(resumeDataObj.resumeNameFont) setCssVarValue('--resume-name-font', resumeDataObj.resumeNameFont);
+    if(resumeDataObj.resumeSectionHeaderFont) setCssVarValue('--resume-section-header-font', resumeDataObj.resumeSectionHeaderFont);
+    if(resumeDataObj.resumeHeaderFont) setCssVarValue('--resume-big-header-font', resumeDataObj.resumeHeaderFont);
+    if(resumeDataObj.resumeTextFont) setCssVarValue('--resume-text-font', resumeDataObj.resumeTextFont);
+    if(resumeDataObj.resumeFontSize) setCssVarValue('--resume-font-size', resumeDataObj.resumeFontSize);
+    if(resumeDataObj.resumeHeaderColor) setCssVarValue('--resume-headers-color', resumeDataObj.resumeHeaderColor);
+};
+
+export function resumeSpaceObserve() : void {
+    //Show a warning/error method if the height of divs in #resume is bigger than the element itself, causing overflow
+    const contentMsgSpan : HTMLSpanElement = document.getElementById('resume-last-msg') as HTMLSpanElement;
+    const resumeElement : HTMLDivElement = document.getElementById('resume') as HTMLDivElement;
+
+    const contentObserver : MutationObserver = new MutationObserver(() => {
+        let resumeChildrenHeight : number = 0;
+
+        for(const child of resumeElement.children) {
+            resumeChildrenHeight += child.scrollHeight;
+        };
+        
+        if(resumeChildrenHeight > resumeElement.offsetHeight) {
+            if(contentMsgSpan.textContent != getLocalizedText('resume-content-error-msg')) {
+                //This is to prevent message spam
+                showDialog(getLocalizedText('resume-content-error-msg'));
+                contentMsgSpan.textContent = getLocalizedText('resume-content-error-msg');
+            };
+        } else if(resumeChildrenHeight >= 0.90 * resumeElement.offsetHeight) {
+            if(contentMsgSpan.textContent != getLocalizedText('resume-content-warning-msg')) {
+                showDialog(getLocalizedText('resume-content-warning-msg'));
+                contentMsgSpan.textContent = getLocalizedText('resume-content-warning-msg');
+            };
+        };
+    });
+
+    contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
 };

@@ -211,6 +211,11 @@ body {
     border-color: #00cc66;
 }
 
+.add-item-button:disabled {
+    background-color:#787B00;
+    border-color: #787B00;
+}
+
 .remove-item-button {
     display: block;
     margin: 0 auto;

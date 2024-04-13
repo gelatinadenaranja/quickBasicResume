@@ -1,5 +1,6 @@
-import { setColorMode, swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, printResume, saveResume, loadResume } from './events';
+import { swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, preventExcessItems, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, changeFontColorCssVar, changeFontCssVar, printResume, saveResume, loadResume, resumeSpaceObserve } from './events';
 import { loadLocalizationData, getLocalizedText, setUserLanguage, swapUserLanguage, getCheckboxText, addSelectOptions, addYearSelectOptions, addMonthSelectOptions } from './localization';
+import { setColorMode, addFontOptions } from './utils'
 
 setColorMode();
 loadLocalizationData();
@@ -160,6 +161,7 @@ workDescBulletToggleCheckbox.addEventListener('click', () => (changeChkboxLabelT
 workDescTextArea.addEventListener('keyup', (event : KeyboardEvent) => (addBulletsOnEnter(event, workDescTextArea, workDescBulletSelect)));
 workDescTextArea.addEventListener('focus', () => (addBulletsIfEmpty(workDescTextArea, workDescBulletSelect)));
 workExpItemsBtn.addEventListener('click', () => (workExpToResume(companyNameInput, workPosInput, workDescInput, workDescTextArea, workStrMthSelect, workStrYrSelect, workEndMthSelect, workEndYrSelect, workPresentCheckbox, workItemsList, resumeExpList, workAreaMsgSpan)));
+preventExcessItems(workItemsList, workExpItemsBtn, 10, 'max-items-msg', resumeExpList);
 addMonthSelectOptions(workStrMthSelect);
 addMonthSelectOptions(workEndMthSelect);
 addYearSelectOptions(workStrYrSelect);
@@ -211,6 +213,7 @@ const resumeEdList : HTMLOListElement = document.getElementById('education-resum
 const educationItemsBtn : HTMLButtonElement = document.getElementById('add-education-button') as HTMLButtonElement;
 const educationAreaMsgSpan : HTMLSpanElement = document.getElementById('education-message-span') as HTMLSpanElement;
 educationItemsBtn.addEventListener('click', () => (educationToResume(educationTitleInput, educationGradeSelect, educationInstitutionInput, educationStrMthSelect, educationStrYrSelect, educationEndMthSelect, educationEndYrSelect, educationPresentCheckbox, educationItemsList, resumeEdList, educationAreaMsgSpan)));
+preventExcessItems(educationItemsList, educationItemsBtn, 10, 'max-items-msg', resumeEdList);
 addSelectOptions(educationGradeSelect, 'education-grade-select-options');
 addMonthSelectOptions(educationStrMthSelect);
 addMonthSelectOptions(educationEndMthSelect);
@@ -265,15 +268,6 @@ languageItemsBtn.addEventListener('click', () => (languageToResume(languageNameI
 navBarLanguageSwapBtn.addEventListener('click', () => (addSelectOptions(languageLevelSelect, 'language-level-select-options')));
 navBarLanguageSwapBtn.addEventListener('click', () => (languageItemsBtn.innerText = getLocalizedText('add-language-button')));
 languageItemsBtn.innerText = getLocalizedText('add-language-button');
-/*
-Possible language item template
-<h1 class="small-header">language-name</h1>
-<div class="flex-container">
-    <span>speaking - level</span>
-    <span>writing - level</span>
-    <span>reading - level</span>
-</div>
-*/
 
 const miscHeader : HTMLHeadElement = document.getElementById('miscellaneous-header') as HTMLHeadElement;
 navBarLanguageSwapBtn.addEventListener('click', () => (miscHeader.innerText = getLocalizedText('miscellaneous-header')));
@@ -367,6 +361,61 @@ saveResumeBtn.innerText = getLocalizedText('save-resume-button');
 
 const loadResumeInput : HTMLInputElement = document.getElementById('load-resume-input') as HTMLInputElement;
 const loadResumeLabel : HTMLLabelElement = document.getElementById('load-resume-label') as HTMLLabelElement;
+loadResumeLabel.addEventListener('click', () => (showDialog(getLocalizedText('import-msg'))));
 loadResumeInput.addEventListener('change', () => loadResume(loadResumeInput.files));
 navBarLanguageSwapBtn.addEventListener('click', () => (loadResumeLabel.innerText = getLocalizedText('load-resume-button')));
 loadResumeLabel.innerText = getLocalizedText('load-resume-button');
+
+resumeSpaceObserve(); 
+
+const customizationHeader : HTMLHeadElement = document.getElementById('customization-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (customizationHeader.innerText = getLocalizedText('customization-header')));
+customizationHeader.innerText = getLocalizedText('customization-header');
+
+const customHeaderColorHeader : HTMLHeadElement = document.getElementById('custom-header-color-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (customHeaderColorHeader.innerText = getLocalizedText('custom-header-color-header')));
+customHeaderColorHeader.innerText = getLocalizedText('custom-header-color-header');
+
+const customHeaderColorSelect : HTMLSelectElement = document.getElementById('custom-header-color-select') as HTMLSelectElement;
+customHeaderColorSelect.addEventListener('change', () => (changeFontColorCssVar(customHeaderColorSelect, '--resume-headers-color')));
+navBarLanguageSwapBtn.addEventListener('click', () => (addSelectOptions(customHeaderColorSelect, 'custom-header-color-select-options')));
+addSelectOptions(customHeaderColorSelect, 'custom-header-color-select-options');
+
+const customFontSizeHeader : HTMLHeadElement = document.getElementById('custom-font-size-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (customFontSizeHeader.innerText = getLocalizedText('custom-font-size-header')));
+customFontSizeHeader.innerText = getLocalizedText('custom-font-size-header');
+
+const customFontSizeSelect : HTMLSelectElement = document.getElementById('custom-font-size') as HTMLSelectElement;
+customFontSizeSelect.addEventListener('change', () => (changeFontCssVar(customFontSizeSelect, '--resume-font-size')));
+
+const customNameFontHeader : HTMLHeadElement = document.getElementById('custom-name-font-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (customNameFontHeader.innerText = getLocalizedText('custom-name-font-header')));
+customNameFontHeader.innerText = getLocalizedText('custom-name-font-header');
+
+const customNameFontSelect : HTMLSelectElement = document.getElementById('custom-name-font') as HTMLSelectElement;
+customNameFontSelect.addEventListener('change', () => (changeFontCssVar(customNameFontSelect, '--resume-name-font')));
+addFontOptions(customNameFontSelect);
+
+const customSectionHeaderFontHeader : HTMLHeadElement = document.getElementById('custom-section-header-font-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (customSectionHeaderFontHeader.innerText = getLocalizedText('custom-section-header-font-header')));
+customSectionHeaderFontHeader.innerText = getLocalizedText('custom-section-header-font-header');
+
+const customSectionHeaderFontSelect : HTMLSelectElement = document.getElementById('custom-section-header-font') as HTMLSelectElement;
+customSectionHeaderFontSelect.addEventListener('change', () => (changeFontCssVar(customSectionHeaderFontSelect, '--resume-section-header-font')));
+addFontOptions(customSectionHeaderFontSelect);
+
+const customHeaderFontHeader : HTMLHeadElement = document.getElementById('custom-header-font-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (customHeaderFontHeader.innerText = getLocalizedText('custom-header-font-header')));
+customHeaderFontHeader.innerText = getLocalizedText('custom-header-font-header');
+
+const customHeaderFontSelect : HTMLSelectElement = document.getElementById('custom-header-font') as HTMLSelectElement;
+customHeaderFontSelect.addEventListener('change', () => (changeFontCssVar(customHeaderFontSelect, '--resume-big-header-font')));
+addFontOptions(customHeaderFontSelect);
+
+const customTextFontHeader : HTMLHeadElement = document.getElementById('custom-text-font-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (customTextFontHeader.innerText = getLocalizedText('custom-text-font-header')));
+customTextFontHeader.innerText = getLocalizedText('custom-text-font-header');
+
+const customTextFontSelect : HTMLSelectElement = document.getElementById('custom-text-font') as HTMLSelectElement;
+customTextFontSelect.addEventListener('change', () => (changeFontCssVar(customTextFontSelect, '--resume-text-font')));
+addFontOptions(customTextFontSelect);

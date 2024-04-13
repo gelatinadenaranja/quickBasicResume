@@ -1,3 +1,37 @@
+export function setColorMode() {
+    const currentHour = new Date().getHours();
+    if (currentHour > 7 && currentHour < 19) {
+        return;
+    }
+    ;
+    document.body.classList.toggle("body-darkmode");
+}
+;
+;
+function getFontsArray() {
+    return [
+        { fontName: 'Times New Roman', fontValue: '"Times New Roman", serif' },
+        { fontName: 'Georgia', fontValue: 'Georgia, serif' },
+        { fontName: 'Verdana', fontValue: 'Verdana, sans-serif' },
+        { fontName: 'Tahoma', fontValue: 'Tahoma, sans-serif' },
+        { fontName: 'Arial', fontValue: 'Arial, sans-serif' },
+        { fontName: 'Courier New', fontValue: '"Courier New", monospace' }
+    ];
+}
+export function addFontOptions(selectElem) {
+    const fontsArray = getFontsArray();
+    fontsArray.forEach((item) => {
+        const optionElem = document.createElement('option');
+        optionElem.textContent = item.fontName;
+        optionElem.value = item.fontValue;
+        selectElem.append(optionElem);
+    });
+}
+;
+export function getCssVarValue(cssVar) { return getComputedStyle(document.body).getPropertyValue(cssVar); }
+;
+export function setCssVarValue(cssVar, cssVarValue) { document.documentElement.style.setProperty(cssVar, cssVarValue); }
+;
 export function getWorkItemTemplate(companyName, workPos, workDesc, workStr, workEnd) {
     const workItemTemplate = `
     <div class="flex-container">
@@ -25,7 +59,7 @@ export function getEducationItemTemplate(educationTitle, educationGrade, educati
 export function getLanguageItemTemplate(languageName, languageLevel) {
     const languageItemTemplate = `
     <div>
-        <span class="big-header">` + languageName + ` : </span>
+        <span class="small-header">` + languageName + ` : </span>
         <span class="small-header">` + languageLevel + `</span>
     </div>`;
     return languageItemTemplate;

@@ -1,3 +1,42 @@
+export function setColorMode() : void {
+    const currentHour : number = new Date().getHours();
+    if(currentHour > 7 && currentHour < 19) {
+        return;
+    };
+    document.body.classList.toggle("body-darkmode");
+};
+
+interface fontItem {
+    fontName : string;
+    fontValue : string;
+};
+
+function getFontsArray() : fontItem[] {
+    return [
+        {fontName : 'Times New Roman', fontValue : '"Times New Roman", serif'},
+        {fontName : 'Georgia', fontValue : 'Georgia, serif'},
+        {fontName : 'Verdana', fontValue : 'Verdana, sans-serif'},
+        {fontName : 'Tahoma', fontValue : 'Tahoma, sans-serif'},
+        {fontName : 'Arial', fontValue : 'Arial, sans-serif'},
+        {fontName : 'Courier New', fontValue : '"Courier New", monospace'}
+    ];
+}
+
+export function addFontOptions(selectElem : HTMLSelectElement) : void {
+    const fontsArray : fontItem[] = getFontsArray();
+
+    fontsArray.forEach((item) => {
+        const optionElem : HTMLOptionElement = document.createElement('option');
+        optionElem.textContent = item.fontName;
+        optionElem.value = item.fontValue;
+        selectElem.append(optionElem);
+    });
+};
+
+export function getCssVarValue(cssVar : string) : string {return getComputedStyle(document.body).getPropertyValue(cssVar)};
+
+export function setCssVarValue(cssVar : string, cssVarValue : string) : void {document.documentElement.style.setProperty(cssVar, cssVarValue)};
+
 export function getWorkItemTemplate(companyName : string, workPos : string, workDesc : string, 
                                     workStr : string, workEnd : string) : string {
     const workItemTemplate : string = `
@@ -29,7 +68,7 @@ export function getEducationItemTemplate(educationTitle : string, educationGrade
 export function getLanguageItemTemplate(languageName : string, languageLevel : string) : string {
     const languageItemTemplate : string = `
     <div>
-        <span class="big-header">` + languageName + ` : </span>
+        <span class="small-header">` + languageName + ` : </span>
         <span class="small-header">` + languageLevel +`</span>
     </div>`;
 

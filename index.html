@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random resume site</title>
     <link href="./css/main.css" rel="stylesheet">
-    <link href="./css/resume.css" rel="stylesheet">
+    <link id="resume-css" href="./css/resume.css" rel="stylesheet">
     <script src="./bundles/main.js" defer></script>
 </head>
 <body>
@@ -147,11 +147,11 @@
                         </div>
 
                         <select id="work-experience-bullets-select" style="display:none;" autocomplete="off">
-                            <option class="bullet-option">•</option>
-                            <option class="bullet-option">◦</option>
-                            <option class="bullet-option">‣</option>
-                            <option class="bullet-option">▪</option>
-                            <option class="bullet-option">-</option>
+                            <option>•</option>
+                            <option>◦</option>
+                            <option>‣</option>
+                            <option>▪</option>
+                            <option>-</option>
                         </select>
                     </div>
                 </div>
@@ -319,6 +319,7 @@
         <!--Data input area end-->
         <!--Resume element area start-->
         <div id="resume-div">
+            <span id="resume-last-msg" style="display: none;"></span>
             <div id="resume" class="flex-container">
                 <div id="personal-data-div">
                     <div style="flex-grow: 2;">
@@ -399,7 +400,61 @@
         </div>
         <!--Site functions area end-->
         <!--Customization area start-->
-        <div id="customization-div">
+        <div id="customization-div" class="controls-container">
+            <h1 id="customization-header" class="div-header">customization-header</h1>
+
+            <div>
+                <h1 id="custom-header-color-header" class="input-header">custom-header-color-header</h1>
+
+                <div class="input-container">
+                    <select id="custom-header-color-select" class="select-input" autocomplete="off"></select>
+                </div>
+            </div>
+
+            <div>
+                <h1 id="custom-font-size-header" class="input-header">custom-font-size-header</h1>
+
+                <div class="input-container">
+                    <select id="custom-font-size" class="select-input" autocomplete="off">
+                        <option value="14px">14</option>
+                        <option value="16px" selected="selected">16</option>
+                        <option value="18px">18</option>
+                        <option value="20px">20</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <h1 id="custom-name-font-header" class="input-header">custom-name-font-header</h1>
+
+                <div class="input-container">
+                    <select id="custom-name-font" class="select-input" autocomplete="off"></select>
+                </div>
+            </div>
+
+            <div>
+                <h1 id="custom-section-header-font-header" class="input-header">custom-section-header-font-header</h1>
+
+                <div class="input-container">
+                    <select id="custom-section-header-font" class="select-input" autocomplete="off"></select>
+                </div>
+            </div>
+
+            <div>
+                <h1 id="custom-header-font-header" class="input-header">custom-header-font-header</h1>
+
+                <div class="input-container">
+                    <select id="custom-header-font" class="select-input" autocomplete="off"></select>
+                </div>
+            </div>
+
+            <div>
+                <h1 id="custom-text-font-header" class="input-header">custom-text-font-header</h1>
+
+                <div class="input-container">
+                    <select id="custom-text-font" class="select-input" autocomplete="off"></select>
+                </div>
+            </div>
         </div>
         <!--Customization area end-->
     </div>

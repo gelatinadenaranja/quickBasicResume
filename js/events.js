@@ -1,14 +1,5 @@
-import { getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent, setHTMLElemTextContent } from './utils';
+import { getCssVarValue, setCssVarValue, getWorkItemTemplate, getEducationItemTemplate, getLanguageItemTemplate, getRemovalBtn, getSelectElemText, sortedLiAppend, disableInputElem, enableInputElem, getHTMLElemTextContent, setHTMLElemTextContent } from './utils';
 import { getLocalizedText, getCheckboxText } from './localization';
-export function setColorMode() {
-    const currentHour = new Date().getHours();
-    if (currentHour > 7 && currentHour < 19) {
-        return;
-    }
-    ;
-    document.body.classList.toggle("body-darkmode");
-}
-;
 export function swapColorMode() { document.body.classList.toggle("body-darkmode"); }
 ;
 export function inputToResume(srcInput, targetElement) {
@@ -155,6 +146,26 @@ export function educationToResume(educationTitleInput, educationGradeSelect, edu
     educationAreaMsgSpan.textContent = '';
 }
 ;
+export function preventExcessItems(contentReferenceElem, addItemBtn, maxItemAmount, maxItemMsgKey, resumeContentElem) {
+    const contentObserver = new MutationObserver(() => {
+        var _a, _b;
+        if (contentReferenceElem.childElementCount > maxItemAmount && addItemBtn.disabled) {
+            (_a = contentReferenceElem.lastChild) === null || _a === void 0 ? void 0 : _a.remove();
+            (_b = resumeContentElem === null || resumeContentElem === void 0 ? void 0 : resumeContentElem.lastChild) === null || _b === void 0 ? void 0 : _b.remove();
+            return;
+        }
+        ;
+        if (contentReferenceElem.childElementCount >= maxItemAmount) {
+            addItemBtn.disabled = true;
+            showDialog(getLocalizedText(maxItemMsgKey));
+        }
+        ;
+        if (contentReferenceElem.childElementCount < maxItemAmount)
+            addItemBtn.disabled = false;
+    });
+    contentObserver.observe(contentReferenceElem, { attributes: false, childList: true, subtree: false });
+}
+;
 export function languageToResume(languageNameInput, languageLevelSelect, languageItemsDiv, resumeLanguageDiv, languageAreaMsgSpan) {
     if (!languageNameInput.value) {
         languageAreaMsgSpan.textContent = getLocalizedText('empty-field-msg');
@@ -253,7 +264,7 @@ export function swapResumeDivs(resumeDiv1, resumeDiv2) {
     parent2.insertBefore(resumeDiv1, parent2.lastChild);
 }
 ;
-export function hideEmptyResumeAreas(contentRefenceElem, targetArea) {
+export function hideEmptyResumeAreas(contentReferenceElem, targetArea) {
     const contentObserver = new MutationObserver(() => {
         if (!targetArea.parentElement) {
             console.log('hideEmptyResumeAreas(): Could not find parent node');
@@ -261,14 +272,34 @@ export function hideEmptyResumeAreas(contentRefenceElem, targetArea) {
         }
         ;
         const targetparent = targetArea.parentElement;
-        if (contentRefenceElem.children.length > 0) {
+        if (contentReferenceElem.children.length > 0) {
             targetparent.style.display = 'block';
             return;
         }
         ;
         targetparent.style.display = 'none';
     });
-    contentObserver.observe(contentRefenceElem, { attributes: false, childList: true, subtree: false });
+    contentObserver.observe(contentReferenceElem, { attributes: false, childList: true, subtree: false });
+}
+;
+;
+function getColorArr() {
+    return [
+        { id: 0, hexVal: '#000000' },
+        { id: 1, hexVal: '#004d00' },
+        { id: 2, hexVal: '#24248f' },
+        { id: 3, hexVal: '#e60000' },
+        { id: 4, hexVal: '#800080' },
+        { id: 5, hexVal: '#ff3300' }
+    ];
+}
+;
+export function changeFontColorCssVar(selectElem, cssVar) { setCssVarValue(cssVar, getColorArr()[selectElem.selectedIndex].hexVal); }
+;
+export function changeFontCssVar(selectElem, cssVar) {
+    setCssVarValue(cssVar, selectElem.options[selectElem.selectedIndex].value);
+    const resumeElem = document.getElementById('personal-name');
+    resumeElem.textContent = resumeElem.textContent;
 }
 ;
 export function printResume(resumeContainer) {
@@ -277,12 +308,25 @@ export function printResume(resumeContainer) {
         return;
     }
     ;
+    const customizedStyle = `
+    <style>
+        .customized-css {
+            --resume-name-font: ` + getCssVarValue('--resume-name-font') + `;
+            --resume-section-header-font: ` + getCssVarValue('--resume-section-header-font') + `;
+            --resume-big-header-font: ` + getCssVarValue('--resume-big-header-font') + `;
+            --resume-text-font: ` + getCssVarValue('--resume-text-font') + `;
+            --resume-font-size: ` + getCssVarValue('--resume-font-size') + `;
+            --resume-headers-color: ` + getCssVarValue('--resume-headers-color') + `;
+        }
+    </style>
+    `;
     resumeWindow.document.write(`<html>
                                 <head>
                                     <title>` + 'Resume - PersonName' + `</title>
                                     <link href="./css/resume.css" rel="stylesheet">
+                                    ` + customizedStyle + `
                                 </head>
-                                <body>
+                                <body class='customized-css'>
                                     ` + resumeContainer.innerHTML + `
                                 </body>
                                 </html>
@@ -292,6 +336,7 @@ export function printResume(resumeContainer) {
     resumeWindow.print();
     resumeWindow.close();
 }
+;
 ;
 ;
 export function saveResume() {
@@ -365,6 +410,12 @@ export function saveResume() {
         ;
     }
     ;
+    resumeObj.resumeNameFont = getCssVarValue('--resume-name-font');
+    resumeObj.resumeSectionHeaderFont = getCssVarValue('--resume-section-header-font');
+    resumeObj.resumeHeaderFont = getCssVarValue('--resume-big-header-font');
+    resumeObj.resumeTextFont = getCssVarValue('--resume-text-font');
+    resumeObj.resumeFontSize = getCssVarValue('--resume-font-size');
+    resumeObj.resumeHeaderColor = getCssVarValue('--resume-headers-color');
     const anchorElem = document.createElement('a');
     const resumeObjJSON = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(resumeObj));
     anchorElem.setAttribute('href', resumeObjJSON);
@@ -384,13 +435,13 @@ export function loadResume(inputFileList) {
     fileReader.onload = (ev) => {
         var _a, _b;
         if (resumeDataJSON.type !== 'application/json') {
-            console.log('wrong file format');
+            console.log('loadResume(): Wrong file format');
             return;
         }
         ;
         const JSONTxt = (_b = (_a = ev.target) === null || _a === void 0 ? void 0 : _a.result) === null || _b === void 0 ? void 0 : _b.toString();
         if (!JSONTxt) {
-            console.log('JSON not found');
+            console.log('loadResume(): JSON not found');
             return;
         }
         ;
@@ -421,6 +472,8 @@ function insertLoadedResumeData(resumeDataObj) {
         const workExpResumeList = document.getElementById('work-experience-resume-container');
         if (workExpParentDiv.style.display === 'none')
             workExpParentDiv.style.display = 'block';
+        workItemsList.replaceChildren();
+        workExpResumeList.replaceChildren();
         resumeDataObj.workExp.forEach((arrElem) => {
             const workExpResumeItem = document.createElement('li');
             const workExpItem = document.createElement('li');
@@ -451,6 +504,8 @@ function insertLoadedResumeData(resumeDataObj) {
         const educationResumeList = document.getElementById('education-resume-container');
         if (educationParentDiv.style.display === 'none')
             educationParentDiv.style.display = 'block';
+        educationItemsList.replaceChildren();
+        educationResumeList.replaceChildren();
         resumeDataObj.education.forEach((arrElem) => {
             const educationResumeItem = document.createElement('li');
             const educationItem = document.createElement('li');
@@ -480,6 +535,8 @@ function insertLoadedResumeData(resumeDataObj) {
         const educationResumeDiv = document.getElementById('language-resume-container');
         if (languageParentDiv.style.display === 'none')
             languageParentDiv.style.display = 'block';
+        educationItemsDiv.replaceChildren();
+        educationResumeDiv.replaceChildren();
         resumeDataObj.languages.forEach((arrElem) => {
             const languageResumeItem = document.createElement('div');
             const languageItem = document.createElement('div');
@@ -499,6 +556,8 @@ function insertLoadedResumeData(resumeDataObj) {
         const miscSkillsResumeDiv = document.getElementById('miscellaneous-skills-resume-container');
         if (miscSkillsParentDiv.style.display === 'none')
             miscSkillsParentDiv.style.display = 'block';
+        miscSkillsItemsDiv.replaceChildren();
+        miscSkillsResumeDiv.replaceChildren();
         resumeDataObj.skills.forEach((arrElem) => {
             const miscSkillResumeItem = document.createElement('span');
             const miscSkillItem = document.createElement('span');
@@ -518,6 +577,8 @@ function insertLoadedResumeData(resumeDataObj) {
         const miscQualitiesResumeDiv = document.getElementById('miscellaneous-qualities-resume-container');
         if (miscQualitiesParentDiv.style.display === 'none')
             miscQualitiesParentDiv.style.display = 'block';
+        miscQualitiesItemsDiv.replaceChildren();
+        miscQualitiesResumeDiv.replaceChildren();
         resumeDataObj.qualities.forEach((arrElem) => {
             const miscQualityResumeItem = document.createElement('span');
             const miscQualityItem = document.createElement('span');
@@ -537,6 +598,8 @@ function insertLoadedResumeData(resumeDataObj) {
         const miscInterestsResumeDiv = document.getElementById('miscellaneous-interests-resume-container');
         if (miscInterestsParentDiv.style.display === 'none')
             miscInterestsParentDiv.style.display = 'block';
+        miscInterestsItemsDiv.replaceChildren();
+        miscInterestsResumeDiv.replaceChildren();
         resumeDataObj.interests.forEach((arrElem) => {
             const miscInterestResumeItem = document.createElement('span');
             const miscInterestItem = document.createElement('span');
@@ -550,5 +613,45 @@ function insertLoadedResumeData(resumeDataObj) {
         });
     }
     ;
+    if (resumeDataObj.resumeNameFont)
+        setCssVarValue('--resume-name-font', resumeDataObj.resumeNameFont);
+    if (resumeDataObj.resumeSectionHeaderFont)
+        setCssVarValue('--resume-section-header-font', resumeDataObj.resumeSectionHeaderFont);
+    if (resumeDataObj.resumeHeaderFont)
+        setCssVarValue('--resume-big-header-font', resumeDataObj.resumeHeaderFont);
+    if (resumeDataObj.resumeTextFont)
+        setCssVarValue('--resume-text-font', resumeDataObj.resumeTextFont);
+    if (resumeDataObj.resumeFontSize)
+        setCssVarValue('--resume-font-size', resumeDataObj.resumeFontSize);
+    if (resumeDataObj.resumeHeaderColor)
+        setCssVarValue('--resume-headers-color', resumeDataObj.resumeHeaderColor);
+}
+;
+export function resumeSpaceObserve() {
+    const contentMsgSpan = document.getElementById('resume-last-msg');
+    const resumeElement = document.getElementById('resume');
+    const contentObserver = new MutationObserver(() => {
+        let resumeChildrenHeight = 0;
+        for (const child of resumeElement.children) {
+            resumeChildrenHeight += child.scrollHeight;
+        }
+        ;
+        if (resumeChildrenHeight > resumeElement.offsetHeight) {
+            if (contentMsgSpan.textContent != getLocalizedText('resume-content-error-msg')) {
+                showDialog(getLocalizedText('resume-content-error-msg'));
+                contentMsgSpan.textContent = getLocalizedText('resume-content-error-msg');
+            }
+            ;
+        }
+        else if (resumeChildrenHeight >= 0.90 * resumeElement.offsetHeight) {
+            if (contentMsgSpan.textContent != getLocalizedText('resume-content-warning-msg')) {
+                showDialog(getLocalizedText('resume-content-warning-msg'));
+                contentMsgSpan.textContent = getLocalizedText('resume-content-warning-msg');
+            }
+            ;
+        }
+        ;
+    });
+    contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
 }
 ;

@@ -1,10 +1,22 @@
-* {
+:root {
+    --resume-name-font: 'Times New Roman', serif;
+    --resume-section-header-font: 'Times New Roman', serif;
+    --resume-big-header-font: 'Times New Roman', serif;
+    --resume-text-font: Arial, sans-serif;
+    --resume-font-size: 16px;
+    --resume-headers-color: #000000;
+}
+
+#resume * {
     box-sizing: border-box;
+    font-size: var(--resume-font-size);
 }
 
 #resume {
     flex-direction: column;
+    flex-wrap: nowrap;
     background-color: white;
+    overflow: hidden;
     padding: 1% 2%;
     min-height: 29.7cm;
     min-width: 21cm;
@@ -12,14 +24,10 @@
     max-width: 21cm;
 }
 
-#resume * {
-    font-size: 16px;
-}
-
 .resume-text {
     display: block;
-    font-family: Arial, sans-serif;
-    font-size: 1rem !important;
+    font-family: var(--resume-text-font);
+    font-size: 100%;
     overflow-wrap: break-word;
     white-space: pre-wrap;
     padding: 0;
@@ -28,9 +36,10 @@
 
 #personal-name {
     display: block;
-    font-family: 'Times New Roman', serif;
-    font-size: 2.2rem;
+    font-family: var(--resume-name-font);
+    font-size: 220% !important;
     font-weight: bold;
+    color: var(--resume-headers-color);
     margin-bottom: 1rem;
 }
 
@@ -51,23 +60,26 @@
 }
 
 .section-header {
-    font-family: 'Times New Roman', serif;
-    font-size: 2rem !important;
+    font-family: var(--resume-section-header-font);
+    font-size: 200% !important;
+    color: var(--resume-headers-color);
     margin: 1rem 0 0 0;
 }
 
 .big-header {
     display: inline-block;
-    font-family: 'Times New Roman', serif;
-    font-size: 1.5rem !important;
+    font-family: var(--resume-big-header-font);
+    font-size: 150% !important;
     font-weight: normal;
+    color: var(--resume-headers-color);
+    opacity: 0.8;
     margin: 0;
 }
 
 .small-header {
     display: inline-block;
     font-family: Arial, sans-serif;
-    font-size: 1.2rem !important;
+    font-size: 120% !important;
     font-weight: normal;
     margin: 0.5rem 0 0.5rem 0.5rem;
 }
@@ -78,6 +90,7 @@
 
 .flex-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
