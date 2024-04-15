@@ -1,8 +1,8 @@
 {
     "localizationData": [
         { "nav-bar-header": { "EN": "QuickBasicResume", "ES": "CvSencillo" } },
-        { "nav-bar-paragraph": { "EN": "QuickBasicResume is a simple site for quickly creating resumes",
-                "ES": "CvSencillo es una página simple para crear CVs rápidamente" } },
+        { "nav-bar-paragraph": { "EN": "QuickBasicResume is a simple site for quickly creating single-page format resumes",
+                "ES": "CvSencillo es una página simple para crear CVs en formato de una página rápidamente" } },
         { "nav-bar-language-button": { "EN": "English", "ES": "Español" } },
         { "personal-info-header": { "EN": "Personal information", "ES": "Información personal" } },
         { "personal-name-header": { "EN": "Name", "ES": "Nombre" } },
