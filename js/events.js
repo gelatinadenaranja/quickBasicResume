@@ -303,11 +303,6 @@ export function changeFontCssVar(selectElem, cssVar) {
 }
 ;
 export function printResume(resumeContainer) {
-    const resumeWindow = window.open('', '_blank', 'height=500,width=794');
-    if (!resumeWindow) {
-        return;
-    }
-    ;
     const customizedStyle = `
     <style>
         .customized-css {
@@ -320,7 +315,10 @@ export function printResume(resumeContainer) {
         }
     </style>
     `;
-    resumeWindow.document.write(`<html>
+    const iFrameElem = document.createElement('iframe');
+    document.body.append(iFrameElem);
+    if (iFrameElem.contentWindow) {
+        iFrameElem.contentWindow.document.write(`<html>
                                 <head>
                                     <title>` + 'Resume - PersonName' + `</title>
                                     <link href="./css/resume.css" rel="stylesheet">
@@ -331,10 +329,10 @@ export function printResume(resumeContainer) {
                                 </body>
                                 </html>
     `);
-    resumeWindow.document.close();
-    resumeWindow.focus();
-    resumeWindow.print();
-    resumeWindow.close();
+        iFrameElem.contentWindow.document.close();
+        iFrameElem.contentWindow.print();
+    }
+    ;
 }
 ;
 ;

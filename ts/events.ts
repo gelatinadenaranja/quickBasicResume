@@ -345,11 +345,13 @@ export function changeFontCssVar(selectElem : HTMLSelectElement, cssVar : string
 };
 
 export function printResume(resumeContainer : HTMLDivElement) : void {
+    /*
     const resumeWindow = window.open('', '_blank', 'height=500,width=794');
     if(!resumeWindow) {
         //Show error: Print window empty
         return;
     };
+    */
 
     const customizedStyle : string = `
     <style>
@@ -364,6 +366,7 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
     </style>
     `;
 
+    /*
     resumeWindow.document.write(`<html>
                                 <head>
                                     <title>` + 'Resume - PersonName' + `</title>
@@ -375,11 +378,36 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
                                 </body>
                                 </html>
     `);
+    */
 
-    resumeWindow.document.close();
+    /*resumeWindow.document.close();
     resumeWindow.focus();
     resumeWindow.print();
-    resumeWindow.close();
+    resumeWindow.close();*/
+
+    //
+    const iFrameElem : HTMLIFrameElement = document.createElement('iframe');
+    document.body.append(iFrameElem);
+
+    if(iFrameElem.contentWindow) {
+        //iFrameElem.contentWindow.open('', '', 'height=500,width=1000');
+        
+        iFrameElem.contentWindow.document.write(`<html>
+                                <head>
+                                    <title>` + 'Resume - PersonName' + `</title>
+                                    <link href="./css/resume.css" rel="stylesheet">
+                                    ` + customizedStyle + `
+                                </head>
+                                <body class='customized-css'>
+                                    ` + resumeContainer.innerHTML + `
+                                </body>
+                                </html>
+    `);
+
+    iFrameElem.contentWindow.document.close();
+    iFrameElem.contentWindow.print();
+    };
+
 };
 
 interface resumeItem {
