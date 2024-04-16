@@ -321,7 +321,7 @@
         <div id="resume-div">
             <span id="resume-last-msg" style="display: none;"></span>
             <div id="resume" class="flex-container">
-                <div id="personal-data-div">
+                <div id="personal-data-div" class="resume-container">
                     <div style="flex-grow: 2;">
                         <span id="personal-name" style="display: none;">personal-name</span>
 
@@ -337,13 +337,9 @@
                     <div id="personal-picture-resume-div"></div>
                 </div>
 
-                <!--Separator element here-->
+                <p id="personal-description" class="resume-text resume-container" style="display: none;">personal-description</p>
 
-                <p id="personal-description" class="resume-text" style="display: none;">personal-description</p>
-
-                <!--Separator element here-->
-
-                <div id="resume-section-a" style="display: none;">
+                <div id="resume-section-a" class="resume-container" style="display: none;">
                     <div id="work-experience-resume-div">
                         <h1 id="work-experience-resume-header" class="section-header">work-experience-resume-header</h1>
     
@@ -351,9 +347,7 @@
                     </div>
                 </div>
 
-                <!--Separator element here-->
-
-                <div id="resume-section-b" style="display: none;">
+                <div id="resume-section-b" class="resume-container" style="display: none;">
                     <div id="education-resume-div">
                         <h1 id="education-resume-header" class="section-header">education-resume-header</h1>
     
@@ -361,17 +355,15 @@
                     </div>
                 </div>
 
-                <!--Separator element here-->
-
-                <div id="language-resume-div" style="display: none;">
+                <div id="language-resume-div" class="resume-container" style="display: none;">
                     <h1 id="language-resume-header" class="section-header">language-resume-header</h1>
 
                     <div id="language-resume-container"></div>
                 </div>
 
-                <!--Separator element here-->
+                <!--<div class="separator"><div class="separator-filler"></div></div>-->
 
-                <div id="miscellaneous-resume-div">
+                <div id="miscellaneous-resume-div" class="resume-container">
                     <div id="skills-resume-div" style="display: none;">
                         <h1 id="miscellaneous-skills-resume-header" class="section-header">miscellaneous-skills-resume-header</h1>
                         <div id="miscellaneous-skills-resume-container" class="flex-container"></div>
@@ -402,6 +394,25 @@
         <!--Customization area start-->
         <div id="customization-div" class="controls-container">
             <h1 id="customization-header" class="div-header">customization-header</h1>
+
+            <!--
+            <div>
+                <h1 id="separator-header" class="input-header">separator-header</h1>
+
+                <div class="input-container">
+                    <input id="separator-input" type="checkbox" style="display: none;">
+                    <label id="separator-label" class="blue-button" for="separator-input">separator-label</label>
+                </div>
+            </div>
+
+            <div>
+                <h1 id="separator-color" class="input-header">separator-color</h1>
+
+                <div class="input-container">
+                    <select id="separator-color-select" class="select-input" autocomplete="off"></select>
+                </div>
+            </div>
+            -->
 
             <div>
                 <h1 id="custom-header-color-header" class="input-header">custom-header-color-header</h1>

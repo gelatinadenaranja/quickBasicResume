@@ -1,6 +1,7 @@
 :root {
-    --body-color: #ffd54d;
-    --wrapper-color:#ffe17b;
+    --body-color: #C9D6DF;
+    --wrapper-color: #F0F5F9;
+    --extra-color: #52616B;
     --font-color: #000000;
 }
 
@@ -9,19 +10,28 @@
     font-size: 16px;
 }
 
+@media only screen and (max-width: 900px) {
+    #resume-div {
+        justify-content: left !important;
+        overflow: auto;
+    }
+}
+
 body {
     background-color: var(--body-color);
 }
 
 .body-darkmode {
-    --body-color: #000000;
-    --wrapper-color:#333333;
-    --font-color: #ffffff;
+    --body-color: #0D0D0D;
+    --wrapper-color: #1A1A1A;
+    --extra-color: #262626;
+    --font-color: #FFFFFF;
 }
 
 .wrapper {
     background-color: var(--wrapper-color);
-    border-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     margin: 0 auto;
     width: 80%;
 }
@@ -29,7 +39,8 @@ body {
 .nav-bar {
     text-align: center;
     color: var(--font-color);
-    margin-bottom: 5rem;
+    padding-top: 0.5rem;
+    margin-bottom: 3rem;
 }
 
 #nav-bar-header {
@@ -45,7 +56,7 @@ body {
     font-size: 1rem;
     color: var(--font-color);
     background-color: var(--wrapper-color);
-    border: 3px solid var(--font-color);
+    border: 3px solid var(--extra-color);
     border-radius: 8px;
     padding: 0 1rem;
     transition: 300ms;
@@ -53,8 +64,7 @@ body {
 }
 
 .nav-bar-button:hover {
-    color: var(--wrapper-color);
-    background-color: var(--font-color);
+    background-color: var(--extra-color);
 }
 
 .nav-bar-button:active {
@@ -82,6 +92,7 @@ body {
 
 #personal-picture-div {
     text-align: center;
+    margin-bottom: 1rem;
 }
 
 .text-input {
@@ -101,8 +112,8 @@ body {
 .select-input {
     font-family: Arial, sans-serif;
     font-size: 1rem;
-    background-color: #ffffff;
-    border: none;
+    background-color: #FFFFFF;
+    border: 1px solid var(--extra-color);
     padding: 0.5rem;
     transition: 300ms;
     margin-left: 1rem;
@@ -115,7 +126,7 @@ body {
 #work-experience-bullets-select {
     font-family: Arial, sans-serif;
     font-size: 1rem;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     border: none;
     border-radius: 50%;
     padding: 0.5rem;
@@ -151,8 +162,8 @@ body {
     font-family: Arial, sans-serif;
     font-size: 1.1rem;
     color: var(--font-color);
-    background-color: #1a66ff;
-    border: 0.2rem solid #4d88ff;
+    background-color: #1A66FF;
+    border: 0.2rem solid #4D88FF;
     border-radius: 16px;
     padding: 0.5rem;
     margin-left: 0.5rem;
@@ -160,12 +171,12 @@ body {
 }
 
 .blue-button:hover {
-    background-color: #4d88ff;
+    background-color: #4D88FF;
 }
 
 .blue-button:active {
-    background-color: #1a66ff;
-    border-color: #1a66ff;
+    background-color: #1A66FF;
+    border-color: #1A66FF;
 }
 
 .tip-button {
@@ -173,8 +184,8 @@ body {
     font-family: 'Trebuchet MS', sans-serif;
     font-size: 1.25rem;
     color: var(--font-color);
-    background-color: #66b3ff;
-    border: 0.2rem solid #cce5ffed;
+    background-color: #66B3FF;
+    border: 0.2rem solid #CCE5FF;
     border-radius: 50%;
     padding: 0 0.5rem;
     transition: 300ms;
@@ -182,13 +193,13 @@ body {
 }
 
 .tip-button:hover {
-    background-color: #cce5ff;
-    border-color: #66b3ff;
+    background-color: #CCE5FF;
+    border-color: #66B3FF;
 }
 
 .tip-button:active {
-    background-color: #1a8cff;
-    border-color: #1a8cff;
+    background-color: #1A8CFF;
+    border-color: #1A8CFF;
 }
 
 .add-item-button {
@@ -196,19 +207,19 @@ body {
     font-size: 1rem;
     font-weight: bold;
     color: var(--font-color);
-    background-color: #00e673;
-    border: 0.15rem solid #00b359;
+    background-color: #00E673;
+    border: 0.15rem solid #00B359;
     padding: 0.5rem;
     margin: 1rem 0 0 0.5rem;
 }
 
 .add-item-button:hover {
-    background-color: #00b359;
+    background-color: #00B359;
 }
 
 .add-item-button:active {
-    background-color: #00cc66;
-    border-color: #00cc66;
+    background-color: #00CC66;
+    border-color: #00CC66;
 }
 
 .add-item-button:disabled {
@@ -221,19 +232,19 @@ body {
     margin: 0 auto;
     font-family: Verdana, sans-serif;
     font-size: 1.1rem;
-    color: #ff6666;
-    background-color: #ffffff;
-    border: 0.1rem solid #ff6666;
+    color: #FF6666;
+    background-color: #FFFFFF;
+    border: 0.1rem solid #FF6666;
     width: 2.2rem;
 }
 
 .remove-item-button:hover {
-    color: #ffffff;
-    background-color: #ff6666;
+    color: #FFFFFF;
+    background-color: #FF6666;
 }
 
 .remove-item-button:active {
-    background-color: #ff4d4d;
+    background-color: #FF4D4D;
 }
 
 #experience-items-container, #education-items-container {
@@ -246,7 +257,7 @@ body {
 }
 
 .list-element-item:hover {
-    border: 2px dotted #ffffff;
+    border: 2px dotted #FFFFFF;
     margin: 1rem 0;
 }
 
@@ -281,6 +292,13 @@ body {
 .button-container {
     display: flex;
     justify-content: space-between;
+}
+
+.controls-container {
+    border: 2px solid var(--extra-color);
+    border-radius: 20px;
+    padding: 0 1rem 1rem 1rem;
+    margin: 1rem 0;
 }
 
 .dialog-item {

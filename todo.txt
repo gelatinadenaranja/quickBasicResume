@@ -50,5 +50,6 @@
 -Add limits for experience and education items ✔
 -Add dialog if adding too much stuff ✔
 -Add customization settings ✔
+-Fix css for small screens ✔
 -Add separators?
 

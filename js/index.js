@@ -1,4 +1,4 @@
-import { swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, preventExcessItems, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, changeFontColorCssVar, changeFontCssVar, printResume, saveResume, loadResume, resumeSpaceObserve } from './events';
+import { swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, preventExcessItems, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, changeColorCssVar, changeFontCssVar, printResume, saveResume, loadResume, resumeSpaceObserve } from './events';
 import { loadLocalizationData, getLocalizedText, setUserLanguage, swapUserLanguage, getCheckboxText, addSelectOptions, addYearSelectOptions, addMonthSelectOptions } from './localization';
 import { setColorMode, addFontOptions } from './utils';
 setColorMode();
@@ -307,7 +307,7 @@ const customHeaderColorHeader = document.getElementById('custom-header-color-hea
 navBarLanguageSwapBtn.addEventListener('click', () => (customHeaderColorHeader.innerText = getLocalizedText('custom-header-color-header')));
 customHeaderColorHeader.innerText = getLocalizedText('custom-header-color-header');
 const customHeaderColorSelect = document.getElementById('custom-header-color-select');
-customHeaderColorSelect.addEventListener('change', () => (changeFontColorCssVar(customHeaderColorSelect, '--resume-headers-color')));
+customHeaderColorSelect.addEventListener('change', () => (changeColorCssVar(customHeaderColorSelect, '--resume-headers-color')));
 navBarLanguageSwapBtn.addEventListener('click', () => (addSelectOptions(customHeaderColorSelect, 'custom-header-color-select-options')));
 addSelectOptions(customHeaderColorSelect, 'custom-header-color-select-options');
 const customFontSizeHeader = document.getElementById('custom-font-size-header');
@@ -339,3 +339,5 @@ customTextFontHeader.innerText = getLocalizedText('custom-text-font-header');
 const customTextFontSelect = document.getElementById('custom-text-font');
 customTextFontSelect.addEventListener('change', () => (changeFontCssVar(customTextFontSelect, '--resume-text-font')));
 addFontOptions(customTextFontSelect);
+const separatorCheckbox = document.getElementById('separator-input');
+const separatorLabel = document.getElementById('separator-label');

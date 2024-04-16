@@ -294,7 +294,7 @@ function getColorArr() {
     ];
 }
 ;
-export function changeFontColorCssVar(selectElem, cssVar) { setCssVarValue(cssVar, getColorArr()[selectElem.selectedIndex].hexVal); }
+export function changeColorCssVar(selectElem, cssVar) { setCssVarValue(cssVar, getColorArr()[selectElem.selectedIndex].hexVal); }
 ;
 export function changeFontCssVar(selectElem, cssVar) {
     setCssVarValue(cssVar, selectElem.options[selectElem.selectedIndex].value);
@@ -320,7 +320,7 @@ export function printResume(resumeContainer) {
     if (iFrameElem.contentWindow) {
         iFrameElem.contentWindow.document.write(`<html>
                                 <head>
-                                    <title>` + 'Resume - PersonName' + `</title>
+                                    <title>` + getLocalizedText('resume-tag') + ' - ' + getHTMLElemTextContent('personal-name') + `</title>
                                     <link href="./css/resume.css" rel="stylesheet">
                                     ` + customizedStyle + `
                                 </head>
@@ -328,9 +328,13 @@ export function printResume(resumeContainer) {
                                     ` + resumeContainer.innerHTML + `
                                 </body>
                                 </html>
-    `);
+        `);
         iFrameElem.contentWindow.document.close();
-        iFrameElem.contentWindow.print();
+        iFrameElem.onload = () => {
+            var _a;
+            (_a = iFrameElem === null || iFrameElem === void 0 ? void 0 : iFrameElem.contentWindow) === null || _a === void 0 ? void 0 : _a.print();
+            iFrameElem.remove();
+        };
     }
     ;
 }
@@ -651,5 +655,34 @@ export function resumeSpaceObserve() {
         ;
     });
     contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
+}
+;
+function removeResumeSeparators() {
+    const resumeElement = document.getElementById('resume');
+    const separatorElemList = resumeElement.getElementsByClassName('separator');
+    for (const elem of separatorElemList) {
+        elem.remove();
+    }
+    ;
+}
+;
+function addResumeSeparators() {
+    const resumeElement = document.getElementById('resume');
+    const separatorElemList = resumeElement.getElementsByClassName('resume-container');
+    let lastestVisibleElem = null;
+    for (const elem of separatorElemList) {
+        if (!lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
+            lastestVisibleElem = elem;
+        }
+        else if (lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
+            const separatorElem = document.createElement('div');
+            separatorElem.className = 'separator';
+            separatorElem.innerHTML = '<div class="separator-filler"></div>';
+            resumeElement.insertBefore(separatorElem, elem);
+            lastestVisibleElem = elem;
+        }
+        ;
+    }
+    ;
 }
 ;

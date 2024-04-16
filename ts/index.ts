@@ -1,4 +1,4 @@
-import { swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, preventExcessItems, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, changeFontColorCssVar, changeFontCssVar, printResume, saveResume, loadResume, resumeSpaceObserve } from './events';
+import { swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, preventExcessItems, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, changeColorCssVar, changeFontCssVar, printResume, saveResume, loadResume, resumeSpaceObserve } from './events';
 import { loadLocalizationData, getLocalizedText, setUserLanguage, swapUserLanguage, getCheckboxText, addSelectOptions, addYearSelectOptions, addMonthSelectOptions } from './localization';
 import { setColorMode, addFontOptions } from './utils'
 
@@ -377,7 +377,7 @@ navBarLanguageSwapBtn.addEventListener('click', () => (customHeaderColorHeader.i
 customHeaderColorHeader.innerText = getLocalizedText('custom-header-color-header');
 
 const customHeaderColorSelect : HTMLSelectElement = document.getElementById('custom-header-color-select') as HTMLSelectElement;
-customHeaderColorSelect.addEventListener('change', () => (changeFontColorCssVar(customHeaderColorSelect, '--resume-headers-color')));
+customHeaderColorSelect.addEventListener('change', () => (changeColorCssVar(customHeaderColorSelect, '--resume-headers-color')));
 navBarLanguageSwapBtn.addEventListener('click', () => (addSelectOptions(customHeaderColorSelect, 'custom-header-color-select-options')));
 addSelectOptions(customHeaderColorSelect, 'custom-header-color-select-options');
 
@@ -419,3 +419,8 @@ customTextFontHeader.innerText = getLocalizedText('custom-text-font-header');
 const customTextFontSelect : HTMLSelectElement = document.getElementById('custom-text-font') as HTMLSelectElement;
 customTextFontSelect.addEventListener('change', () => (changeFontCssVar(customTextFontSelect, '--resume-text-font')));
 addFontOptions(customTextFontSelect);
+
+/*
+const separatorCheckbox : HTMLInputElement = document.getElementById('separator-input') as HTMLInputElement;
+const separatorLabel : HTMLLabelElement = document.getElementById('separator-label') as HTMLLabelElement;
+*/

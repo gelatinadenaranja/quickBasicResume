@@ -334,7 +334,7 @@ function getColorArr() : colorItem[] {
     ];
 };
 
-export function changeFontColorCssVar(selectElem : HTMLSelectElement, cssVar : string) : void {setCssVarValue(cssVar, getColorArr()[selectElem.selectedIndex].hexVal)};
+export function changeColorCssVar(selectElem : HTMLSelectElement, cssVar : string) : void {setCssVarValue(cssVar, getColorArr()[selectElem.selectedIndex].hexVal)};
 
 export function changeFontCssVar(selectElem : HTMLSelectElement, cssVar : string) {
     setCssVarValue(cssVar, selectElem.options[selectElem.selectedIndex].value);
@@ -345,14 +345,6 @@ export function changeFontCssVar(selectElem : HTMLSelectElement, cssVar : string
 };
 
 export function printResume(resumeContainer : HTMLDivElement) : void {
-    /*
-    const resumeWindow = window.open('', '_blank', 'height=500,width=794');
-    if(!resumeWindow) {
-        //Show error: Print window empty
-        return;
-    };
-    */
-
     const customizedStyle : string = `
     <style>
         .customized-css {
@@ -365,36 +357,13 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
         }
     </style>
     `;
-
-    /*
-    resumeWindow.document.write(`<html>
-                                <head>
-                                    <title>` + 'Resume - PersonName' + `</title>
-                                    <link href="./css/resume.css" rel="stylesheet">
-                                    ` + customizedStyle + `
-                                </head>
-                                <body class='customized-css'>
-                                    ` + resumeContainer.innerHTML + `
-                                </body>
-                                </html>
-    `);
-    */
-
-    /*resumeWindow.document.close();
-    resumeWindow.focus();
-    resumeWindow.print();
-    resumeWindow.close();*/
-
-    //
     const iFrameElem : HTMLIFrameElement = document.createElement('iframe');
     document.body.append(iFrameElem);
 
     if(iFrameElem.contentWindow) {
-        //iFrameElem.contentWindow.open('', '', 'height=500,width=1000');
-        
         iFrameElem.contentWindow.document.write(`<html>
                                 <head>
-                                    <title>` + 'Resume - PersonName' + `</title>
+                                    <title>` + getLocalizedText('resume-tag') + ' - ' + getHTMLElemTextContent('personal-name') + `</title>
                                     <link href="./css/resume.css" rel="stylesheet">
                                     ` + customizedStyle + `
                                 </head>
@@ -402,10 +371,13 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
                                     ` + resumeContainer.innerHTML + `
                                 </body>
                                 </html>
-    `);
+        `);
 
-    iFrameElem.contentWindow.document.close();
-    iFrameElem.contentWindow.print();
+        iFrameElem.contentWindow.document.close();
+        iFrameElem.onload = () => {
+            iFrameElem?.contentWindow?.print();
+            iFrameElem.remove();
+        };
     };
 
 };
@@ -770,4 +742,32 @@ export function resumeSpaceObserve() : void {
     });
 
     contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
+};
+
+function removeResumeSeparators() : void {
+    const resumeElement : HTMLDivElement = document.getElementById('resume') as HTMLDivElement;
+    const separatorElemList : HTMLCollection = resumeElement.getElementsByClassName('separator');
+
+    for(const elem of separatorElemList) {elem.remove()};
+};
+
+function addResumeSeparators() : void {
+    const resumeElement : HTMLDivElement = document.getElementById('resume') as HTMLDivElement;
+    const separatorElemList : HTMLCollection = resumeElement.getElementsByClassName('resume-container');
+
+    let lastestVisibleElem : Element | null = null;
+
+    for(const elem of separatorElemList) {
+        if(!lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
+            lastestVisibleElem = elem;
+        } else if(lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
+            const separatorElem : HTMLDivElement = document.createElement('div');
+            separatorElem.className = 'separator';
+            separatorElem.innerHTML = '<div class="separator-filler"></div>';
+
+            resumeElement.insertBefore(separatorElem, elem);
+
+            lastestVisibleElem = elem;
+        };
+    };
 };
