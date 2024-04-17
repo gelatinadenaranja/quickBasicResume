@@ -5,6 +5,7 @@ export function swapColorMode() : void {document.body.classList.toggle("body-dar
 
 export function inputToResume(srcInput : HTMLInputElement, targetElement : HTMLSpanElement) : void {
     if(srcInput.value === '') {
+        targetElement.innerText = srcInput.value;
         targetElement.style.display = 'none';
         return;
     };
@@ -354,6 +355,7 @@ export function printResume(resumeContainer : HTMLDivElement) : void {
             --resume-text-font: ` + getCssVarValue('--resume-text-font') + `;
             --resume-font-size: ` + getCssVarValue('--resume-font-size') + `;
             --resume-headers-color: ` + getCssVarValue('--resume-headers-color') + `;
+            --resume-separator-color: ` + getCssVarValue('--resume-separator-color') + `;
         }
     </style>
     `;
@@ -409,6 +411,8 @@ interface resumeData {
     resumeTextFont ? : string;
     resumeFontSize ? : string;
     resumeHeaderColor ? : string;
+    resumeSeparatorColor ? : string;
+    resumeUseSeparators ? : boolean;
 };
 
 export function saveResume() : void {
@@ -420,6 +424,16 @@ export function saveResume() : void {
     resumeObj.personalLocation = getHTMLElemTextContent('personal-location');
     resumeObj.customLink = getHTMLElemTextContent('custom-link');
     resumeObj.personalDescription = getHTMLElemTextContent('personal-description');
+    resumeObj.resumeNameFont = getCssVarValue('--resume-name-font');
+    resumeObj.resumeSectionHeaderFont = getCssVarValue('--resume-section-header-font');
+    resumeObj.resumeHeaderFont = getCssVarValue('--resume-big-header-font');
+    resumeObj.resumeTextFont = getCssVarValue('--resume-text-font');
+    resumeObj.resumeFontSize = getCssVarValue('--resume-font-size');
+    resumeObj.resumeHeaderColor = getCssVarValue('--resume-headers-color');
+    resumeObj.resumeSeparatorColor = getCssVarValue('--resume-separator-color');
+
+    const separatorCheckbox : HTMLInputElement = document.getElementById('separator-input') as HTMLInputElement;
+    resumeObj.resumeUseSeparators = separatorCheckbox.checked;
 
     const personalPicDiv : HTMLDivElement = document.getElementById('personal-picture-resume-div') as HTMLDivElement;
     if(personalPicDiv.childElementCount) {
@@ -480,13 +494,6 @@ export function saveResume() : void {
         };
     };
 
-    resumeObj.resumeNameFont = getCssVarValue('--resume-name-font');
-    resumeObj.resumeSectionHeaderFont = getCssVarValue('--resume-section-header-font');
-    resumeObj.resumeHeaderFont = getCssVarValue('--resume-big-header-font');
-    resumeObj.resumeTextFont = getCssVarValue('--resume-text-font');
-    resumeObj.resumeFontSize = getCssVarValue('--resume-font-size');
-    resumeObj.resumeHeaderColor = getCssVarValue('--resume-headers-color');
-
     const anchorElem : HTMLAnchorElement = document.createElement('a');
     const resumeObjJSON : string = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(resumeObj));
     anchorElem.setAttribute('href', resumeObjJSON);
@@ -534,6 +541,13 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
     if(resumeDataObj.customLink) setHTMLElemTextContent('custom-link', resumeDataObj.customLink);
     if(resumeDataObj.personalDescription) setHTMLElemTextContent('personal-description', resumeDataObj.personalDescription);
     if(resumeDataObj.personalPicSrc) insertPersonalPicture(resumeDataObj.personalPicSrc);
+    if(resumeDataObj.resumeNameFont) setCssVarValue('--resume-name-font', resumeDataObj.resumeNameFont);
+    if(resumeDataObj.resumeSectionHeaderFont) setCssVarValue('--resume-section-header-font', resumeDataObj.resumeSectionHeaderFont);
+    if(resumeDataObj.resumeHeaderFont) setCssVarValue('--resume-big-header-font', resumeDataObj.resumeHeaderFont);
+    if(resumeDataObj.resumeTextFont) setCssVarValue('--resume-text-font', resumeDataObj.resumeTextFont);
+    if(resumeDataObj.resumeFontSize) setCssVarValue('--resume-font-size', resumeDataObj.resumeFontSize);
+    if(resumeDataObj.resumeHeaderColor) setCssVarValue('--resume-headers-color', resumeDataObj.resumeHeaderColor);
+    if(resumeDataObj.resumeSeparatorColor) setCssVarValue('--resume-separator-color', resumeDataObj.resumeSeparatorColor);
 
     if(resumeDataObj.workExp) {
         const workExpParentId : string = resumeDataObj.workExpParentId ? resumeDataObj.workExpParentId : 'resume-section-a';
@@ -707,12 +721,10 @@ function insertLoadedResumeData(resumeDataObj : resumeData) : void {
         });
     };
 
-    if(resumeDataObj.resumeNameFont) setCssVarValue('--resume-name-font', resumeDataObj.resumeNameFont);
-    if(resumeDataObj.resumeSectionHeaderFont) setCssVarValue('--resume-section-header-font', resumeDataObj.resumeSectionHeaderFont);
-    if(resumeDataObj.resumeHeaderFont) setCssVarValue('--resume-big-header-font', resumeDataObj.resumeHeaderFont);
-    if(resumeDataObj.resumeTextFont) setCssVarValue('--resume-text-font', resumeDataObj.resumeTextFont);
-    if(resumeDataObj.resumeFontSize) setCssVarValue('--resume-font-size', resumeDataObj.resumeFontSize);
-    if(resumeDataObj.resumeHeaderColor) setCssVarValue('--resume-headers-color', resumeDataObj.resumeHeaderColor);
+    if(resumeDataObj.resumeUseSeparators) {
+        const separatorCheckbox : HTMLInputElement = document.getElementById('separator-input') as HTMLInputElement;
+        resumeSeparatorsObserver(separatorCheckbox);
+    };
 };
 
 export function resumeSpaceObserve() : void {
@@ -744,30 +756,59 @@ export function resumeSpaceObserve() : void {
     contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
 };
 
-function removeResumeSeparators() : void {
+function getCssElemProperty(elem : Element, cssProperty : string) : string {return window.getComputedStyle(elem).getPropertyValue(cssProperty)};
+
+function hideResumeSeparators() : void {
     const resumeElement : HTMLDivElement = document.getElementById('resume') as HTMLDivElement;
     const separatorElemList : HTMLCollection = resumeElement.getElementsByClassName('separator');
 
-    for(const elem of separatorElemList) {elem.remove()};
+    for(const elem of separatorElemList) {elem.setAttribute('style', 'display: none;')};
 };
 
-function addResumeSeparators() : void {
+function showResumeSeparators() : void {
     const resumeElement : HTMLDivElement = document.getElementById('resume') as HTMLDivElement;
-    const separatorElemList : HTMLCollection = resumeElement.getElementsByClassName('resume-container');
+    const separatorElemList : HTMLCollection = resumeElement.children;
 
     let lastestVisibleElem : Element | null = null;
+    let lastestSeparatorElem : Element | null = null;
 
     for(const elem of separatorElemList) {
-        if(!lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
+        if(!lastestVisibleElem && elem.className === 'resume-container' && getCssElemProperty(elem, 'display') !== 'none') {
             lastestVisibleElem = elem;
-        } else if(lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
-            const separatorElem : HTMLDivElement = document.createElement('div');
-            separatorElem.className = 'separator';
-            separatorElem.innerHTML = '<div class="separator-filler"></div>';
-
-            resumeElement.insertBefore(separatorElem, elem);
-
+            continue;
+        };
+        
+        if(elem.className === 'separator') {
+            lastestSeparatorElem = elem;
+            continue;
+        };
+        
+        if(lastestVisibleElem && getCssElemProperty(elem, 'display') !== 'none') {
+            if(lastestSeparatorElem) lastestSeparatorElem.setAttribute('style', 'display: block;');
             lastestVisibleElem = elem;
         };
+    };
+};
+
+export function resumeSeparatorsObserver(separatorCheckbox : HTMLInputElement) : void {
+    if(!separatorCheckbox.checked) {
+        const resumeElement : HTMLDivElement = document.getElementById('resume') as HTMLDivElement;
+        const contentObserver : MutationObserver = new MutationObserver(() => {
+            hideResumeSeparators();
+            showResumeSeparators();
+        });
+
+        contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
+        showResumeSeparators();
+
+        separatorCheckbox.checked = true;
+
+        separatorCheckbox.addEventListener('click', () => {
+            console.log('change');
+            hideResumeSeparators();
+            contentObserver.disconnect();
+        }, { once: true });
+    } else {
+        separatorCheckbox.click();
     };
 };

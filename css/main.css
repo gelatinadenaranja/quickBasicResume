@@ -7,24 +7,35 @@
 
 * {
     box-sizing: border-box;
-    font-size: 16px;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 800px) {
+    .wrapper {
+        width: 100% !important;
+    }
+
     #resume-div {
         justify-content: left !important;
         overflow: auto;
     }
 }
 
+@media only screen and (max-width: 350px) {
+    body {
+        font-size: 12px !important;
+    }
+}
+
 body {
+    background-image: linear-gradient(var(--wrapper-color), var(--body-color));
     background-color: var(--body-color);
+    font-size: 16px;
 }
 
 .body-darkmode {
     --body-color: #0D0D0D;
     --wrapper-color: #1A1A1A;
-    --extra-color: #262626;
+    --extra-color: #404040;
     --font-color: #FFFFFF;
 }
 
@@ -48,12 +59,12 @@ body {
 }
 
 #nav-bar-paragraph {
-    font-size: 1.2rem;
+    font-size: 130%;
 }
 
 .nav-bar-button {
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     color: var(--font-color);
     background-color: var(--wrapper-color);
     border: 3px solid var(--extra-color);
@@ -73,20 +84,20 @@ body {
 }
 
 #color-mode-button {
-    font-size: 2rem;
+    font-size: 200%;
     border-radius: 50%;
 }
 
 .div-header {
     text-align: center;
     font-family: Georgia, serif;
-    font-size: 2rem;
+    font-size: 200%;
     color: var(--font-color);
 }
 
 .input-header {
-    font-family: 'Times New Roman', serif;
-    font-size: 1.5rem;
+    font-family: Georgia, serif;
+    font-size: 150%;
     color: var(--font-color);
 }
 
@@ -98,7 +109,7 @@ body {
 .text-input {
     display: inline-flex;
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     padding: 0.1rem;
     width: 100%;
 }
@@ -111,7 +122,7 @@ body {
 
 .select-input {
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     background-color: #FFFFFF;
     border: 1px solid var(--extra-color);
     padding: 0.5rem;
@@ -125,7 +136,7 @@ body {
 
 #work-experience-bullets-select {
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     background-color: #FFFFFF;
     border: none;
     border-radius: 50%;
@@ -139,7 +150,7 @@ body {
 
 .checkbox-label {
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     color: var(--font-color);
 }
 
@@ -149,7 +160,7 @@ body {
 
 .toggle-label {
     font-family: 'Times New Roman', serif;
-    font-size: 1.25rem;
+    font-size: 125%;
     color: var(--font-color);
 }
 
@@ -159,8 +170,9 @@ body {
 
 .blue-button {
     display: inline-block;
+    text-align: center;
     font-family: Arial, sans-serif;
-    font-size: 1.1rem;
+    font-size: 110%;
     color: var(--font-color);
     background-color: #1A66FF;
     border: 0.2rem solid #4D88FF;
@@ -182,7 +194,7 @@ body {
 .tip-button {
     display: inline;
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 1.25rem;
+    font-size: 125%;
     color: var(--font-color);
     background-color: #66B3FF;
     border: 0.2rem solid #CCE5FF;
@@ -204,7 +216,7 @@ body {
 
 .add-item-button {
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     font-weight: bold;
     color: var(--font-color);
     background-color: #00E673;
@@ -231,7 +243,7 @@ body {
     display: block;
     margin: 0 auto;
     font-family: Verdana, sans-serif;
-    font-size: 1.1rem;
+    font-size: 110%;
     color: #FF6666;
     background-color: #FFFFFF;
     border: 0.1rem solid #FF6666;
@@ -265,7 +277,7 @@ body {
     display: inline-block;
     text-align: center;
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     color: var(--font-color);
     padding: 1rem;
 }
@@ -273,7 +285,7 @@ body {
 .message-span {
     display: block;
     font-family: Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     color: var(--font-color);
     margin: 1rem 0.5rem;
 }
@@ -313,7 +325,7 @@ body {
 .dialog-span {
     display: block;
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 1rem;
+    font-size: 100%;
     white-space: pre-line;
     padding-bottom: 1rem;
 }

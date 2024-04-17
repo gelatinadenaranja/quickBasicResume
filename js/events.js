@@ -4,6 +4,7 @@ export function swapColorMode() { document.body.classList.toggle("body-darkmode"
 ;
 export function inputToResume(srcInput, targetElement) {
     if (srcInput.value === '') {
+        targetElement.innerText = srcInput.value;
         targetElement.style.display = 'none';
         return;
     }
@@ -312,6 +313,7 @@ export function printResume(resumeContainer) {
             --resume-text-font: ` + getCssVarValue('--resume-text-font') + `;
             --resume-font-size: ` + getCssVarValue('--resume-font-size') + `;
             --resume-headers-color: ` + getCssVarValue('--resume-headers-color') + `;
+            --resume-separator-color: ` + getCssVarValue('--resume-separator-color') + `;
         }
     </style>
     `;
@@ -349,6 +351,15 @@ export function saveResume() {
     resumeObj.personalLocation = getHTMLElemTextContent('personal-location');
     resumeObj.customLink = getHTMLElemTextContent('custom-link');
     resumeObj.personalDescription = getHTMLElemTextContent('personal-description');
+    resumeObj.resumeNameFont = getCssVarValue('--resume-name-font');
+    resumeObj.resumeSectionHeaderFont = getCssVarValue('--resume-section-header-font');
+    resumeObj.resumeHeaderFont = getCssVarValue('--resume-big-header-font');
+    resumeObj.resumeTextFont = getCssVarValue('--resume-text-font');
+    resumeObj.resumeFontSize = getCssVarValue('--resume-font-size');
+    resumeObj.resumeHeaderColor = getCssVarValue('--resume-headers-color');
+    resumeObj.resumeSeparatorColor = getCssVarValue('--resume-separator-color');
+    const separatorCheckbox = document.getElementById('separator-input');
+    resumeObj.resumeUseSeparators = separatorCheckbox.checked;
     const personalPicDiv = document.getElementById('personal-picture-resume-div');
     if (personalPicDiv.childElementCount) {
         resumeObj.personalPicSrc = personalPicDiv.children[0].tagName === 'IMG' ? personalPicDiv.children[0].src : '';
@@ -412,12 +423,6 @@ export function saveResume() {
         ;
     }
     ;
-    resumeObj.resumeNameFont = getCssVarValue('--resume-name-font');
-    resumeObj.resumeSectionHeaderFont = getCssVarValue('--resume-section-header-font');
-    resumeObj.resumeHeaderFont = getCssVarValue('--resume-big-header-font');
-    resumeObj.resumeTextFont = getCssVarValue('--resume-text-font');
-    resumeObj.resumeFontSize = getCssVarValue('--resume-font-size');
-    resumeObj.resumeHeaderColor = getCssVarValue('--resume-headers-color');
     const anchorElem = document.createElement('a');
     const resumeObjJSON = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(resumeObj));
     anchorElem.setAttribute('href', resumeObjJSON);
@@ -467,6 +472,20 @@ function insertLoadedResumeData(resumeDataObj) {
         setHTMLElemTextContent('personal-description', resumeDataObj.personalDescription);
     if (resumeDataObj.personalPicSrc)
         insertPersonalPicture(resumeDataObj.personalPicSrc);
+    if (resumeDataObj.resumeNameFont)
+        setCssVarValue('--resume-name-font', resumeDataObj.resumeNameFont);
+    if (resumeDataObj.resumeSectionHeaderFont)
+        setCssVarValue('--resume-section-header-font', resumeDataObj.resumeSectionHeaderFont);
+    if (resumeDataObj.resumeHeaderFont)
+        setCssVarValue('--resume-big-header-font', resumeDataObj.resumeHeaderFont);
+    if (resumeDataObj.resumeTextFont)
+        setCssVarValue('--resume-text-font', resumeDataObj.resumeTextFont);
+    if (resumeDataObj.resumeFontSize)
+        setCssVarValue('--resume-font-size', resumeDataObj.resumeFontSize);
+    if (resumeDataObj.resumeHeaderColor)
+        setCssVarValue('--resume-headers-color', resumeDataObj.resumeHeaderColor);
+    if (resumeDataObj.resumeSeparatorColor)
+        setCssVarValue('--resume-separator-color', resumeDataObj.resumeSeparatorColor);
     if (resumeDataObj.workExp) {
         const workExpParentId = resumeDataObj.workExpParentId ? resumeDataObj.workExpParentId : 'resume-section-a';
         const workExpParentDiv = document.getElementById(workExpParentId);
@@ -615,18 +634,11 @@ function insertLoadedResumeData(resumeDataObj) {
         });
     }
     ;
-    if (resumeDataObj.resumeNameFont)
-        setCssVarValue('--resume-name-font', resumeDataObj.resumeNameFont);
-    if (resumeDataObj.resumeSectionHeaderFont)
-        setCssVarValue('--resume-section-header-font', resumeDataObj.resumeSectionHeaderFont);
-    if (resumeDataObj.resumeHeaderFont)
-        setCssVarValue('--resume-big-header-font', resumeDataObj.resumeHeaderFont);
-    if (resumeDataObj.resumeTextFont)
-        setCssVarValue('--resume-text-font', resumeDataObj.resumeTextFont);
-    if (resumeDataObj.resumeFontSize)
-        setCssVarValue('--resume-font-size', resumeDataObj.resumeFontSize);
-    if (resumeDataObj.resumeHeaderColor)
-        setCssVarValue('--resume-headers-color', resumeDataObj.resumeHeaderColor);
+    if (resumeDataObj.resumeUseSeparators) {
+        const separatorCheckbox = document.getElementById('separator-input');
+        resumeSeparatorsObserver(separatorCheckbox);
+    }
+    ;
 }
 ;
 export function resumeSpaceObserve() {
@@ -657,31 +669,61 @@ export function resumeSpaceObserve() {
     contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
 }
 ;
-function removeResumeSeparators() {
+function getCssElemProperty(elem, cssProperty) { return window.getComputedStyle(elem).getPropertyValue(cssProperty); }
+;
+function hideResumeSeparators() {
     const resumeElement = document.getElementById('resume');
     const separatorElemList = resumeElement.getElementsByClassName('separator');
     for (const elem of separatorElemList) {
-        elem.remove();
+        elem.setAttribute('style', 'display: none;');
     }
     ;
 }
 ;
-function addResumeSeparators() {
+function showResumeSeparators() {
     const resumeElement = document.getElementById('resume');
-    const separatorElemList = resumeElement.getElementsByClassName('resume-container');
+    const separatorElemList = resumeElement.children;
     let lastestVisibleElem = null;
+    let lastestSeparatorElem = null;
     for (const elem of separatorElemList) {
-        if (!lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
+        if (!lastestVisibleElem && elem.className === 'resume-container' && getCssElemProperty(elem, 'display') !== 'none') {
             lastestVisibleElem = elem;
+            continue;
         }
-        else if (lastestVisibleElem && window.getComputedStyle(elem).display !== 'none') {
-            const separatorElem = document.createElement('div');
-            separatorElem.className = 'separator';
-            separatorElem.innerHTML = '<div class="separator-filler"></div>';
-            resumeElement.insertBefore(separatorElem, elem);
+        ;
+        if (elem.className === 'separator') {
+            lastestSeparatorElem = elem;
+            continue;
+        }
+        ;
+        if (lastestVisibleElem && getCssElemProperty(elem, 'display') !== 'none') {
+            if (lastestSeparatorElem)
+                lastestSeparatorElem.setAttribute('style', 'display: block;');
             lastestVisibleElem = elem;
         }
         ;
+    }
+    ;
+}
+;
+export function resumeSeparatorsObserver(separatorCheckbox) {
+    if (!separatorCheckbox.checked) {
+        const resumeElement = document.getElementById('resume');
+        const contentObserver = new MutationObserver(() => {
+            hideResumeSeparators();
+            showResumeSeparators();
+        });
+        contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
+        showResumeSeparators();
+        separatorCheckbox.checked = true;
+        separatorCheckbox.addEventListener('click', () => {
+            console.log('change');
+            hideResumeSeparators();
+            contentObserver.disconnect();
+        }, { once: true });
+    }
+    else {
+        separatorCheckbox.click();
     }
     ;
 }
