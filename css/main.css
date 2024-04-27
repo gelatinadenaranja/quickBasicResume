@@ -90,7 +90,7 @@ body {
 
 .div-header {
     text-align: center;
-    font-family: Georgia, serif;
+    font-family: Arial, sans-serif;
     font-size: 200%;
     color: var(--font-color);
 }
@@ -264,13 +264,17 @@ body {
 }
 
 .list-element-item {
-    list-style: none;
     color: var(--font-color);
+    list-style: none;
 }
 
 .list-element-item:hover {
-    border: 2px dotted #FFFFFF;
+    border: 2px dotted var(--extra-color);
     margin: 1rem 0;
+}
+
+.list-element-item > .flex-container > * {
+    color: var(--font-color) !important;
 }
 
 .misc-span-item {
@@ -293,6 +297,9 @@ body {
 #resume-div {
     display: flex;
     justify-content: center;
+    background-image: linear-gradient(var(--wrapper-color) 5%, var(--extra-color));
+    background-position: 0 50%;
+    padding: 2rem 0;
     margin: 1rem 0;
 }
 

@@ -11,6 +11,7 @@ export function inputToResume(srcInput, targetElement) {
     ;
     targetElement.style.display = 'block';
     targetElement.innerText = srcInput.value;
+    updateSeparators();
 }
 ;
 export function loadPersonalPicture(inputFileList) {
@@ -89,6 +90,7 @@ export function workExpToResume(companyNameInput, workPosInput, workDescInput, w
     }
     ;
     workExpItem.className = 'list-element-item';
+    removalBtn.addEventListener('click', () => (updateSeparators()));
     workExpItem.append(removalBtn);
     sortedLiAppend(workExpItem, workItemsList);
     companyNameInput.value = '';
@@ -100,6 +102,7 @@ export function workExpToResume(companyNameInput, workPosInput, workDescInput, w
     workEndMthSelect.selectedIndex = 0;
     workEndYrSelect.selectedIndex = 0;
     workAreaMsgSpan.textContent = '';
+    updateSeparators();
 }
 ;
 export function educationToResume(educationTitleInput, educationGradeSelect, educationInstitutionInput, educationStrMthSelect, educationStrYrSelect, educationEndMthSelect, educationEndYrSelect, educationPresentCheckbox, educationItemsList, resumeEdList, educationAreaMsgSpan) {
@@ -135,6 +138,7 @@ export function educationToResume(educationTitleInput, educationGradeSelect, edu
     }
     ;
     educationItem.className = 'list-element-item';
+    removalBtn.addEventListener('click', () => (updateSeparators()));
     educationItem.append(removalBtn);
     sortedLiAppend(educationItem, educationItemsList);
     educationTitleInput.value = '';
@@ -145,6 +149,7 @@ export function educationToResume(educationTitleInput, educationGradeSelect, edu
     educationEndMthSelect.selectedIndex = 0;
     educationEndYrSelect.selectedIndex = 0;
     educationAreaMsgSpan.textContent = '';
+    updateSeparators();
 }
 ;
 export function preventExcessItems(contentReferenceElem, addItemBtn, maxItemAmount, maxItemMsgKey, resumeContentElem) {
@@ -176,16 +181,19 @@ export function languageToResume(languageNameInput, languageLevelSelect, languag
     const languageResumeItem = document.createElement('div');
     const languageItem = document.createElement('div');
     const languageItemTemplate = getLanguageItemTemplate(languageNameInput.value, languageLevelSelect.value);
+    const removalBtn = getRemovalBtn(languageResumeItem, languageItem);
     languageResumeItem.innerHTML = languageItemTemplate;
     languageResumeItem.className = 'resume-item';
     resumeLanguageDiv.append(languageResumeItem);
     languageItem.innerHTML = languageItemTemplate;
-    languageItem.append(getRemovalBtn(languageResumeItem, languageItem));
+    removalBtn.addEventListener('click', () => (updateSeparators()));
+    languageItem.append(removalBtn);
     languageItem.className = 'list-element-item';
     languageItemsDiv.append(languageItem);
     languageLevelSelect.selectedIndex = 0;
     languageNameInput.value = '';
     languageAreaMsgSpan.textContent = '';
+    updateSeparators();
 }
 ;
 export function miscToResume(miscInput, miscItemsDiv, resumeMiscDiv, miscAreaMsgSpan) {
@@ -194,17 +202,36 @@ export function miscToResume(miscInput, miscItemsDiv, resumeMiscDiv, miscAreaMsg
         return;
     }
     ;
+    const miscResumeArea = document.getElementById('miscellaneous-resume-div');
     const miscResumeItem = document.createElement('span');
     const miscItem = document.createElement('span');
+    const removalBtn = getRemovalBtn(miscResumeItem, miscItem);
+    if (miscResumeArea.style.display === 'none')
+        miscResumeArea.style.display = 'block';
     miscResumeItem.innerText = miscInput.value;
     miscResumeItem.className = 'resume-text';
     resumeMiscDiv.append(miscResumeItem);
     miscItem.innerText = miscInput.value;
     miscItem.className = 'misc-span-item';
-    miscItem.append(getRemovalBtn(miscResumeItem, miscItem));
+    removalBtn.addEventListener('click', () => {
+        hideElementWhenEmpty(miscResumeArea);
+        updateSeparators();
+    });
+    miscItem.append(removalBtn);
     miscItemsDiv.append(miscItem);
     miscInput.value = '';
     miscAreaMsgSpan.textContent = '';
+    updateSeparators();
+}
+;
+function hideElementWhenEmpty(element) {
+    for (const child of element.children) {
+        if (getCssElemProperty(child, 'display') !== 'none')
+            return;
+    }
+    ;
+    element.style.display = 'none';
+    updateSeparators();
 }
 ;
 export function showDialog(dialogMsg) {
@@ -279,6 +306,7 @@ export function hideEmptyResumeAreas(contentReferenceElem, targetArea) {
         }
         ;
         targetparent.style.display = 'none';
+        updateSeparators();
     });
     contentObserver.observe(contentReferenceElem, { attributes: false, childList: true, subtree: false });
 }
@@ -314,6 +342,8 @@ export function printResume(resumeContainer) {
             --resume-font-size: ` + getCssVarValue('--resume-font-size') + `;
             --resume-headers-color: ` + getCssVarValue('--resume-headers-color') + `;
             --resume-separator-color: ` + getCssVarValue('--resume-separator-color') + `;
+            --resume-border: ` + getCssVarValue('--resume-border') + `;
+            --resume-border-color: ` + getCssVarValue('--resume-border-color') + `;
         }
     </style>
     `;
@@ -358,8 +388,11 @@ export function saveResume() {
     resumeObj.resumeFontSize = getCssVarValue('--resume-font-size');
     resumeObj.resumeHeaderColor = getCssVarValue('--resume-headers-color');
     resumeObj.resumeSeparatorColor = getCssVarValue('--resume-separator-color');
+    resumeObj.resumeBorderColor = getCssVarValue('--resume-border-color');
     const separatorCheckbox = document.getElementById('separator-input');
     resumeObj.resumeUseSeparators = separatorCheckbox.checked;
+    const resumeBorderCheckbox = document.getElementById('resume-border-input');
+    resumeObj.resumeBorder = resumeBorderCheckbox.checked;
     const personalPicDiv = document.getElementById('personal-picture-resume-div');
     if (personalPicDiv.childElementCount) {
         resumeObj.personalPicSrc = personalPicDiv.children[0].tagName === 'IMG' ? personalPicDiv.children[0].src : '';
@@ -486,6 +519,8 @@ function insertLoadedResumeData(resumeDataObj) {
         setCssVarValue('--resume-headers-color', resumeDataObj.resumeHeaderColor);
     if (resumeDataObj.resumeSeparatorColor)
         setCssVarValue('--resume-separator-color', resumeDataObj.resumeSeparatorColor);
+    if (resumeDataObj.resumeBorderColor)
+        setCssVarValue('--resume-border-color', resumeDataObj.resumeBorderColor);
     if (resumeDataObj.workExp) {
         const workExpParentId = resumeDataObj.workExpParentId ? resumeDataObj.workExpParentId : 'resume-section-a';
         const workExpParentDiv = document.getElementById(workExpParentId);
@@ -571,6 +606,11 @@ function insertLoadedResumeData(resumeDataObj) {
         });
     }
     ;
+    if (resumeDataObj.skills || resumeDataObj.qualities || resumeDataObj.interests) {
+        const miscResumeArea = document.getElementById('miscellaneous-resume-div');
+        miscResumeArea.style.display = 'block';
+    }
+    ;
     if (resumeDataObj.skills) {
         const miscSkillsParentDiv = document.getElementById('skills-resume-div');
         const miscSkillsItemsDiv = document.getElementById('miscellaneous-skills-container');
@@ -580,15 +620,7 @@ function insertLoadedResumeData(resumeDataObj) {
         miscSkillsItemsDiv.replaceChildren();
         miscSkillsResumeDiv.replaceChildren();
         resumeDataObj.skills.forEach((arrElem) => {
-            const miscSkillResumeItem = document.createElement('span');
-            const miscSkillItem = document.createElement('span');
-            miscSkillResumeItem.textContent = arrElem;
-            miscSkillResumeItem.className = 'resume-text';
-            miscSkillsResumeDiv.append(miscSkillResumeItem);
-            miscSkillItem.textContent = arrElem;
-            miscSkillItem.className = 'misc-span-item';
-            miscSkillItem.append(getRemovalBtn(miscSkillResumeItem, miscSkillItem));
-            miscSkillsItemsDiv.append(miscSkillItem);
+            insertLoadedMiscItems(arrElem, miscSkillsResumeDiv, miscSkillsItemsDiv);
         });
     }
     ;
@@ -601,15 +633,7 @@ function insertLoadedResumeData(resumeDataObj) {
         miscQualitiesItemsDiv.replaceChildren();
         miscQualitiesResumeDiv.replaceChildren();
         resumeDataObj.qualities.forEach((arrElem) => {
-            const miscQualityResumeItem = document.createElement('span');
-            const miscQualityItem = document.createElement('span');
-            miscQualityResumeItem.textContent = arrElem;
-            miscQualityResumeItem.className = 'resume-text';
-            miscQualitiesResumeDiv.append(miscQualityResumeItem);
-            miscQualityItem.textContent = arrElem;
-            miscQualityItem.className = 'misc-span-item';
-            miscQualityItem.append(getRemovalBtn(miscQualityResumeItem, miscQualityItem));
-            miscQualitiesItemsDiv.append(miscQualityItem);
+            insertLoadedMiscItems(arrElem, miscQualitiesResumeDiv, miscQualitiesItemsDiv);
         });
     }
     ;
@@ -622,23 +646,40 @@ function insertLoadedResumeData(resumeDataObj) {
         miscInterestsItemsDiv.replaceChildren();
         miscInterestsResumeDiv.replaceChildren();
         resumeDataObj.interests.forEach((arrElem) => {
-            const miscInterestResumeItem = document.createElement('span');
-            const miscInterestItem = document.createElement('span');
-            miscInterestResumeItem.textContent = arrElem;
-            miscInterestResumeItem.className = 'resume-text';
-            miscInterestsResumeDiv.append(miscInterestResumeItem);
-            miscInterestItem.textContent = arrElem;
-            miscInterestItem.className = 'misc-span-item';
-            miscInterestItem.append(getRemovalBtn(miscInterestResumeItem, miscInterestItem));
-            miscInterestsItemsDiv.append(miscInterestItem);
+            insertLoadedMiscItems(arrElem, miscInterestsResumeDiv, miscInterestsItemsDiv);
         });
     }
     ;
     if (resumeDataObj.resumeUseSeparators) {
         const separatorCheckbox = document.getElementById('separator-input');
-        resumeSeparatorsObserver(separatorCheckbox);
+        separatorCheckbox.checked = true;
+        updateSeparators();
     }
     ;
+    if (resumeDataObj.resumeBorder) {
+        const resumeBorderCheckbox = document.getElementById('resume-border-input');
+        resumeBorderCheckbox.checked = true;
+        setCssVarValue('--resume-border', '4px solid');
+    }
+    ;
+}
+;
+function insertLoadedMiscItems(itemContent, resumeMiscDiv, miscDiv) {
+    const miscResumeArea = document.getElementById('miscellaneous-resume-div');
+    const miscInterestResumeItem = document.createElement('span');
+    const miscInterestItem = document.createElement('span');
+    const removalBtn = getRemovalBtn(miscInterestResumeItem, miscInterestItem);
+    miscInterestResumeItem.textContent = itemContent;
+    miscInterestResumeItem.className = 'resume-text';
+    resumeMiscDiv.append(miscInterestResumeItem);
+    miscInterestItem.textContent = itemContent;
+    miscInterestItem.className = 'misc-span-item';
+    removalBtn.addEventListener('click', () => {
+        hideElementWhenEmpty(miscResumeArea);
+        updateSeparators();
+    });
+    miscInterestItem.append(removalBtn);
+    miscDiv.append(miscInterestItem);
 }
 ;
 export function resumeSpaceObserve() {
@@ -682,11 +723,11 @@ function hideResumeSeparators() {
 ;
 function showResumeSeparators() {
     const resumeElement = document.getElementById('resume');
-    const separatorElemList = resumeElement.children;
+    const resumeElemList = resumeElement.children;
     let lastestVisibleElem = null;
     let lastestSeparatorElem = null;
-    for (const elem of separatorElemList) {
-        if (!lastestVisibleElem && elem.className === 'resume-container' && getCssElemProperty(elem, 'display') !== 'none') {
+    for (const elem of resumeElemList) {
+        if (!lastestVisibleElem && elem.className !== 'separator' && getCssElemProperty(elem, 'display') !== 'none') {
             lastestVisibleElem = elem;
             continue;
         }
@@ -706,25 +747,36 @@ function showResumeSeparators() {
     ;
 }
 ;
-export function resumeSeparatorsObserver(separatorCheckbox) {
-    if (!separatorCheckbox.checked) {
-        const resumeElement = document.getElementById('resume');
-        const contentObserver = new MutationObserver(() => {
-            hideResumeSeparators();
-            showResumeSeparators();
-        });
-        contentObserver.observe(resumeElement, { attributes: false, childList: true, subtree: true });
+function updateSeparators() {
+    const separatorCheckbox = document.getElementById('separator-input');
+    if (separatorCheckbox.checked) {
+        hideResumeSeparators();
         showResumeSeparators();
-        separatorCheckbox.checked = true;
-        separatorCheckbox.addEventListener('click', () => {
-            console.log('change');
-            hideResumeSeparators();
-            contentObserver.disconnect();
-        }, { once: true });
     }
     else {
-        separatorCheckbox.click();
+        hideResumeSeparators();
+    }
+}
+;
+export function toggleSeparators(separatorCheckbox) {
+    if (!separatorCheckbox.checked) {
+        separatorCheckbox.checked = true;
+    }
+    else {
+        separatorCheckbox.checked = false;
     }
     ;
+    updateSeparators();
+}
+;
+export function toggleResumeBorder(resumeBorderCheckbox) {
+    if (!resumeBorderCheckbox.checked) {
+        resumeBorderCheckbox.checked = true;
+        setCssVarValue('--resume-border', '4px solid');
+    }
+    else {
+        resumeBorderCheckbox.checked = false;
+        setCssVarValue('--resume-border', 'none');
+    }
 }
 ;

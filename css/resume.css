@@ -6,6 +6,8 @@
     --resume-font-size: 16px;
     --resume-headers-color: #000000;
     --resume-separator-color: #000000;
+    --resume-border: none;
+    --resume-border-color: #000000;
 }
 
 #resume * {
@@ -14,6 +16,8 @@
 }
 
 #resume {
+    border: var(--resume-border);
+    border-color: var(--resume-border-color);
     flex-direction: column;
     flex-wrap: nowrap;
     background-color: white;
@@ -119,13 +123,17 @@
     justify-content: space-around;
 }
 
+.resume-misc-container {
+    margin-bottom: 1rem;
+}
+
 .separator {
     padding: 0.5rem;
 }
 
 .separator-filler {
     background-color: var(--resume-separator-color);
-    opacity: 0.6;
+    opacity: 0.7;
     margin: 0 auto;
     min-height: 4px;
     width: 95%;

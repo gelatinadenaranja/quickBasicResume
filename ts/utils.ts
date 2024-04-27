@@ -55,7 +55,9 @@ export function getWorkItemTemplate(companyName : string, workPos : string, work
 export function getEducationItemTemplate(educationTitle : string, educationGrade : string, educationInstitution : string, 
                                         educationStr : string, educationEnd : string) : string {
     const educationItemTemplate : string = `
-    <h1 class="big-header">` + educationTitle + `</h1>
+    <div class="flex-container">
+        <h1 class="big-header">` + educationTitle + `</h1>
+    </div>
     
     <div class="flex-container">
         <span class="small-header">` + educationGrade + ` - ` + educationInstitution + `</span>

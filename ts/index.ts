@@ -1,4 +1,4 @@
-import { resumeSeparatorsObserver, swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, preventExcessItems, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, changeColorCssVar, changeFontCssVar, printResume, saveResume, loadResume, resumeSpaceObserve } from './events';
+import { swapColorMode, inputToResume, loadPersonalPicture, workExpToResume, educationToResume, preventExcessItems, languageToResume, miscToResume, showDialog, addBulletsOnEnter, addBulletsIfEmpty, changeChkboxLabelText, toggleWorkDescInputs, swapResumeDivs, hideEmptyResumeAreas, changeColorCssVar, changeFontCssVar, printResume, saveResume, loadResume, resumeSpaceObserve, toggleSeparators, toggleResumeBorder } from './events';
 import { loadLocalizationData, getLocalizedText, setUserLanguage, swapUserLanguage, getCheckboxText, addSelectOptions, addYearSelectOptions, addMonthSelectOptions } from './localization';
 import { setColorMode, addFontOptions } from './utils'
 
@@ -426,7 +426,7 @@ separatorHeader.innerText = getLocalizedText('separator-header');
 
 const separatorCheckbox : HTMLInputElement = document.getElementById('separator-input') as HTMLInputElement;
 const separatorLabel : HTMLLabelElement = document.getElementById('separator-label') as HTMLLabelElement;
-separatorLabel.addEventListener('click', () => (resumeSeparatorsObserver(separatorCheckbox)));
+separatorLabel.addEventListener('click', () => (toggleSeparators(separatorCheckbox)));
 navBarLanguageSwapBtn.addEventListener('click', () => (separatorLabel.innerText = getLocalizedText('separator-label')));
 separatorLabel.innerText = getLocalizedText('separator-label');
 
@@ -438,3 +438,22 @@ const separatorColorSelect : HTMLSelectElement = document.getElementById('separa
 separatorColorSelect.addEventListener('change', () => (changeColorCssVar(separatorColorSelect, '--resume-separator-color')));
 navBarLanguageSwapBtn.addEventListener('click', () => (addSelectOptions(separatorColorSelect, 'color-select-options')));
 addSelectOptions(separatorColorSelect, 'color-select-options');
+
+const resumeBorderHeader : HTMLHeadElement = document.getElementById('resume-border-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (resumeBorderHeader.innerText = getLocalizedText('resume-border-header')));
+resumeBorderHeader.innerText = getLocalizedText('resume-border-header');
+
+const resumeBorderCheckbox : HTMLInputElement = document.getElementById('resume-border-input') as HTMLInputElement;
+const resumeBorderLabel : HTMLLabelElement = document.getElementById('resume-border-label') as HTMLLabelElement;
+resumeBorderLabel.addEventListener('click', () => (toggleResumeBorder(resumeBorderCheckbox)));
+navBarLanguageSwapBtn.addEventListener('click', () => (resumeBorderLabel.innerText = getLocalizedText('resume-border-label')));
+resumeBorderLabel.innerText = getLocalizedText('resume-border-label');
+
+const resumeBorderColorHeader : HTMLHeadElement = document.getElementById('resume-border-color-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (resumeBorderColorHeader.innerText = getLocalizedText('resume-border-color-header')));
+resumeBorderColorHeader.innerText = getLocalizedText('resume-border-color-header');
+
+const resumeBorderColorSelect : HTMLSelectElement = document.getElementById('resume-border-color-select') as HTMLSelectElement;
+resumeBorderColorSelect.addEventListener('change', () => (changeColorCssVar(resumeBorderColorSelect, '--resume-border-color')));
+navBarLanguageSwapBtn.addEventListener('click', () => (addSelectOptions(resumeBorderColorSelect, 'color-select-options')));
+addSelectOptions(resumeBorderColorSelect, 'color-select-options');
