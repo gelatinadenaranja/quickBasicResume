@@ -104,7 +104,7 @@ export function addMonthSelectOptions(selectElem : HTMLSelectElement) : void {
 export function addYearSelectOptions(selectElem : HTMLSelectElement) : void {
     let currentYear : number = new Date().getFullYear();
 
-    for(let i = 1; i < 11; i++, currentYear--) {
+    for(let i = 1; i < 21; i++, currentYear--) {
         const optionElement : HTMLOptionElement = document.createElement('option');
         optionElement.value = (i * 1000).toString();
         optionElement.innerText = currentYear.toString();
