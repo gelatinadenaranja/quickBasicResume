@@ -43,6 +43,8 @@
   {"add-miscellaneous-qualities-button" : {"EN" : "Add quality", "ES" : "Añadir cualidad"}},
   {"miscellaneous-interests-header" : {"EN" : "Interests", "ES" : "Intereses"}},
   {"add-miscellaneous-interests-button" : {"EN" : "Add interest", "ES" : "Añadir interés"}},
+  {"miscellaneous-keywords-header" : {"EN" : "Keywords", "ES" : "Palabras clave"}},
+  {"add-miscellaneous-keywords-button" : {"EN" : "Add keyword", "ES" : "Añadir palabra clave"}},
   {"start-date-header" : {"EN" : "Start date", "ES" : "Fecha de inicio"}},
   {"end-date-header" : {"EN" : "End date", "ES" : "Fecha de finalización"}},
   {"month-list" : {"EN" : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -104,6 +106,8 @@
   {"miscellaneous-qualities-tip-button" : {"EN" : "Here you can add qualities about yourself that make you more attractive as an employee",
 				 "ES" : "Este campo es para qualidades tuyas que te hacen ver más atractivo como un empleado"}},
   {"miscellaneous-interests-tip-button" : {"EN" : "Here, you can list any interests of yours. However, it's recommended that you don't add them unless they're related to the job or your resume is too sparse.\n These may serve as conversation points",
-				 "ES" : "Este campo es para listar tus intereses. Sin embargo, se recomienda no añadirlos a menos que estén relacionados con el trabajo o tu currículum se vea muy vacío.\n Pueden servir como puntos de conversación"}}
+				 "ES" : "Este campo es para listar tus intereses. Sin embargo, se recomienda no añadirlos a menos que estén relacionados con el trabajo o tu currículum se vea muy vacío.\n Pueden servir como puntos de conversación"}},
+  {"miscellaneous-keywords-tip-button" : {"EN" : "Use this field to include hidden keywords only resume scanners can see",
+				 "ES" : "Este campo sirve para añadir palabras claves ocultas que sólo los scanners pueden ver"}}
   ]
 }

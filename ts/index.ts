@@ -324,6 +324,25 @@ hideEmptyResumeAreas(miscIntrstItemsDiv, resumeMiscIntrstDiv);
 navBarLanguageSwapBtn.addEventListener('click', () => (miscIntrstItemsBtn.innerText = getLocalizedText('add-miscellaneous-interests-button')));
 miscIntrstItemsBtn.innerText = getLocalizedText('add-miscellaneous-interests-button');
 
+//keywords section
+const miscKeywordsHeader : HTMLHeadElement = document.getElementById('miscellaneous-keywords-header') as HTMLHeadElement;
+navBarLanguageSwapBtn.addEventListener('click', () => (miscKeywordsHeader.innerText = getLocalizedText('miscellaneous-keywords-header')));
+miscKeywordsHeader.innerText = getLocalizedText('miscellaneous-keywords-header');
+
+const miscKeywordsTipBtn : HTMLButtonElement = document.getElementById('miscellaneous-keywords-tip-button') as HTMLButtonElement;
+miscKeywordsTipBtn.addEventListener('click', () => (showDialog(getLocalizedText('miscellaneous-keywords-tip-button'))));
+
+const miscKeywordsInput : HTMLInputElement = document.getElementById('miscellaneous-keywords-input') as HTMLInputElement;
+const miscKeywordsItemsDiv : HTMLDivElement = document.getElementById('miscellaneous-keywords-container') as HTMLDivElement;
+const resumeMiscKeywordsDiv : HTMLDivElement = document.getElementById('miscellaneous-keywords-resume-container') as HTMLDivElement;
+const miscKeywordsItemsBtn : HTMLButtonElement = document.getElementById('add-miscellaneous-keywords-button') as HTMLButtonElement;
+const miscKeywordsAreaMsgSpan : HTMLSpanElement = document.getElementById('miscellaneous-keywords-message-span') as HTMLSpanElement;
+miscKeywordsItemsBtn.addEventListener('click', () => (miscToResume(miscKeywordsInput, miscKeywordsItemsDiv, resumeMiscKeywordsDiv, miscKeywordsAreaMsgSpan)));
+hideEmptyResumeAreas(miscKeywordsItemsDiv, resumeMiscKeywordsDiv);
+navBarLanguageSwapBtn.addEventListener('click', () => (miscKeywordsItemsBtn.innerText = getLocalizedText('add-miscellaneous-keywords-button')));
+miscKeywordsItemsBtn.innerText = getLocalizedText('add-miscellaneous-keywords-button');
+//keywords section
+
 const workExpResumeHeader : HTMLHeadElement = document.getElementById('work-experience-resume-header') as HTMLHeadElement;
 navBarLanguageSwapBtn.addEventListener('click', () => (workExpResumeHeader.innerText = getLocalizedText('work-experience-header')));
 workExpResumeHeader.innerText = getLocalizedText('work-experience-header');

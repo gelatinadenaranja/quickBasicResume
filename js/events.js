@@ -6,6 +6,7 @@ export function inputToResume(srcInput, targetElement) {
     if (srcInput.value === '') {
         targetElement.innerText = srcInput.value;
         targetElement.style.display = 'none';
+        updateSeparators();
         return;
     }
     ;
@@ -438,7 +439,7 @@ export function saveResume() {
         ;
     }
     ;
-    const qualitiesItemDiv = document.getElementById('miscellaneous-skills-resume-container');
+    const qualitiesItemDiv = document.getElementById('miscellaneous-qualities-resume-container');
     if (qualitiesItemDiv.childElementCount) {
         resumeObj.qualities = [];
         for (const child of qualitiesItemDiv.children) {
@@ -447,11 +448,20 @@ export function saveResume() {
         ;
     }
     ;
-    const interestsItemDiv = document.getElementById('miscellaneous-skills-resume-container');
+    const interestsItemDiv = document.getElementById('miscellaneous-interests-resume-container');
     if (interestsItemDiv.childElementCount) {
         resumeObj.interests = [];
         for (const child of interestsItemDiv.children) {
             resumeObj.interests.push(child.textContent);
+        }
+        ;
+    }
+    ;
+    const keywordsItemDiv = document.getElementById('miscellaneous-keywords-resume-container');
+    if (keywordsItemDiv.childElementCount) {
+        resumeObj.keywords = [];
+        for (const child of keywordsItemDiv.children) {
+            resumeObj.keywords.push(child.textContent);
         }
         ;
     }
@@ -647,6 +657,19 @@ function insertLoadedResumeData(resumeDataObj) {
         miscInterestsResumeDiv.replaceChildren();
         resumeDataObj.interests.forEach((arrElem) => {
             insertLoadedMiscItems(arrElem, miscInterestsResumeDiv, miscInterestsItemsDiv);
+        });
+    }
+    ;
+    if (resumeDataObj.keywords) {
+        const miscKeywordsParentDiv = document.getElementById('keywords-resume-div');
+        const miscKeywordsItemsDiv = document.getElementById('miscellaneous-keywords-container');
+        const miscKeywordsResumeDiv = document.getElementById('miscellaneous-keywords-resume-container');
+        if (miscKeywordsParentDiv.style.display === 'none')
+            miscKeywordsParentDiv.style.display = 'block';
+        miscKeywordsItemsDiv.replaceChildren();
+        miscKeywordsResumeDiv.replaceChildren();
+        resumeDataObj.keywords.forEach((arrElem) => {
+            insertLoadedMiscItems(arrElem, miscKeywordsResumeDiv, miscKeywordsItemsDiv);
         });
     }
     ;

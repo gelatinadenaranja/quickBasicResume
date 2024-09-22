@@ -12,7 +12,6 @@
 
 #resume * {
     box-sizing: border-box;
-    font-size: var(--resume-font-size);
 }
 
 #resume {
@@ -20,6 +19,8 @@
     border-color: var(--resume-border-color);
     flex-direction: column;
     flex-wrap: nowrap;
+    font-family: var(--resume-text-font);
+    font-size: var(--resume-font-size);
     background-color: white;
     overflow: hidden;
     padding: 1% 2%;
@@ -31,8 +32,10 @@
 
 .resume-text {
     display: block;
-    font-family: var(--resume-text-font);
-    font-size: 100%;
+    /*font-family: var(--resume-text-font);
+    font-size: 100%;*/
+    font-family: inherit;
+    font-size: inherit;
     overflow-wrap: break-word;
     white-space: pre-wrap;
     padding: 0;
@@ -87,7 +90,7 @@
 
 .small-header {
     display: inline-block;
-    font-family: Arial, sans-serif;
+    font-family: inherit;
     font-size: 120% !important;
     font-weight: normal;
     margin: 0.5rem 0 0.5rem 0.5rem;
@@ -125,6 +128,16 @@
 
 .resume-misc-container {
     margin-bottom: 1rem;
+}
+
+.resume-keywords-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 40%;
+    color: RGB(252,252,252);
+    margin: 0 !important;
+    width: 100%;
 }
 
 .separator {
